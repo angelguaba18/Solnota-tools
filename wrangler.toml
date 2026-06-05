@@ -1,0 +1,6 @@
+name = "solnota-tools"
+compatibility_date = "2026-06-05"
+
+# Sirve la carpeta como sitio estático (HTML). Respeta _redirects y _headers.
+[assets]
+directory = "./"
