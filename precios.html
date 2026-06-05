@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA · Planes y Precios</title>
+<meta name="description" content="Planes de SOLNOTA: tarifa plana, 0% comisión, tu dinero directo a ti, cancela cuando quieras.">
+<meta name="theme-color" content="#FF9500">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://solnota-tools.angelsolmusic18.workers.dev/precios">
+<meta property="og:title" content="SOLNOTA · Planes y Precios">
+<meta property="og:description" content="Tarifa plana, 0% comisión. Tu dinero directo a ti.">
+<meta property="og:type" content="website">
+<style>
+  :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;
+    --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;padding:40px 18px;min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto}
+  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  h1{font-weight:900;font-size:38px;letter-spacing:-1.5px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  a.logo{text-decoration:none}
+  .tag{font-weight:700;font-size:12px;letter-spacing:4px;color:var(--mut)}
+  .langbar{display:flex;gap:6px;margin:18px 0 6px}
+  .langbar button{background:var(--card);border:1px solid var(--line);color:var(--mut);font-weight:800;font-size:12px;letter-spacing:1px;padding:7px 13px;border-radius:9px;cursor:pointer;transition:.15s}
+  .langbar button.on{color:#05050A;background:var(--gold);border-color:var(--gold)}
+  .back{display:inline-block;margin:8px 0 8px;color:var(--gold);font-weight:800;font-size:13px;text-decoration:none}
+  .promise{font-weight:800;font-size:14px;color:#FFE6C2;background:rgba(255,149,0,.10);border:1px solid rgba(255,149,0,.35);border-radius:12px;padding:12px 15px;margin:6px 0 24px;text-align:center}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;display:flex;flex-direction:column;gap:6px;position:relative}
+  .plan.pop{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+  .badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#05050A;font-weight:900;font-size:10px;letter-spacing:1px;padding:4px 12px;border-radius:999px}
+  .pname{font-size:13px;font-weight:800;letter-spacing:2px;color:var(--mut);text-transform:uppercase}
+  .price{font-size:34px;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .price small{font-size:13px;color:var(--mut);font-weight:700;-webkit-text-fill-color:var(--mut)}
+  .who{font-size:13px;color:var(--mut);min-height:34px;line-height:1.4}
+  .plan ul{list-style:none;margin:10px 0 0;display:flex;flex-direction:column;gap:7px}
+  .plan li{font-size:13px;color:#CFCFDA;line-height:1.4;padding-left:20px;position:relative}
+  .plan li:before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:900}
+  .addons{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:18px}
+  .addons h3{font-size:14px;font-weight:800;margin-bottom:8px}
+  .addons p{font-size:13px;color:var(--mut);line-height:1.6}
+  .foot{margin-top:24px;color:var(--mut);font-size:12px;text-align:center;line-height:1.6}
+  .lang{display:none}
+  body[data-lang="es"] .lang-es,body[data-lang="en"] .lang-en,body[data-lang="pt"] .lang-pt,body[data-lang="fr"] .lang-fr{display:block}
+  @media(max-width:760px){.plans{grid-template-columns:1fr}h1{font-size:32px}}
+</style>
+</head>
+<body data-lang="es">
+<div class="wrap">
+  <a class="logo" href="/"><div class="brand"><h1>SOLNOTA</h1><span class="tag">TU DINERO · A LA LUZ</span></div></a>
+  <div class="langbar">
+    <button data-l="es" class="on">ES</button><button data-l="en">EN</button><button data-l="pt">PT</button><button data-l="fr">FR</button>
+  </div>
+  <a class="back" href="/"><span class="lang lang-es" style="display:inline">← Inicio</span><span class="lang lang-en">← Home</span><span class="lang lang-pt">← Início</span><span class="lang lang-fr">← Accueil</span></a>
+
+  <!-- ES -->
+  <div class="lang lang-es">
+    <div class="promise">0% comisión siempre · Tu dinero directo a ti · Cancela cuando quieras</div>
+    <div class="plans">
+      <div class="plan">
+        <div class="pname">Artista</div>
+        <div class="price">$19.99<small>/mes</small></div>
+        <div class="who">Para el artista que empieza a cobrar lo suyo.</div>
+        <ul><li>Registro en el MLC + tu PRO</li><li>Split sheets + archivo CWR</li><li>Visor de catálogo</li><li>Monitoreo de regalías</li></ul>
+      </div>
+      <div class="plan pop"><div class="badge">POPULAR</div>
+        <div class="pname">Artista Pro</div>
+        <div class="price">$39.99<small>/mes</small></div>
+        <div class="who">Para el artista activo con catálogo creciendo.</div>
+        <ul><li>Todo lo de Artista</li><li>Todos los roles (productor, compositor, audiolibro)</li><li>Recuperación de dinero sin reclamar</li><li>Auditoría mensual + alertas</li><li>Digest por WhatsApp los viernes</li><li>Letter of Direction</li></ul>
+      </div>
+      <div class="plan">
+        <div class="pname">Manager / Sello</div>
+        <div class="price">$99<small>/mes</small></div>
+        <div class="who">Para managers y sellos con varios artistas.</div>
+        <ul><li>Todo lo de Pro, para varios artistas</li><li>Panel de manager</li><li>Soporte prioritario</li><li>Precio por artista que baja con volumen</li></ul>
+      </div>
+    </div>
+    <div class="addons"><h3>Extras de tarifa fija (sin comisión)</h3>
+      <p>Recuperar dinero sin reclamar (black box): <strong>$99 fijo</strong> · Onboarding "te lo hacemos todo" · Documentos legales a medida.</p></div>
+    <p class="foot">Sin comisión sobre tus regalías. Nunca. · <a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
+  </div>
+
+  <!-- EN -->
+  <div class="lang lang-en">
+    <div class="promise">0% commission always · Your money straight to you · Cancel anytime</div>
+    <div class="plans">
+      <div class="plan">
+        <div class="pname">Artist</div>
+        <div class="price">$19.99<small>/mo</small></div>
+        <div class="who">For the artist starting to collect what's theirs.</div>
+        <ul><li>Registration with the MLC + your PRO</li><li>Split sheets + CWR file</li><li>Catalog viewer</li><li>Royalty monitoring</li></ul>
+      </div>
+      <div class="plan pop"><div class="badge">POPULAR</div>
+        <div class="pname">Artist Pro</div>
+        <div class="price">$39.99<small>/mo</small></div>
+        <div class="who">For the active artist with a growing catalog.</div>
+        <ul><li>Everything in Artist</li><li>All roles (producer, composer, audiobook)</li><li>Unclaimed money recovery</li><li>Monthly audit + alerts</li><li>Friday WhatsApp digest</li><li>Letter of Direction</li></ul>
+      </div>
+      <div class="plan">
+        <div class="pname">Manager / Label</div>
+        <div class="price">$99<small>/mo</small></div>
+        <div class="who">For managers and labels with several artists.</div>
+        <ul><li>Everything in Pro, for several artists</li><li>Manager dashboard</li><li>Priority support</li><li>Per-artist price drops with volume</li></ul>
+      </div>
+    </div>
+    <div class="addons"><h3>Flat-fee add-ons (no commission)</h3>
+      <p>Recover unclaimed money (black box): <strong>$99 flat</strong> · "Done-for-you" onboarding · Custom legal documents.</p></div>
+    <p class="foot">No commission on your royalties. Ever. · <a href="/legal" style="color:var(--gold);text-decoration:none">Terms & Privacy</a></p>
+  </div>
+
+  <!-- PT -->
+  <div class="lang lang-pt">
+    <div class="promise">0% comissão sempre · Seu dinheiro direto para você · Cancele quando quiser</div>
+    <div class="plans">
+      <div class="plan">
+        <div class="pname">Artista</div>
+        <div class="price">$19.99<small>/mês</small></div>
+        <div class="who">Para o artista que começa a receber o que é seu.</div>
+        <ul><li>Registro no MLC + sua PRO</li><li>Split sheets + arquivo CWR</li><li>Visualizador de catálogo</li><li>Monitoramento de royalties</li></ul>
+      </div>
+      <div class="plan pop"><div class="badge">POPULAR</div>
+        <div class="pname">Artista Pro</div>
+        <div class="price">$39.99<small>/mês</small></div>
+        <div class="who">Para o artista ativo com catálogo crescendo.</div>
+        <ul><li>Tudo do Artista</li><li>Todas as funções (produtor, compositor, audiolivro)</li><li>Recuperação de dinheiro não reclamado</li><li>Auditoria mensal + alertas</li><li>Resumo por WhatsApp às sextas</li><li>Letter of Direction</li></ul>
+      </div>
+      <div class="plan">
+        <div class="pname">Manager / Selo</div>
+        <div class="price">$99<small>/mês</small></div>
+        <div class="who">Para managers e selos com vários artistas.</div>
+        <ul><li>Tudo do Pro, para vários artistas</li><li>Painel de manager</li><li>Suporte prioritário</li><li>Preço por artista cai com volume</li></ul>
+      </div>
+    </div>
+    <div class="addons"><h3>Extras de taxa fixa (sem comissão)</h3>
+      <p>Recuperar dinheiro não reclamado (black box): <strong>$99 fixo</strong> · Onboarding "fazemos tudo por você" · Documentos legais sob medida.</p></div>
+    <p class="foot">Sem comissão sobre seus royalties. Nunca. · <a href="/legal" style="color:var(--gold);text-decoration:none">Termos e Privacidade</a></p>
+  </div>
+
+  <!-- FR -->
+  <div class="lang lang-fr">
+    <div class="promise">0% commission toujours · Votre argent directement à vous · Annulez quand vous voulez</div>
+    <div class="plans">
+      <div class="plan">
+        <div class="pname">Artiste</div>
+        <div class="price">$19.99<small>/mois</small></div>
+        <div class="who">Pour l'artiste qui commence à toucher ce qui lui revient.</div>
+        <ul><li>Enregistrement au MLC + votre PRO</li><li>Split sheets + fichier CWR</li><li>Visionneuse de catalogue</li><li>Suivi des redevances</li></ul>
+      </div>
+      <div class="plan pop"><div class="badge">POPULAIRE</div>
+        <div class="pname">Artiste Pro</div>
+        <div class="price">$39.99<small>/mois</small></div>
+        <div class="who">Pour l'artiste actif avec un catalogue grandissant.</div>
+        <ul><li>Tout ce qu'inclut Artiste</li><li>Tous les rôles (producteur, compositeur, livre audio)</li><li>Récupération de l'argent non réclamé</li><li>Audit mensuel + alertes</li><li>Résumé WhatsApp le vendredi</li><li>Letter of Direction</li></ul>
+      </div>
+      <div class="plan">
+        <div class="pname">Manager / Label</div>
+        <div class="price">$99<small>/mois</small></div>
+        <div class="who">Pour managers et labels avec plusieurs artistes.</div>
+        <ul><li>Tout ce qu'inclut Pro, pour plusieurs artistes</li><li>Tableau de bord manager</li><li>Support prioritaire</li><li>Le prix par artiste baisse avec le volume</li></ul>
+      </div>
+    </div>
+    <div class="addons"><h3>Options à tarif fixe (sans commission)</h3>
+      <p>Récupérer l'argent non réclamé (black box) : <strong>$99 fixe</strong> · Onboarding « on fait tout pour vous » · Documents juridiques sur mesure.</p></div>
+    <p class="foot">Aucune commission sur vos redevances. Jamais. · <a href="/legal" style="color:var(--gold);text-decoration:none">Conditions et Confidentialité</a></p>
+  </div>
+
+  <p class="foot">Sol Music Corp · SOLNOTA · TU DINERO · A LA LUZ</p>
+</div>
+<script>
+(function(){
+  var LANGS=["es","en","pt","fr"];
+  var saved=localStorage.getItem("sn_lang");
+  var nav=(navigator.language||"es").slice(0,2).toLowerCase();
+  var lang=LANGS.indexOf(saved)>=0?saved:(LANGS.indexOf(nav)>=0?nav:"es");
+  function setLang(l){
+    document.body.setAttribute("data-lang",l);
+    localStorage.setItem("sn_lang",l);
+    document.querySelectorAll(".langbar button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-l")===l);});
+    document.documentElement.lang=l;
+  }
+  document.querySelectorAll(".langbar button").forEach(function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-l"));});});
+  setLang(lang);
+})();
+</script>
+</body>
+</html>
