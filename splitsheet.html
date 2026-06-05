@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA · Split Sheet</title>
+<style>
+  :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
+    --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;padding:24px 18px;min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto}
+  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h1{font-weight:900;font-size:30px;letter-spacing:-1px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tag{font-weight:700;font-size:11px;letter-spacing:3px;color:var(--mut)}
+  h2{font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin:24px 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .f{display:flex;flex-direction:column;gap:4px}
+  .f.wide{grid-column:span 2}
+  label{font-size:12px;color:var(--mut)}
+  input,select{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:11px 12px;border-radius:10px;font-size:14px;font-family:inherit;outline:none;width:100%}
+  input:focus,select:focus{border-color:var(--gold)}
+  .scan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+  .scanrow{display:flex;gap:8px;flex-wrap:wrap}
+  .scanrow input{flex:1;min-width:180px}
+  button.mini{background:var(--grad);color:#100800;border:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .results{margin-top:10px;max-height:230px;overflow:auto}
+  .res{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;margin-bottom:6px}
+  .res .meta{font-size:13px}
+  .res .iz{font-family:monospace;font-size:12px;color:var(--ok)}
+  .res button{background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:700}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .chip{display:flex;align-items:center;gap:6px;background:rgba(255,149,0,.12);border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:5px 10px;font-family:monospace;font-size:12px}
+  .chip b{cursor:pointer}
+  .writer{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;position:relative}
+  .del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--bad);cursor:pointer;font-size:17px}
+  .total{display:flex;align-items:center;gap:10px;margin:12px 0;font-weight:800;font-size:18px}
+  .pill{padding:4px 12px;border-radius:999px;font-size:15px}
+  .pill.ok{background:rgba(61,220,127,.15);color:var(--ok)}
+  .pill.bad{background:rgba(255,94,94,.15);color:var(--bad)}
+  .note{color:var(--mut);font-size:12px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  button.b{border:none;padding:13px 18px;border-radius:11px;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit}
+  .b.go{background:var(--grad);color:#100800}
+  .b.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  .addw{background:transparent;border:1px dashed var(--line);color:var(--gold);padding:12px;border-radius:11px;width:100%;cursor:pointer;font-weight:700;font-family:inherit;font-size:14px}
+  @media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}.f.wide{grid-column:span 2}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><h1>SOLNOTA</h1><span class="tag">SPLIT SHEET · TU DINERO A LA LUZ</span></div>
+
+  <h2>1 · La Obra</h2>
+
+  <div class="scan">
+    <label style="color:var(--gold);font-weight:700">🔎 Autocompletar desde el escáner (Apple Music)</label>
+    <div class="scanrow" style="margin-top:8px">
+      <input id="scan_q" placeholder="Nombre del artista (ej. Sandy Mo)">
+      <button class="mini" id="scan_btn">Buscar grabaciones</button>
+    </div>
+    <div class="results" id="results"></div>
+    <div class="scanrow" style="margin-top:8px">
+      <input id="isrc_man" placeholder="…o agrega un ISRC a mano (ej. USDHM1313262)">
+      <button class="mini" id="isrc_add" style="background:transparent;border:1px solid var(--line);color:var(--txt)">+ Agregar ISRC</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="f wide"><label>Título de la obra *</label><input id="w_title" placeholder="Ej. Dios Tiene Lo Mío"></div>
+    <div class="f"><label>ISWC (composición)</label><input id="w_iswc" placeholder="lo asigna la sociedad"></div>
+    <div class="f"><label>Duración</label><input id="w_dur" placeholder="3:45"></div>
+    <div class="f"><label>Fecha de creación</label><input id="w_date" type="date"></div>
+    <div class="f wide"><label>Otros títulos / alias</label><input id="w_alt" placeholder="opcional"></div>
+  </div>
+  <div style="margin-top:10px"><label class="note">ISRC(s) de la obra — puede tener varios (original, remix, en vivo):</label>
+    <div class="chips" id="isrc_chips"></div>
+  </div>
+
+  <h2>2 · Escritores y Splits</h2>
+  <div id="writers"></div>
+  <button class="addw" id="addw">➕ Agregar escritor</button>
+
+  <div class="total">Total split: <span id="tot" class="pill bad">0%</span><span id="totmsg" class="note"></span>
+    <button class="b ghost" id="btnEq" style="padding:7px 12px;font-size:12px;margin-left:auto">⚖️ Repartir igual</button></div>
+
+  <h2>3 · Preparado por</h2>
+  <div class="grid">
+    <div class="f wide"><label>Nombre de quien prepara</label><input id="prep_name" placeholder="Angel Ortega — SOLNOTA"></div>
+    <div class="f wide"><label>Fecha</label><input id="prep_date" type="date"></div>
+  </div>
+  <p class="note" style="margin-top:6px">⚠️ La firma digital legal (DocuSign) va en la siguiente fase. El ISRC no es obligatorio para registrar; ayuda al emparejamiento.</p>
+
+  <h2>4 · Config CWR (submitter)</h2>
+  <div class="grid">
+    <div class="f wide"><label>Nombre del submitter (publisher)</label><input id="cwr_sender" placeholder="SOL MUSIC CORP" value="SOL MUSIC CORP"></div>
+    <div class="f"><label>Sender ID (asignado por la sociedad)</label><input id="cwr_senderid" placeholder="000000000"></div>
+    <div class="f"><label>IPI del publisher</label><input id="cwr_pubipi" placeholder="opcional"></div>
+  </div>
+  <p class="note" style="margin-top:6px">El Sender ID lo da MusicMark/MLC cuando te aprueban como submitter. Sin él, el CWR sirve para validar en sandbox.</p>
+
+  <div class="actions">
+    <button class="b go" id="btnGenCWR">🏛️ Generar CWR (.V21)</button>
+    <button class="b ghost" id="btnCWR">📄 CSV (CWR-ready)</button>
+    <button class="b ghost" id="btnJSON">💾 Guardar (JSON)</button>
+    <button class="b ghost" id="btnImp">📂 Importar</button>
+    <input id="imp" type="file" accept=".json" style="display:none">
+  </div>
+</div>
+
+<script>
+const APPLE="https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/apple?artist=";
+const PROS=["BMI","ASCAP","SESAC","GMR","SACM (México)","SAYCO (Colombia)","SGACEDOM (Rep. Dominicana)","ABRAMUS (Brasil)","UBC (Brasil)","SADAIC (Argentina)","SGAE (España)","APDAYC (Perú)","Otra / No afiliado"];
+const ROLES=[["CA","Compositor y Autor (música+letra)"],["C","Compositor (música)"],["A","Autor / Letrista (letra)"]];
+let WRITERS=[], ISRCS=[], RESULTS=[], ARTISTNAME="";
+
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
+function val(id){return document.getElementById(id).value.trim();}
+function setv(id,v){document.getElementById(id).value=v||"";}
+
+// ---------- Escáner ----------
+function renderResults(list,msg){
+  const box=document.getElementById('results');
+  if(msg){box.innerHTML='<div class="note" style="padding:8px">'+msg+'</div>';return;}
+  box.innerHTML=list.map((t,i)=>(
+    '<div class="res"><div class="meta">'+esc(t.title)+' <span class="note">· '+esc(t.album||'')+'</span><br><span class="iz">'+(t.isrc||'sin ISRC')+'</span></div>'
+    +'<button data-pick="'+i+'">➕ usar</button></div>'
+  )).join('');
+}
+async function buscar(){
+  const q=val('scan_q'); if(!q)return;
+  renderResults(null,'Buscando “'+q+'”… (puede tardar unos segundos)');
+  try{
+    const r=await fetch(APPLE+encodeURIComponent(q));
+    const d=await r.json();
+    if(!d.tracks||!d.tracks.length){renderResults(null,'No se encontró o no cargó. Si estás dentro de la app, ábrelo en tu navegador; o agrega el ISRC a mano abajo.');RESULTS=[];return;}
+    RESULTS=d.tracks; ARTISTNAME=d.artist||q; renderResults(RESULTS);
+  }catch(e){
+    renderResults(null,'⚠️ El visor bloquea internet aquí. Ábrelo en tu navegador (doble clic) para autocompletar, o agrega el ISRC a mano abajo.');
+  }
+}
+function addISRC(code){
+  code=(code||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!code)return;
+  if(!ISRCS.includes(code))ISRCS.push(code);
+  renderChips();
+}
+function renderChips(){
+  document.getElementById('isrc_chips').innerHTML=ISRCS.length
+    ? ISRCS.map((c,i)=>'<span class="chip">'+c+' <b data-rmisrc="'+i+'">✕</b></span>').join('')
+    : '<span class="note">— ninguno aún —</span>';
+}
+
+// ---------- Escritores ----------
+function render(){
+  document.getElementById('writers').innerHTML=WRITERS.map((w,i)=>(
+    '<div class="writer"><button class="del" data-del="'+i+'">✕</button><div class="grid">'
+    +'<div class="f wide"><label>Nombre legal del escritor *</label><input data-i="'+i+'" data-k="name" value="'+esc(w.name)+'" placeholder="Apellido, Nombre"></div>'
+    +'<div class="f"><label>Rol *</label><select data-i="'+i+'" data-k="role">'+ROLES.map(r=>'<option value="'+r[0]+'"'+(w.role===r[0]?' selected':'')+'>'+r[1]+'</option>').join('')+'</select></div>'
+    +'<div class="f"><label>% Split *</label><input type="number" min="0" max="100" data-i="'+i+'" data-k="share" value="'+esc(w.share)+'" placeholder="50"></div>'
+    +'<div class="f"><label>IPI / CAE</label><input data-i="'+i+'" data-k="ipi" value="'+esc(w.ipi)+'" placeholder="00000000000"></div>'
+    +'<div class="f"><label>PRO / Sociedad</label><select data-i="'+i+'" data-k="pro">'+PROS.map(p=>'<option'+(w.pro===p?' selected':'')+'>'+p+'</option>').join('')+'</select></div>'
+    +'<div class="f wide"><label>Publisher (opcional)</label><input data-i="'+i+'" data-k="pub" value="'+esc(w.pub)+'" placeholder="Sol Music Corp / autoeditado"></div>'
+    +'<div class="f"><label>IPI del publisher</label><input data-i="'+i+'" data-k="pubipi" value="'+esc(w.pubipi)+'" placeholder="opcional"></div>'
+    +'</div></div>'
+  )).join('');
+  calcTotal();
+}
+function calcTotal(){
+  const t=WRITERS.reduce((s,w)=>s+(parseFloat(w.share)||0),0);
+  const el=document.getElementById('tot'),msg=document.getElementById('totmsg');
+  el.textContent=t+'%';
+  if(Math.abs(t-100)<0.001){el.className='pill ok';msg.textContent='✓ Listo para registrar';}
+  else{el.className='pill bad';msg.textContent=t<100?('Faltan '+(100-t)+'%'):('Sobran '+(t-100)+'%');}
+}
+function equalSplit(){
+  const n=WRITERS.length; if(!n)return;
+  const base=Math.floor(10000/n)/100; let used=0;
+  WRITERS.forEach((w,i)=>{ if(i<n-1){w.share=String(base);used+=base;} else {w.share=String(Math.round((100-used)*100)/100);} });
+}
+function addWriter(d){
+  if(d){WRITERS.push(d);}
+  else {WRITERS.push({name:"",role:"CA",ipi:"",pro:"BMI",share:"",pub:"Sol Music Corp",pubipi:""}); equalSplit();}
+  render();
+}
+
+// ---------- Eventos (delegación) ----------
+document.getElementById('scan_btn').addEventListener('click',buscar);
+document.getElementById('scan_q').addEventListener('keydown',e=>{if(e.key==='Enter')buscar();});
+document.getElementById('results').addEventListener('click',e=>{
+  const p=e.target.getAttribute('data-pick');
+  if(p!==null){const t=RESULTS[p];
+    if(!val('w_title')&&t.title)setv('w_title',t.title);
+    if(t.isrc)addISRC(t.isrc);
+    if(!val('w_date')&&t.date)setv('w_date',t.date);
+    // prellena escritor #1 con el artista si está vacío (default lógico)
+    if(WRITERS.length===1 && !WRITERS[0].name && ARTISTNAME){
+      WRITERS[0].name=ARTISTNAME; if(!WRITERS[0].pub)WRITERS[0].pub='Sol Music Corp'; if(!WRITERS[0].share)WRITERS[0].share='100'; render();
+    }
+  }
+});
+document.getElementById('isrc_add').addEventListener('click',()=>{addISRC(val('isrc_man'));setv('isrc_man','');});
+document.getElementById('isrc_man').addEventListener('keydown',e=>{if(e.key==='Enter'){addISRC(val('isrc_man'));setv('isrc_man','');}});
+document.getElementById('isrc_chips').addEventListener('click',e=>{
+  const r=e.target.getAttribute('data-rmisrc'); if(r!==null){ISRCS.splice(+r,1);renderChips();}
+});
+document.getElementById('writers').addEventListener('input',e=>{const t=e.target,i=t.getAttribute('data-i'),k=t.getAttribute('data-k');if(i!==null&&k){WRITERS[i][k]=t.value;if(k==='share')calcTotal();}});
+document.getElementById('writers').addEventListener('change',e=>{const t=e.target,i=t.getAttribute('data-i'),k=t.getAttribute('data-k');if(i!==null&&k){WRITERS[i][k]=t.value;}});
+document.getElementById('writers').addEventListener('click',e=>{const d=e.target.getAttribute('data-del');if(d!==null){WRITERS.splice(+d,1);render();}});
+document.getElementById('addw').addEventListener('click',()=>addWriter());
+document.getElementById('btnEq').addEventListener('click',()=>{equalSplit();render();});
+
+// ---------- Export ----------
+function gather(){return {work:{title:val('w_title'),iswc:val('w_iswc'),duration:val('w_dur'),created:val('w_date'),altTitles:val('w_alt'),isrcs:ISRCS},
+  writers:WRITERS,preparedBy:val('prep_name'),preparedDate:val('prep_date'),totalShare:WRITERS.reduce((s,w)=>s+(parseFloat(w.share)||0),0)};}
+function download(c,t,n){const b=new Blob([c],{type:t});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();}
+document.getElementById('btnJSON').addEventListener('click',()=>download(JSON.stringify(gather(),null,2),'application/json','SplitSheet_'+(val('w_title')||'obra').replace(/\s+/g,'_')+'.json'));
+document.getElementById('btnCWR').addEventListener('click',()=>{
+  const d=gather();
+  if(!d.work.title){alert('Falta el título de la obra.');return;}
+  if(Math.abs(d.totalShare-100)>0.001){alert('Los splits deben sumar 100% (van '+d.totalShare+'%).');return;}
+  const head=['CWR_Record','Work_Title','ISWC','ISRC','Writer_LastFirst','Writer_Role','Writer_IPI_CAE','Writer_PRO','Writer_Share_%','Publisher_Name','Publisher_IPI'];
+  const rows=[['NWR',d.work.title,d.work.iswc,'','','','','','100','','']];
+  d.writers.forEach(w=>rows.push(['SWR',d.work.title,d.work.iswc,'',w.name,w.role,w.ipi,w.pro,w.share,w.pub,w.pubipi]));
+  (d.work.isrcs.length?d.work.isrcs:['']).forEach(ic=>rows.push(['REC',d.work.title,d.work.iswc,ic,'','','','','','','']));
+  const csv=[head].concat(rows).map(r=>r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(',')).join('\n');
+  download(csv,'text/csv;charset=utf-8','CWR_'+d.work.title.replace(/\s+/g,'_')+'.csv');
+});
+document.getElementById('btnImp').addEventListener('click',()=>document.getElementById('imp').click());
+document.getElementById('imp').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);
+    setv('w_title',d.work.title);setv('w_iswc',d.work.iswc);setv('w_dur',d.work.duration);setv('w_date',d.work.created);setv('w_alt',d.work.altTitles);
+    ISRCS=d.work.isrcs||[];renderChips();setv('prep_name',d.preparedBy);setv('prep_date',d.preparedDate);WRITERS=d.writers||[];render();
+  }catch(err){alert('Archivo inválido');}};r.readAsText(f);});
+
+// ---------- Generador CWR (motor server-side byte-perfect 2.1) ----------
+var CWR_ENDPOINT='https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/cwr';
+function splitName(n){n=(n||'').trim();if(n.indexOf(',')>-1){var p=n.split(',');return{lastName:p[0].trim(),firstName:(p[1]||'').trim()};}return{lastName:n,firstName:''};}
+function workIdFromTitle(t){return ((t||'OBRA').replace(/[^A-Za-z0-9]/g,'').toUpperCase()||'OBRA').slice(0,14);}
+function buildPayload(){
+  var d=gather();
+  var sName=(val('cwr_sender')||'SOL MUSIC CORP');
+  var sId=(val('cwr_senderid')||'').replace(/\D/g,'');
+  var pIpi=(val('cwr_pubipi')||'').replace(/\D/g,'');
+  var pubPro=(d.writers[0]&&d.writers[0].pro)?d.writers[0].pro:'';
+  var writers=d.writers.map(function(w){var nm=splitName(w.name);return{lastName:nm.lastName,firstName:nm.firstName,role:(w.role||'CA'),pro:(w.pro||''),ipi:(w.ipi||'').replace(/\D/g,''),share:parseFloat(w.share)||0,controlled:!!(w.pub&&w.pub.trim())};});
+  return {senderName:sName,senderId:sId,publisherIp:'P0001',publisherIpi:pIpi,publisherPro:pubPro,
+    filename:'CW'+String(new Date().getFullYear()).slice(2)+'0001SMC_000',
+    works:[{title:d.work.title,workId:workIdFromTitle(d.work.title),isrcs:(d.work.isrcs||[]),iswc:(d.work.iswc||'').replace(/[^0-9A-Za-z]/g,''),category:'POP',duration:0,writers:writers}]};
+}
+function genCWR(){
+  var d=gather();
+  if(!d.work.title){alert('Falta el título de la obra.');return;}
+  if(Math.abs(d.totalShare-100)>0.001){alert('Los splits deben sumar 100% (van '+d.totalShare+'%).');return;}
+  var payload=buildPayload();
+  var btn=document.getElementById('btnGenCWR');var old=btn.textContent;btn.textContent='⏳ Generando...';btn.disabled=true;
+  fetch(CWR_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text();})
+    .then(function(txt){download(txt,'text/plain;charset=utf-8',payload.filename+'.V21');btn.textContent=old;btn.disabled=false;})
+    .catch(function(e){btn.textContent=old;btn.disabled=false;alert('No se pudo conectar al motor CWR.\n\nLa generación en vivo funciona en navegador real o en Netlify (el visor de artifacts bloquea internet).\n\nDetalle: '+e.message);});
+}
+document.getElementById('btnGenCWR').addEventListener('click',genCWR);
+
+// init
+document.getElementById('prep_date').valueAsDate=new Date();
+document.getElementById('prep_name').value='Angel Ortega — SOLNOTA';
+renderChips();
+addWriter({name:"",role:"CA",ipi:"",pro:"BMI",share:"100",pub:"",pubipi:""});
+</script>
+</body>
+</html>

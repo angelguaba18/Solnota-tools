@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA · Letter of Direction</title>
+<style>
+  :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
+    --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;padding:24px 18px;min-height:100vh}
+  .wrap{max-width:980px;margin:0 auto}
+  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h1{font-weight:900;font-size:30px;letter-spacing:-1px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tag{font-weight:700;font-size:11px;letter-spacing:3px;color:var(--mut)}
+  h2{font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin:24px 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .f{display:flex;flex-direction:column;gap:4px}
+  .f.wide{grid-column:span 2}
+  .f.full{grid-column:span 4}
+  label{font-size:12px;color:var(--mut)}
+  input,select,textarea{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:11px 12px;border-radius:10px;font-size:14px;font-family:inherit;outline:none;width:100%}
+  input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+  .scan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:14px 0}
+  .scanrow{display:flex;gap:8px;flex-wrap:wrap}
+  .scanrow input{flex:1;min-width:180px}
+  button.mini{background:var(--grad);color:#100800;border:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .results{margin-top:10px;max-height:220px;overflow:auto}
+  .res{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;margin-bottom:6px}
+  .res .iz{font-family:monospace;font-size:12px;color:var(--ok)}
+  .res button{background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:700}
+  .chips{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .chip{display:flex;align-items:center;justify-content:space-between;gap:6px;background:rgba(255,149,0,.10);border:1px solid var(--gold);border-radius:10px;padding:8px 12px;font-size:13px}
+  .chip .iz{font-family:monospace;font-size:12px;color:var(--gold)}
+  .chip b{cursor:pointer;color:var(--bad)}
+  .note{color:var(--mut);font-size:12px;margin-top:6px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  button.b{border:none;padding:13px 18px;border-radius:11px;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit}
+  .b.go{background:var(--grad);color:#100800}
+  .b.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  .warn{background:rgba(255,149,0,.08);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;font-size:13px;color:#FFD9A6;margin:16px 0}
+  /* letter preview */
+  #letter{background:#fff;color:#111;border-radius:12px;padding:48px 54px;margin-top:18px;font-family:Georgia,'Times New Roman',serif;line-height:1.6;font-size:15px}
+  #letter h3{font-size:18px;letter-spacing:2px;text-align:center;margin:6px 0 22px;text-transform:uppercase}
+  #letter .row{margin:14px 0}
+  #letter ul{margin:8px 0 8px 22px}
+  #letter .sig{margin-top:34px;display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  #letter .sig .box{flex:1;min-width:240px}
+  #letter .line{border-bottom:1px solid #111;height:26px;margin:18px 0 4px}
+  #letter .small{font-size:12px;color:#555}
+  @media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}.f.wide,.f.full{grid-column:span 2}}
+  @media print{body{background:#fff;padding:0}.wrap>*:not(#letterWrap){display:none!important}#letter{border-radius:0;margin:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><h1>SOLNOTA</h1><span class="tag">LETTER OF DIRECTION · SOUNDEXCHANGE</span></div>
+
+  <div class="warn">📄 Una <b>Letter of Direction</b> ordena a SoundExchange pagar al <b>productor</b> un % de las regalías del artista por grabaciones específicas (AMP Act). SoundExchange también tiene su proceso/portal — revisa con un abogado de música antes de firmar. Info: <span style="color:var(--gold)">soundexchange.com/service/letter-of-direction</span></div>
+
+  <h2>1 · Datos</h2>
+  <div class="grid">
+    <div class="f wide"><label>Artista principal (Featured Artist)</label><input id="artist" placeholder="La Gabi"></div>
+    <div class="f wide"><label>Productor (Producer)</label><input id="prod" placeholder="Nombre legal del productor"></div>
+    <div class="f"><label>Rol</label><select id="role"><option>Producer</option><option>Mixer</option><option>Sound Engineer</option></select></div>
+    <div class="f"><label>% para el productor</label><input id="pct" type="number" min="0" max="100" placeholder="3"></div>
+    <div class="f"><label>Fecha efectiva</label><input id="eff" type="date"></div>
+    <div class="f wide"><label>Dirección del productor</label><input id="addr" placeholder="Calle, ciudad, país"></div>
+  </div>
+
+  <h2>2 · Grabaciones (título + ISRC)</h2>
+  <div class="scan">
+    <label style="color:var(--gold);font-weight:700">🔎 Autocompletar desde el escáner (Apple Music)</label>
+    <div class="scanrow" style="margin-top:8px">
+      <input id="scanq" placeholder="Nombre del artista (ej. Sandy Mo)">
+      <button class="mini" id="scanbtn">Buscar grabaciones</button>
+    </div>
+    <div class="results" id="results"></div>
+    <div class="scanrow" style="margin-top:10px">
+      <input id="mtitle" placeholder="Título (manual)">
+      <input id="misrc" placeholder="ISRC (manual)" style="max-width:200px">
+      <button class="mini" id="addmanual">Añadir</button>
+    </div>
+    <div class="chips" id="recs"></div>
+    <p class="note">El escáner en vivo funciona en navegador real o Netlify (el visor de artifacts bloquea internet).</p>
+  </div>
+
+  <div class="actions">
+    <button class="b go" id="gen">📄 Generar carta</button>
+    <button class="b ghost" id="print">🖨️ Imprimir / PDF</button>
+    <button class="b ghost" id="dl">💾 Descargar .txt</button>
+  </div>
+
+  <div id="letterWrap"><div id="letter" style="display:none"></div></div>
+</div>
+
+<script>
+var APPLE='https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/apple?artist=';
+var RECS=[];
+function val(id){return (document.getElementById(id).value||'').trim();}
+function esc(s){return String(s||'').replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c];});}
+function renderRecs(){
+  document.getElementById('recs').innerHTML=RECS.map(function(r,i){
+    return '<div class="chip"><span>'+esc(r.title)+' <span class="iz">'+esc(r.isrc||'sin ISRC')+'</span></span><b data-del="'+i+'">✕</b></div>';
+  }).join('');
+}
+document.getElementById('recs').addEventListener('click',function(e){var d=e.target.getAttribute('data-del');if(d!==null){RECS.splice(+d,1);renderRecs();}});
+document.getElementById('addmanual').addEventListener('click',function(){
+  var t=val('mtitle');if(!t){return;}RECS.push({title:t,isrc:val('misrc')});
+  document.getElementById('mtitle').value='';document.getElementById('misrc').value='';renderRecs();
+});
+document.getElementById('scanbtn').addEventListener('click',function(){
+  var q=val('scanq');if(!q){return;}
+  var btn=this,old=btn.textContent;btn.textContent='⏳...';btn.disabled=true;
+  fetch(APPLE+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(j){
+    var items=(j.tracks||j.items||[]);
+    document.getElementById('results').innerHTML=items.slice(0,40).map(function(t,i){
+      var title=t.title||t.name||'';var isrc=t.isrc||t.code||'';
+      return '<div class="res"><span>'+esc(title)+' <span class="iz">'+esc(isrc)+'</span></span><button data-t="'+esc(title)+'" data-i="'+esc(isrc)+'">+ añadir</button></div>';
+    }).join('')||'<p class="note">Sin resultados.</p>';
+    btn.textContent=old;btn.disabled=false;
+  }).catch(function(e){btn.textContent=old;btn.disabled=false;document.getElementById('results').innerHTML='<p class="note">No conecta aquí. Usa navegador/Netlify o añade manual. ('+e.message+')</p>';});
+});
+document.getElementById('results').addEventListener('click',function(e){
+  var t=e.target.getAttribute('data-t');if(t!==null){RECS.push({title:t,isrc:e.target.getAttribute('data-i')});renderRecs();}
+});
+function genLetter(){
+  var artist=val('artist'),prod=val('prod'),role=val('role'),pct=val('pct'),eff=val('eff')||new Date().toISOString().slice(0,10),addr=val('addr');
+  if(!artist||!prod||!pct){alert('Faltan: artista, productor y %.');return;}
+  if(!RECS.length){alert('Añade al menos una grabación.');return;}
+  var today=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  var recsHtml=RECS.map(function(r){return '<li>'+esc(r.title)+(r.isrc?' — ISRC: '+esc(r.isrc):'')+'</li>';}).join('');
+  var html='<h3>Letter of Direction</h3>'+
+    '<div class="row">'+esc(today)+'</div>'+
+    '<div class="row"><b>To:</b> SoundExchange, Inc.<br><b>Re:</b> Producer Share Payment Direction</div>'+
+    '<div class="row">I, <b>'+esc(artist)+'</b> (the &ldquo;Featured Artist&rdquo;), hereby authorize and direct SoundExchange, Inc. to pay to <b>'+esc(prod)+'</b> (the &ldquo;'+esc(role)+'&rdquo;) a share equal to <b>'+esc(pct)+'%</b> of the digital performance royalties otherwise payable to me as the Featured Artist with respect to the sound recording(s) listed below.</div>'+
+    '<div class="row"><b>Sound Recording(s):</b><ul>'+recsHtml+'</ul></div>'+
+    '<div class="row">This direction is effective as of <b>'+esc(eff)+'</b> and shall remain in effect until revoked in writing by the Featured Artist. Amounts paid hereunder shall be deducted from the royalties otherwise payable to the Featured Artist.</div>'+
+    '<div class="sig">'+
+      '<div class="box"><div class="line"></div>Featured Artist &mdash; '+esc(artist)+'<div class="small">Signature / Date</div></div>'+
+      '<div class="box"><div class="line"></div>'+esc(role)+' &mdash; '+esc(prod)+'<div class="small">'+esc(addr||'Address')+' &middot; Signature / Date</div></div>'+
+    '</div>';
+  var el=document.getElementById('letter');el.innerHTML=html;el.style.display='block';
+  el.scrollIntoView({behavior:'smooth'});
+}
+function letterText(){
+  var el=document.getElementById('letter');return el.innerText||el.textContent||'';
+}
+document.getElementById('gen').addEventListener('click',genLetter);
+document.getElementById('print').addEventListener('click',function(){if(document.getElementById('letter').style.display==='none'){genLetter();}window.print();});
+document.getElementById('dl').addEventListener('click',function(){
+  if(document.getElementById('letter').style.display==='none'){genLetter();}
+  var blob=new Blob([letterText()],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='LetterOfDirection_'+(val('artist')||'artist').replace(/\s+/g,'_')+'.txt';a.click();
+});
+document.getElementById('eff').value=new Date().toISOString().slice(0,10);
+</script>
+</body>
+</html>

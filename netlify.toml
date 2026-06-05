@@ -1,0 +1,28 @@
+[build]
+  publish = "."
+
+# Rutas limpias (rewrite 200 = la URL bonita se queda en la barra)
+[[redirects]]
+  from = "/split"
+  to = "/splitsheet.html"
+  status = 200
+[[redirects]]
+  from = "/cwr"
+  to = "/splitsheet.html"
+  status = 200
+[[redirects]]
+  from = "/dinero"
+  to = "/unclaimed.html"
+  status = 200
+[[redirects]]
+  from = "/lod"
+  to = "/lod.html"
+  status = 200
+[[redirects]]
+  from = "/productor"
+  to = "/lod.html"
+  status = 200
+[[redirects]]
+  from = "/visor"
+  to = "/visor.html"
+  status = 200

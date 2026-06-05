@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA · Visor de Catálogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
+    --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;padding:28px 20px;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto}
+  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h1{font-family:'Syne',sans-serif;font-weight:900;font-size:34px;letter-spacing:-1px;
+     background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tag{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;color:var(--mut)}
+  .roles{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 4px}
+  .role{background:var(--card);border:1px solid var(--line);color:var(--mut);padding:9px 14px;border-radius:999px;
+        font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+  .role.on{background:var(--grad);color:#100800;border-color:transparent}
+  .search{display:flex;gap:10px;margin:12px 0 8px;flex-wrap:wrap}
+  input{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);color:var(--txt);
+        padding:14px 16px;border-radius:12px;font-size:16px;font-family:inherit;outline:none}
+  input:focus{border-color:var(--gold)}
+  button{background:var(--grad);color:#100800;border:none;padding:14px 22px;border-radius:12px;
+         font-family:'Syne',sans-serif;font-weight:800;font-size:15px;cursor:pointer;white-space:nowrap}
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  button:active{transform:translateY(1px)}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+  .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .c .n{font-family:'Syne',sans-serif;font-weight:900;font-size:30px}
+  .c .l{color:var(--mut);font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+  .c.cover .n{color:var(--gold)}
+  table{width:100%;border-collapse:collapse;margin-top:10px;background:var(--card);
+        border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:12px 14px;font-size:14px;border-bottom:1px solid var(--line)}
+  th{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--mut)}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#13131F}
+  .code{font-family:monospace;font-size:13px;color:var(--ok)}
+  .code.no{color:var(--bad)}
+  a.lk{color:var(--gold);text-decoration:none;font-weight:700}
+  .msg{color:var(--mut);padding:24px;text-align:center}
+  .note{color:var(--mut);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
+  .row-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:8px}
+  @media(max-width:680px){.cards{grid-template-columns:repeat(2,1fr)}.hide-m{display:none}}
+  .ctabtn{display:inline-block;background:var(--grad);color:#100800;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><h1>SOLNOTA</h1><span class="tag">TU DINERO · A LA LUZ</span></div>
+
+  <div class="roles" id="roles"></div>
+
+  <div class="search" id="search">
+    <input id="q" placeholder="Escribe el nombre…" value="Sandy Mo" onkeydown="if(event.key==='Enter')buscar()">
+    <button onclick="buscar()">Escanear</button>
+  </div>
+
+  <div id="out"><div class="msg">Elige un rol y escanea.</div></div>
+</div>
+
+<script>
+const BASE = "https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/";
+const ROLES = [
+  {id:"cantante",   label:"🎤 Cantante",   ep:"apple?artist=",    codeType:"ISRC",
+    cta:[{l:"💰 Reclamar regalías",h:"/dinero"},{l:"✍️ Registrar + CWR",h:"/split"}]},
+  {id:"audiopoeta", label:"🎙️ Audiopoeta", ep:"apple?artist=",    codeType:"ISRC",
+    cta:[{l:"💰 Reclamar regalías",h:"/dinero"},{l:"✍️ Registrar + CWR",h:"/split"}]},
+  {id:"compositor", label:"✍️ Compositor", ep:"composer?name=",   codeType:"ISWC", landing:true,
+    note:"El compositor cobra por su OBRA (ISWC + splits). Ese dinero se reclama registrando la obra y generando el CWR para PROs y MLC — no con un escaneo por nombre.",
+    cta:[{l:"✍️ Registrar obra + generar CWR",h:"/split"}]},
+  {id:"productor",  label:"🎛️ Productor",  ep:"producer?name=",   codeType:"crédito", landing:true,
+    note:"El productor cobra del MÁSTER vía Letter of Direction a SoundExchange. No tiene ISRC propio (es del cantante). Vas a /lod, escaneas al CANTANTE y armas la carta con el % del productor.",
+    cta:[{l:"📄 Generar Letter of Direction",h:"/lod"}]},
+  {id:"audiolibro", label:"📚 Audiolibro", ep:"audiobook?name=",  codeType:"Apple Books ID",
+    cta:[]},
+];
+let ROLE = ROLES[0];
+let CURRENT = [];
+let QNAME = "";
+
+function pintarRoles(){
+  document.getElementById('roles').innerHTML = ROLES.map(r=>
+    '<button class="role'+(r.id===ROLE.id?' on':'')+'" onclick="setRole(\''+r.id+'\')">'+r.label+'</button>').join('');
+}
+function setRole(id){ ROLE = ROLES.find(r=>r.id===id); pintarRoles();
+  const out=document.getElementById('out');
+  const search=document.getElementById('search');
+  if(ROLE.landing){ search.style.display='none'; out.innerHTML = '<div class="note">ℹ️ '+esc(ROLE.note)+'</div>'+ctaHtml(ROLE); }
+  else { search.style.display=''; out.innerHTML = '<div class="msg">Escribe un nombre y escanea.</div>'; }
+}
+function ctaHtml(r){
+  if(!r.cta||!r.cta.length) return '';
+  return '<div class="row-top" style="margin-top:14px;gap:8px">'+r.cta.map(c=>'<a class="ctabtn" href="'+c.h+'">'+c.l+'</a>').join('')+'</div>';
+}
+
+async function buscar(){
+  const q = document.getElementById('q').value.trim();
+  if(!q){ return; }
+  const out = document.getElementById('out');
+  out.innerHTML = '<div class="msg">Escaneando “'+q+'” como '+ROLE.label+'… (puede tardar unos segundos)</div>';
+  try{
+    const r = await fetch(BASE + ROLE.ep + encodeURIComponent(q));
+    const d = await r.json();
+    if(d.configured === false){ out.innerHTML = '<div class="msg">⚠️ '+(d.msg||'Motor no configurado')+'</div>'; return; }
+    if(d.ok === false || d.error){ out.innerHTML = '<div class="msg">⚠️ '+(d.error||'Error')+'</div>'; return; }
+    const items = normaliza(d);
+    if(items.length===0){
+      out.innerHTML = '<div class="msg">No se encontró “'+q+'” en este rol.'+(d.note?'<br><br>'+d.note:'')+'</div>'; return;
+    }
+    CURRENT = items; QNAME = d.artist || d.query || q;
+    render(items, d.note);
+  }catch(e){
+    out.innerHTML = '<div class="msg">❌ Error de conexión: '+e.message+'</div>';
+  }
+}
+
+// Normaliza la respuesta de cualquier motor a un formato unico
+function normaliza(d){
+  if(d.tracks){ // motor apple (cantante/audiopoeta)
+    return d.tracks.map(t=>({title:t.title, sub:t.album||'', date:t.date||'', code:t.isrc||null, codeType:'ISRC', link:t.link||''}));
+  }
+  return (d.items||[]).map(i=>({title:i.title, sub:i.sub||'', date:i.date||'', code:i.code||null, codeType:i.codeType||ROLE.codeType, link:i.link||''}));
+}
+
+function render(items, note){
+  const total = items.length;
+  const ok = items.filter(i=>i.code).length;
+  const falta = total-ok;
+  const pct = total ? Math.round(ok/total*100) : 0;
+  const ct = items[0].codeType || ROLE.codeType;
+  const rows = items.map((t,i)=>{
+    const yr = (t.date||'').slice(0,4);
+    const code = t.code ? '<span class="code">'+esc(t.code)+'</span>' : '<span class="code no">— falta</span>';
+    const lk = t.link ? '<a class="lk" href="'+t.link+'" target="_blank">↗</a>' : '';
+    return '<tr><td>'+(i+1)+'</td><td>'+esc(t.title)+'</td>'
+      +'<td class="hide-m">'+esc(t.sub)+'</td>'
+      +'<td class="hide-m">'+yr+'</td><td>'+code+'</td><td>'+lk+'</td></tr>';
+  }).join('');
+  document.getElementById('out').innerHTML =
+    (note?'<div class="note">ℹ️ '+esc(note)+'</div>':'')
+    + '<div class="cards">'
+    + card(total,'Resultados') + card(ok,'Con '+ct) + card(falta,'Faltantes') + card(pct+'%','Cobertura','cover')
+    + '</div>'
+    + '<div class="row-top"><div class="tag">'+esc(QNAME)+' · '+ROLE.label+'</div>'
+    + '<button class="ghost" onclick="csv()">⬇ Exportar CSV</button></div>'
+    + '<table><thead><tr><th>#</th><th>Título</th><th class="hide-m">Detalle</th>'
+    + '<th class="hide-m">Año</th><th>'+ct+'</th><th></th></tr></thead><tbody>'
+    + rows + '</tbody></table>'
+    + ctaHtml(ROLE);
+}
+function card(n,l,cls){return '<div class="c '+(cls||'')+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function csv(){
+  const head=['Titulo','Detalle','Fecha','Codigo','Link'];
+  const lines=CURRENT.map(t=>[t.title,t.sub,t.date,t.code||'',t.link].map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(','));
+  const blob=new Blob([head.join(',')+'\n'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='SOLNOTA_'+ROLE.id+'_'+QNAME.replace(/\s+/g,'_')+'.csv';a.click();
+}
+
+pintarRoles();
+buscar(); // carga Sandy Mo (cantante) al abrir
+</script>
+</body>
+</html>
