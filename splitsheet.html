@@ -7,7 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>SOLNOTA · Split Sheet</title>
 <meta name="description" content="Split Sheet y generador CWR de SOLNOTA. Reparte splits y crea el archivo CWR byte-perfect para PROs y The MLC.">
-<meta name="theme-color" content="#FF9500">
+<link rel="canonical" href="https://solnota-tools.angelsolmusic18.workers.dev/split">
+<meta property="og:title" content="SOLNOTA · Split Sheet + CWR">
+<meta property="og:description" content="Split Sheet y generador CWR de SOLNOTA. Reparte splits y crea el archivo CWR byte-perfect para PROs y The MLC.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://solnota-tools.angelsolmusic18.workers.dev/split">
+<meta name="twitter:card" content="summary">
 <style>
   :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
     --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
@@ -53,7 +58,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><h1>SOLNOTA</h1><span class="tag brand-tag">SPLIT SHEET · TU DINERO · A LA LUZ</span></div>
+  <div class="brand"><a href="/" title="Inicio" style="text-decoration:none"><h1>SOLNOTA</h1></a><span class="tag brand-tag">SPLIT SHEET · TU DINERO · A LA LUZ</span></div>
 
   <h2>1 · La Obra</h2>
 
@@ -137,10 +142,10 @@ async function buscar(){
   try{
     const r=await fetch(APPLE+encodeURIComponent(q));
     const d=await r.json();
-    if(!d.tracks||!d.tracks.length){renderResults(null,'No se encontró o no cargó. Si estás dentro de la app, ábrelo en tu navegador; o agrega el ISRC a mano abajo.');RESULTS=[];return;}
+    if(!d.tracks||!d.tracks.length){renderResults(null,'No se encontró. Agrega el ISRC a mano abajo.');RESULTS=[];return;}
     RESULTS=d.tracks; ARTISTNAME=d.artist||q; renderResults(RESULTS);
   }catch(e){
-    renderResults(null,'⚠️ El visor bloquea internet aquí. Ábrelo en tu navegador (doble clic) para autocompletar, o agrega el ISRC a mano abajo.');
+    renderResults(null,'No se pudo conectar al escáner. Agrega el ISRC a mano abajo.');
   }
 }
 function addISRC(code){
@@ -271,6 +276,7 @@ document.getElementById('prep_name').value='Angel Ortega — SOLNOTA';
 renderChips();
 addWriter({name:"",role:"CA",ipi:"",pro:"BMI",share:"100",pub:"",pubipi:""});
 </script>
+<p class="foot" style="margin-top:8px"><a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
 <script src="/i18n.js" defer></script>
 </body>
 </html>

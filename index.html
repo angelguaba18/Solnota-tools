@@ -7,6 +7,7 @@
 <meta name="description" content="SOLNOTA — identifica, registra y reclama tus regalías. Captura una vez, cobra en todo el mundo. Tarifa plana, 0% comisión. TU DINERO · A LA LUZ.">
 <meta name="theme-color" content="#FF9500">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://solnota-tools.angelsolmusic18.workers.dev/">
 <meta property="og:title" content="SOLNOTA · TU DINERO · A LA LUZ">
 <meta property="og:description" content="Herramientas para que artistas latinos cobren TODAS sus regalías. 0% comisión.">
 <meta property="og:type" content="website">
@@ -29,6 +30,10 @@
   .card h2{font-size:18px;font-weight:800}
   .card p{font-size:13px;color:var(--mut);line-height:1.5}
   .card .go{margin-top:6px;color:var(--gold);font-weight:800;font-size:13px}
+  .trust{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 14px}
+  .tb{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--txt)}
+  .tb .tbi{font-size:15px}
+  .trust-link{display:inline-block;margin:0 0 26px;color:var(--gold);font-weight:800;font-size:13px;text-decoration:none}
   .foot{margin-top:34px;color:var(--mut);font-size:12px;text-align:center;line-height:1.6}
   @media(max-width:680px){.grid{grid-template-columns:1fr}h1{font-size:34px}}
 </style>
@@ -37,6 +42,14 @@
 <div class="wrap">
   <div class="brand"><h1>SOLNOTA</h1><span class="tag brand-tag">TU DINERO · A LA LUZ</span></div>
   <p class="sub">Herramientas para identificar, registrar y reclamar regalías. Captura una vez, cobra en todo el mundo.</p>
+
+  <div class="trust">
+    <span class="tb"><span class="tbi">💸</span>0% comisión</span>
+    <span class="tb"><span class="tbi">🔒</span>Nunca tocamos tu dinero</span>
+    <span class="tb"><span class="tbi">🎵</span>Tu música es 100% tuya</span>
+    <span class="tb"><span class="tbi">✊</span>Cancelas cuando quieras</span>
+  </div>
+  <a class="trust-link" href="/legal">Cómo te protegemos →</a>
 
   <div class="grid">
     <a class="card" href="/split">
@@ -63,6 +76,7 @@
 
   <p class="foot">Sol Music Corp · SOLNOTA · Firma → Registra → Monitorea → Cobra</p>
 </div>
+<p class="foot" style="margin-top:8px"><a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
 <script src="/i18n.js" defer></script>
 </body>
 </html>
