@@ -11,6 +11,9 @@
 
   var DICT = {
     // ---------- Portada ----------
+    "SOLNOTA · Herramientas de regalías para artistas latinos": { en: "SOLNOTA · Royalty tools for Latin artists", pt: "SOLNOTA · Ferramentas de royalties para artistas latinos", fr: "SOLNOTA · Outils de royalties pour artistes latinos" },
+    "SOLNOTA · Dinero sin reclamar": { en: "SOLNOTA · Unclaimed money", pt: "SOLNOTA · Dinheiro não reivindicado", fr: "SOLNOTA · Argent non réclamé" },
+    "SOLNOTA · Visor de Catálogo": { en: "SOLNOTA · Catalog Viewer", pt: "SOLNOTA · Visualizador de Catálogo", fr: "SOLNOTA · Visionneuse de Catalogue" },
     "Herramientas para identificar, registrar y reclamar regalías. Captura una vez, cobra en todo el mundo.": { en: "Tools to identify, register and claim your royalties. Capture once, collect worldwide.", pt: "Ferramentas para identificar, registrar e reivindicar royalties. Capture uma vez, receba no mundo todo.", fr: "Des outils pour identifier, enregistrer et réclamer vos royalties. Capturez une fois, encaissez partout dans le monde." },
     "Dinero sin reclamar": { en: "Unclaimed money", pt: "Dinheiro não reivindicado", fr: "Argent non réclamé" },
     "Escanea el catálogo y verifica dónde hay regalías pendientes: SoundExchange, MLC, PRO.": { en: "Scan the catalog and check where royalties are pending: SoundExchange, The MLC, PRO.", pt: "Escaneie o catálogo e verifique onde há royalties pendentes: SoundExchange, MLC, PRO.", fr: "Scannez le catalogue et vérifiez où il y a des royalties en attente : SoundExchange, MLC, PRO." },
@@ -54,9 +57,12 @@
     "Ej. Dios Tiene Lo Mío": { en: "E.g. Dios Tiene Lo Mío", pt: "Ex. Dios Tiene Lo Mío", fr: "Ex. Dios Tiene Lo Mío" },
     "lo asigna la sociedad": { en: "assigned by the society", pt: "atribuído pela sociedade", fr: "attribué par la société" },
     "opcional": { en: "optional", pt: "opcional", fr: "facultatif" },
+    "💾 Guardar (JSON)": { en: "💾 Save (JSON)", pt: "💾 Salvar (JSON)", fr: "💾 Enregistrer (JSON)" },
+    "📂 Importar": { en: "📂 Import", pt: "📂 Importar", fr: "📂 Importer" },
 
     // ---------- Dinero sin reclamar ----------
     "La verdad:": { en: "The truth:", pt: "A verdade:", fr: "La vérité :" },
+    "ninguna fuente tiene una API pública que diga “tienes $X sin reclamar”. Lo que SOLNOTA hace: identifica": { en: "no source has a public API that says “you have $X unclaimed.” What SOLNOTA does: it identifies", pt: "nenhuma fonte tem uma API pública que diga “você tem $X não reivindicado”. O que a SOLNOTA faz: identifica", fr: "aucune source n'a d'API publique qui dise « vous avez $X non réclamés ». Ce que SOLNOTA fait : il identifie" },
     "todo tu catálogo": { en: "your entire catalog", pt: "todo o seu catálogo", fr: "tout votre catalogue" },
     "por ISRC y te lleva": { en: "by ISRC and takes you", pt: "por ISRC e leva você", fr: "par ISRC et vous emmène" },
     "directo": { en: "directly", pt: "direto", fr: "directement" },
@@ -150,6 +156,7 @@
   function setLang(lang) {
     if (LANGS.indexOf(lang) < 0) lang = "es";
     document.documentElement.lang = lang;
+    if (window.__snTitle && DICT[window.__snTitle]) document.title = tr(window.__snTitle, lang);
     walk(document.body, lang);
     document.querySelectorAll(".sn-lang button").forEach(function (b) {
       b.classList.toggle("active", b.dataset.l === lang);
@@ -180,6 +187,7 @@
   }
 
   function init() {
+    window.__snTitle = document.title.trim();
     injectBar();
     var mo = new MutationObserver(function (muts) {
       var lang = window.__snLang || "es";
