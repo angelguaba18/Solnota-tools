@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#FF9500">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>SOLNOTA · Dinero sin reclamar</title>
+<meta name="description" content="Encuentra regalías sin reclamar de tu catálogo: SoundExchange, The MLC y PROs. SOLNOTA.">
+<meta name="theme-color" content="#FF9500">
 <style>
   :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
     --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
@@ -55,7 +57,7 @@
       <input id="q" placeholder="Nombre del artista (ej. La Gabi)">
       <button class="mini" id="btn">Escanear catálogo</button>
     </div>
-    <p class="note" id="status">Escribe un artista y escanea. (En vivo funciona en navegador real / Netlify.)</p>
+    <p class="note" id="status">Escribe un artista y escanea su catálogo.</p>
   </div>
 
   <div class="cards" id="kpis" style="display:none">
@@ -94,7 +96,7 @@ function scan(){
     setStatus(items.length?('Catálogo de '+q+': '+items.length+' grabaciones.'):'Sin resultados para '+q+'.');
   }).catch(function(e){
     btn.textContent=old;btn.disabled=false;
-    setStatus('No conecta desde aquí. Abre en navegador real o Netlify. ('+e.message+')');
+    setStatus('No se pudo conectar. Intenta de nuevo. ('+e.message+')');
   });
 }
 function render(items){

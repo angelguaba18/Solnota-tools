@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#FF9500">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>SOLNOTA · Letter of Direction</title>
+<meta name="description" content="Genera una Letter of Direction para que SoundExchange pague al productor su % del máster (AMP Act). SOLNOTA.">
+<meta name="theme-color" content="#FF9500">
 <style>
   :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
     --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
@@ -84,7 +86,7 @@
       <button class="mini" id="addmanual">Añadir</button>
     </div>
     <div class="chips" id="recs"></div>
-    <p class="note">El escáner en vivo funciona en navegador real o Netlify (el visor de artifacts bloquea internet).</p>
+    <p class="note">El escáner busca en Apple Music. Si no aparece, añade el título e ISRC a mano.</p>
   </div>
 
   <div class="actions">
@@ -121,7 +123,7 @@ document.getElementById('scanbtn').addEventListener('click',function(){
       return '<div class="res"><span>'+esc(title)+' <span class="iz">'+esc(isrc)+'</span></span><button data-t="'+esc(title)+'" data-i="'+esc(isrc)+'">+ añadir</button></div>';
     }).join('')||'<p class="note">Sin resultados.</p>';
     btn.textContent=old;btn.disabled=false;
-  }).catch(function(e){btn.textContent=old;btn.disabled=false;document.getElementById('results').innerHTML='<p class="note">No conecta aquí. Usa navegador/Netlify o añade manual. ('+e.message+')</p>';});
+  }).catch(function(e){btn.textContent=old;btn.disabled=false;document.getElementById('results').innerHTML='<p class="note">No se pudo conectar. Añade el título e ISRC a mano. ('+e.message+')</p>';});
 });
 document.getElementById('results').addEventListener('click',function(e){
   var t=e.target.getAttribute('data-t');if(t!==null){RECS.push({title:t,isrc:e.target.getAttribute('data-i')});renderRecs();}
