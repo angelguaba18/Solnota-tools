@@ -25,7 +25,11 @@
   .langbar button{background:var(--card);border:1px solid var(--line);color:var(--mut);font-weight:800;font-size:12px;letter-spacing:1px;padding:7px 13px;border-radius:9px;cursor:pointer;transition:.15s}
   .langbar button.on{color:#05050A;background:var(--gold);border-color:var(--gold)}
   .back{display:inline-block;margin:8px 0 8px;color:var(--gold);font-weight:800;font-size:13px;text-decoration:none}
-  .promise{font-weight:800;font-size:14px;color:#FFE6C2;background:rgba(255,149,0,.10);border:1px solid rgba(255,149,0,.35);border-radius:12px;padding:12px 15px;margin:6px 0 24px;text-align:center}
+  .promise{font-weight:800;font-size:14px;color:#FFE6C2;background:rgba(255,149,0,.10);border:1px solid rgba(255,149,0,.35);border-radius:12px;padding:12px 15px;margin:6px 0 14px;text-align:center}
+  .free{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(255,204,0,.12),rgba(204,41,0,.12));border:1px solid rgba(255,149,0,.45);border-radius:14px;padding:16px 18px;margin:0 0 20px}
+  .free b{font-size:14px;font-weight:900;color:#FFE6C2}
+  .free .fs{font-size:12.5px;color:var(--mut);display:block;margin-top:3px;line-height:1.45;max-width:560px}
+  .free a{background:var(--grad);color:#05050A;font-weight:900;font-size:13px;padding:11px 18px;border-radius:10px;text-decoration:none;white-space:nowrap}
   .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;display:flex;flex-direction:column;gap:6px;position:relative}
   .plan.pop{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
@@ -33,17 +37,20 @@
   .pname{font-size:13px;font-weight:800;letter-spacing:2px;color:var(--mut);text-transform:uppercase}
   .price{font-size:34px;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .price small{font-size:13px;color:var(--mut);font-weight:700;-webkit-text-fill-color:var(--mut)}
+  .annual{font-size:12px;font-weight:800;color:var(--gold);margin-top:-2px}
   .who{font-size:13px;color:var(--mut);min-height:34px;line-height:1.4}
   .plan ul{list-style:none;margin:10px 0 0;display:flex;flex-direction:column;gap:7px}
   .plan li{font-size:13px;color:#CFCFDA;line-height:1.4;padding-left:20px;position:relative}
   .plan li:before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:900}
-  .addons{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:18px}
+  .tail{font-size:13px;font-weight:700;color:#CFCFDA;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:14px;text-align:center;line-height:1.5}
+  .tail b{color:var(--gold)}
+  .addons{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:14px}
   .addons h3{font-size:14px;font-weight:800;margin-bottom:8px}
   .addons p{font-size:13px;color:var(--mut);line-height:1.6}
   .foot{margin-top:24px;color:var(--mut);font-size:12px;text-align:center;line-height:1.6}
   .lang{display:none}
   body[data-lang="es"] .lang-es,body[data-lang="en"] .lang-en,body[data-lang="pt"] .lang-pt,body[data-lang="fr"] .lang-fr{display:block}
-  @media(max-width:760px){.plans{grid-template-columns:1fr}h1{font-size:32px}}
+  @media(max-width:760px){.plans{grid-template-columns:1fr}h1{font-size:32px}.free{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body data-lang="es">
@@ -56,27 +63,32 @@
 
   <!-- ES -->
   <div class="lang lang-es">
-    <div class="promise">0% comisión siempre · Tu dinero directo a ti · Cancela cuando quieras</div>
+    <div class="promise">0% comisión siempre · Tu dinero directo a ti · Hecho para el mercado latino, en tu idioma</div>
+    <div class="free"><div><b>🔍 Empieza GRATIS</b><span class="fs">Escanea tu catálogo y descubre cuánto dinero estás dejando sin reclamar. Sin tarjeta, sin compromiso.</span></div><a href="/visor">Escanear gratis →</a></div>
     <div class="plans">
       <div class="plan">
         <div class="pname">Artista</div>
         <div class="price">$19.99<small>/mes</small></div>
+        <div class="annual">o $199/año · 2 meses gratis</div>
         <div class="who">Para el artista que empieza a cobrar lo suyo.</div>
         <ul><li>Registro en el MLC + tu PRO</li><li>Split sheets + archivo CWR</li><li>Visor de catálogo</li><li>Monitoreo de regalías</li></ul>
       </div>
       <div class="plan pop"><div class="badge">POPULAR</div>
         <div class="pname">Artista Pro</div>
         <div class="price">$39.99<small>/mes</small></div>
+        <div class="annual">o $399/año · 2 meses gratis</div>
         <div class="who">Para el artista activo con catálogo creciendo.</div>
         <ul><li>Todo lo de Artista</li><li>Todos los roles (productor, compositor, audiolibro)</li><li>Recuperación de dinero sin reclamar</li><li>Auditoría mensual + alertas</li><li>Digest por WhatsApp los viernes</li><li>Letter of Direction</li></ul>
       </div>
       <div class="plan">
         <div class="pname">Manager / Sello</div>
         <div class="price">$99<small>/mes</small></div>
+        <div class="annual">o $990/año · 2 meses gratis</div>
         <div class="who">Para managers y sellos con varios artistas.</div>
         <ul><li>Todo lo de Pro, para varios artistas</li><li>Panel de manager</li><li>Soporte prioritario</li><li>Precio por artista que baja con volumen</li></ul>
       </div>
     </div>
+    <div class="tail">✊ <b>Cancelas y se acabó.</b> Cero comisión de salida, cero penalidad. Otros te siguen cobrando hasta 1 año después de cancelar. Aquí no.</div>
     <div class="addons"><h3>Extras de tarifa fija (sin comisión)</h3>
       <p>Recuperar dinero sin reclamar (black box): <strong>$99 fijo</strong> · Onboarding "te lo hacemos todo" · Documentos legales a medida.</p></div>
     <p class="foot">Sin comisión sobre tus regalías. Nunca. · <a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
@@ -84,27 +96,32 @@
 
   <!-- EN -->
   <div class="lang lang-en">
-    <div class="promise">0% commission always · Your money straight to you · Cancel anytime</div>
+    <div class="promise">0% commission always · Your money straight to you · Built for the Latin market, in your language</div>
+    <div class="free"><div><b>🔍 Start FREE</b><span class="fs">Scan your catalog and see how much money you're leaving unclaimed. No card, no commitment.</span></div><a href="/visor">Scan free →</a></div>
     <div class="plans">
       <div class="plan">
         <div class="pname">Artist</div>
         <div class="price">$19.99<small>/mo</small></div>
+        <div class="annual">or $199/yr · 2 months free</div>
         <div class="who">For the artist starting to collect what's theirs.</div>
         <ul><li>Registration with the MLC + your PRO</li><li>Split sheets + CWR file</li><li>Catalog viewer</li><li>Royalty monitoring</li></ul>
       </div>
       <div class="plan pop"><div class="badge">POPULAR</div>
         <div class="pname">Artist Pro</div>
         <div class="price">$39.99<small>/mo</small></div>
+        <div class="annual">or $399/yr · 2 months free</div>
         <div class="who">For the active artist with a growing catalog.</div>
         <ul><li>Everything in Artist</li><li>All roles (producer, composer, audiobook)</li><li>Unclaimed money recovery</li><li>Monthly audit + alerts</li><li>Friday WhatsApp digest</li><li>Letter of Direction</li></ul>
       </div>
       <div class="plan">
         <div class="pname">Manager / Label</div>
         <div class="price">$99<small>/mo</small></div>
+        <div class="annual">or $990/yr · 2 months free</div>
         <div class="who">For managers and labels with several artists.</div>
         <ul><li>Everything in Pro, for several artists</li><li>Manager dashboard</li><li>Priority support</li><li>Per-artist price drops with volume</li></ul>
       </div>
     </div>
+    <div class="tail">✊ <b>Cancel and you're done.</b> Zero exit commission, zero penalty. Others keep charging you up to 1 year after you cancel. Not here.</div>
     <div class="addons"><h3>Flat-fee add-ons (no commission)</h3>
       <p>Recover unclaimed money (black box): <strong>$99 flat</strong> · "Done-for-you" onboarding · Custom legal documents.</p></div>
     <p class="foot">No commission on your royalties. Ever. · <a href="/legal" style="color:var(--gold);text-decoration:none">Terms & Privacy</a></p>
@@ -112,27 +129,32 @@
 
   <!-- PT -->
   <div class="lang lang-pt">
-    <div class="promise">0% comissão sempre · Seu dinheiro direto para você · Cancele quando quiser</div>
+    <div class="promise">0% comissão sempre · Seu dinheiro direto para você · Feito para o mercado latino, no seu idioma</div>
+    <div class="free"><div><b>🔍 Comece GRÁTIS</b><span class="fs">Escaneie seu catálogo e veja quanto dinheiro está deixando sem reclamar. Sem cartão, sem compromisso.</span></div><a href="/visor">Escanear grátis →</a></div>
     <div class="plans">
       <div class="plan">
         <div class="pname">Artista</div>
         <div class="price">$19.99<small>/mês</small></div>
+        <div class="annual">ou $199/ano · 2 meses grátis</div>
         <div class="who">Para o artista que começa a receber o que é seu.</div>
         <ul><li>Registro no MLC + sua PRO</li><li>Split sheets + arquivo CWR</li><li>Visualizador de catálogo</li><li>Monitoramento de royalties</li></ul>
       </div>
       <div class="plan pop"><div class="badge">POPULAR</div>
         <div class="pname">Artista Pro</div>
         <div class="price">$39.99<small>/mês</small></div>
+        <div class="annual">ou $399/ano · 2 meses grátis</div>
         <div class="who">Para o artista ativo com catálogo crescendo.</div>
         <ul><li>Tudo do Artista</li><li>Todas as funções (produtor, compositor, audiolivro)</li><li>Recuperação de dinheiro não reclamado</li><li>Auditoria mensal + alertas</li><li>Resumo por WhatsApp às sextas</li><li>Letter of Direction</li></ul>
       </div>
       <div class="plan">
         <div class="pname">Manager / Selo</div>
         <div class="price">$99<small>/mês</small></div>
+        <div class="annual">ou $990/ano · 2 meses grátis</div>
         <div class="who">Para managers e selos com vários artistas.</div>
         <ul><li>Tudo do Pro, para vários artistas</li><li>Painel de manager</li><li>Suporte prioritário</li><li>Preço por artista cai com volume</li></ul>
       </div>
     </div>
+    <div class="tail">✊ <b>Cancela e acabou.</b> Zero comissão de saída, zero multa. Outros continuam cobrando até 1 ano depois do cancelamento. Aqui não.</div>
     <div class="addons"><h3>Extras de taxa fixa (sem comissão)</h3>
       <p>Recuperar dinheiro não reclamado (black box): <strong>$99 fixo</strong> · Onboarding "fazemos tudo por você" · Documentos legais sob medida.</p></div>
     <p class="foot">Sem comissão sobre seus royalties. Nunca. · <a href="/legal" style="color:var(--gold);text-decoration:none">Termos e Privacidade</a></p>
@@ -140,27 +162,32 @@
 
   <!-- FR -->
   <div class="lang lang-fr">
-    <div class="promise">0% commission toujours · Votre argent directement à vous · Annulez quand vous voulez</div>
+    <div class="promise">0% commission toujours · Votre argent directement à vous · Conçu pour le marché latino, dans votre langue</div>
+    <div class="free"><div><b>🔍 Commencez GRATUITEMENT</b><span class="fs">Scannez votre catalogue et voyez combien d'argent vous laissez non réclamé. Sans carte, sans engagement.</span></div><a href="/visor">Scanner gratuitement →</a></div>
     <div class="plans">
       <div class="plan">
         <div class="pname">Artiste</div>
         <div class="price">$19.99<small>/mois</small></div>
+        <div class="annual">ou $199/an · 2 mois gratuits</div>
         <div class="who">Pour l'artiste qui commence à toucher ce qui lui revient.</div>
         <ul><li>Enregistrement au MLC + votre PRO</li><li>Split sheets + fichier CWR</li><li>Visionneuse de catalogue</li><li>Suivi des redevances</li></ul>
       </div>
       <div class="plan pop"><div class="badge">POPULAIRE</div>
         <div class="pname">Artiste Pro</div>
         <div class="price">$39.99<small>/mois</small></div>
+        <div class="annual">ou $399/an · 2 mois gratuits</div>
         <div class="who">Pour l'artiste actif avec un catalogue grandissant.</div>
         <ul><li>Tout ce qu'inclut Artiste</li><li>Tous les rôles (producteur, compositeur, livre audio)</li><li>Récupération de l'argent non réclamé</li><li>Audit mensuel + alertes</li><li>Résumé WhatsApp le vendredi</li><li>Letter of Direction</li></ul>
       </div>
       <div class="plan">
         <div class="pname">Manager / Label</div>
         <div class="price">$99<small>/mois</small></div>
+        <div class="annual">ou $990/an · 2 mois gratuits</div>
         <div class="who">Pour managers et labels avec plusieurs artistes.</div>
         <ul><li>Tout ce qu'inclut Pro, pour plusieurs artistes</li><li>Tableau de bord manager</li><li>Support prioritaire</li><li>Le prix par artiste baisse avec le volume</li></ul>
       </div>
     </div>
+    <div class="tail">✊ <b>Annulez et c'est fini.</b> Zéro commission de sortie, zéro pénalité. D'autres continuent de vous facturer jusqu'à 1 an après l'annulation. Pas ici.</div>
     <div class="addons"><h3>Options à tarif fixe (sans commission)</h3>
       <p>Récupérer l'argent non réclamé (black box) : <strong>$99 fixe</strong> · Onboarding « on fait tout pour vous » · Documents juridiques sur mesure.</p></div>
     <p class="foot">Aucune commission sur vos redevances. Jamais. · <a href="/legal" style="color:var(--gold);text-decoration:none">Conditions et Confidentialité</a></p>
