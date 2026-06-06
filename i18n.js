@@ -68,6 +68,7 @@
     "Planes y precios": { en: "Plans & pricing", pt: "Planos e preços", fr: "Forfaits et tarifs" },
     "Tarifa plana, 0% comisión. Elige tu plan: Artista, Pro o Manager. Cancela cuando quieras.": { en: "Flat fee, 0% commission. Choose your plan: Artist, Pro or Manager. Cancel anytime.", pt: "Taxa fixa, 0% comissão. Escolha seu plano: Artista, Pro ou Manager. Cancele quando quiser.", fr: "Tarif fixe, 0% commission. Choisissez votre forfait : Artiste, Pro ou Manager. Annulez quand vous voulez." },
     "Ver planes →": { en: "See plans →", pt: "Ver planos →", fr: "Voir les forfaits →" },
+    "Ver planes y precios →": { en: "See plans & pricing →", pt: "Ver planos e preços →", fr: "Voir forfaits et tarifs →" },
     "Nombre legal del escritor *": { en: "Writer's legal name *", pt: "Nome legal do escritor *", fr: "Nom légal de l'auteur *" },
     "Rol *": { en: "Role *", pt: "Função *", fr: "Rôle *" },
     "PRO / Sociedad": { en: "PRO / Society", pt: "PRO / Sociedade", fr: "PRO / Société" },
