@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FF9500">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#05050A">
 <title>SOLNOTA · Split Sheet</title>
 <meta name="description" content="Split Sheet y generador CWR de SOLNOTA. Reparte splits y crea el archivo CWR byte-perfect para PROs y The MLC.">
 <link rel="canonical" href="https://solnota-tools.angelsolmusic18.workers.dev/split">
@@ -54,7 +58,7 @@
   .b.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
   .addw{background:transparent;border:1px dashed var(--line);color:var(--gold);padding:12px;border-radius:11px;width:100%;cursor:pointer;font-weight:700;font-family:inherit;font-size:14px}
   @media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}.f.wide{grid-column:span 2}}
-</style>
+svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}</style>
 </head>
 <body>
 <div class="wrap">
@@ -110,7 +114,7 @@
 
   <div class="actions">
     <button class="b go" id="btnGenCWR">🏛️ Generar CWR (.V21)</button>
-    <button class="b ghost" id="btnCWR">📄 CSV (CWR-ready)</button>
+    <button class="b ghost" id="btnCWR"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z'/><path d='M14 2v6h6'/></svg> CSV (CWR-ready)</button>
     <button class="b ghost" id="btnJSON">💾 Guardar (JSON)</button>
     <button class="b ghost" id="btnImp">📂 Importar</button>
     <input id="imp" type="file" accept=".json" style="display:none">

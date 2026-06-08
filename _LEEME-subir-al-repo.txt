@@ -1,0 +1,16 @@
+SOLNOTA — Paso 2: set de logo + íconos (subir al repo Solnota-tools)
+
+1) Arrastra TODO el contenido de esta carpeta a la RAÍZ del repo en GitHub
+   (Add file -> Upload files -> soltar todo -> Commit).
+   Reemplaza los .html viejos y agrega los íconos.
+
+Archivos que van a la RAÍZ:
+  - 6 HTML (ya con íconos de línea + <head> de app icons)
+  - favicon.svg, favicon-32.png, favicon-48.png
+  - apple-touch-icon.png (Apple)
+  - icon-192.png, icon-512.png, icon-512-maskable.png (Android/PWA)
+  - site.webmanifest
+
+2) Commit -> se publica solo en 1-2 min en solnota-tools.angelsolmusic18.workers.dev
+
+Resultado: pestaña con sol de marca, "Añadir a inicio" en iPhone/Android muestra el ícono SOLNOTA.

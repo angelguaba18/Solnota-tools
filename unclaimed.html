@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FF9500">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#05050A">
 <title>SOLNOTA · Dinero sin reclamar</title>
 <meta name="description" content="Encuentra regalías sin reclamar de tu catálogo: SoundExchange, The MLC y PROs. SOLNOTA.">
 <link rel="canonical" href="https://solnota-tools.angelsolmusic18.workers.dev/dinero">
@@ -49,13 +53,13 @@
   .note{color:var(--mut);font-size:12px;margin-top:8px}
   .cta{margin-top:18px;background:var(--grad);color:#100800;border-radius:14px;padding:16px;font-weight:800;text-align:center}
   @media(max-width:720px){.cards{grid-template-columns:repeat(2,1fr)}.src{grid-template-columns:1fr}}
-</style>
+svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}</style>
 </head>
 <body>
 <div class="wrap">
   <div class="brand"><a href="/" title="Inicio" style="text-decoration:none"><h1>SOLNOTA</h1></a><span class="tag"><span>DINERO SIN RECLAMAR</span> · <span class="brand-tag">TU DINERO · A LA LUZ</span></span></div>
 
-  <div class="warn">💡 <b>La verdad:</b> ninguna fuente tiene una API pública que diga &ldquo;tienes $X sin reclamar&rdquo;. Lo que SOLNOTA hace: identifica <b>todo tu catálogo</b> por ISRC y te lleva <b>directo</b> a verificar/reclamar en cada fuente. Lo que no está registrado = dinero que se va al <b>black box</b>.</div>
+  <div class="warn"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4'/><path d='M12 2a7 7 0 0 0-4 12.7c.5.4.9 1.2 1 2.3h6c.1-1.1.5-1.9 1-2.3A7 7 0 0 0 12 2Z'/></svg> <b>La verdad:</b> ninguna fuente tiene una API pública que diga &ldquo;tienes $X sin reclamar&rdquo;. Lo que SOLNOTA hace: identifica <b>todo tu catálogo</b> por ISRC y te lleva <b>directo</b> a verificar/reclamar en cada fuente. Lo que no está registrado = dinero que se va al <b>black box</b>.</div>
 
   <div class="scan">
     <div class="scanrow">
@@ -75,7 +79,7 @@
   <h2>Dónde está tu dinero — verifica ahora</h2>
   <div class="src">
     <div class="srcc"><h3>🎚️ Máster (SoundExchange)</h3><p>Regalías de radio digital/satélite por tus grabaciones. Revisa si te tienen registrado y si hay pagos pendientes.</p><a href="https://www.soundexchange.com/artists-performers/does-soundexchange-have-your-music/" target="_blank">Verificar en SoundExchange</a></div>
-    <div class="srcc"><h3>📝 Mecánico (The MLC)</h3><p>Regalías mecánicas de streaming en EE.UU. Busca tus obras y revisa montos no asignados (unclaimed).</p><a href="https://portal.themlc.com" target="_blank">Buscar en The MLC</a></div>
+    <div class="srcc"><h3><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='8' y='2' width='8' height='4' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/><path d='M9 12h6M9 16h4'/></svg> Mecánico (The MLC)</h3><p>Regalías mecánicas de streaming en EE.UU. Busca tus obras y revisa montos no asignados (unclaimed).</p><a href="https://portal.themlc.com" target="_blank">Buscar en The MLC</a></div>
     <div class="srcc"><h3>🎼 Performance (PRO)</h3><p>Regalías de ejecución pública (BMI/ASCAP + PROs LatAm). Confirma que cada obra esté registrada con sus splits.</p><a href="https://repertoire.bmi.com" target="_blank">Buscar en BMI</a></div>
   </div>
   <p class="note">MLC unclaimed (info oficial): <span style="color:var(--gold)">themlc.com/unclaimed</span> · SoundExchange artistas: <span style="color:var(--gold)">soundexchange.com/artists-performers</span></p>
