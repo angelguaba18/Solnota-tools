@@ -31,6 +31,13 @@ button.cta:disabled{opacity:.5;cursor:wait;transform:none;}
 .result .big{font-family:'Italiana',serif;font-size:30px;color:var(--gold);line-height:1.25;margin-bottom:6px;}
 .samples{font-size:13px;color:#b8b2a4;margin:14px 0;line-height:1.7;}
 .samples b{color:var(--gold);}
+.moneymap{margin:18px 0 4px;border-top:1px solid var(--line);padding-top:16px;}
+.moneymap .mm-t{font-size:13px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.mm-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #1c190f;}
+.mm-row:last-child{border-bottom:none;}
+.mm-ic{color:var(--gold);font-size:15px;flex:none;margin-top:1px;}
+.mm-tx{font-size:13px;color:#cfc8b8;line-height:1.45;}
+.mm-tx b{color:var(--cream);}
 .cta-box{margin-top:18px;border-top:1px solid var(--line);padding-top:18px;}
 .cta-box p{font-size:14px;margin-bottom:12px;color:#d6d0c4;}
 .msg{display:none;margin-top:16px;font-size:16px;color:var(--gold2);font-weight:500;}
@@ -61,6 +68,7 @@ footer{margin-top:34px;font-size:11px;color:#55514a;letter-spacing:2px;}
     <div class="big" id="rBig"></div>
     <div class="since" id="rSince" style="font-size:13px;color:var(--gold2);margin:6px 0 0;"></div>
     <div class="samples" id="rSamples"></div>
+    <div class="moneymap" id="rMap"></div>
     <div class="cta-box">
       <p id="ctaP"></p>
       <form id="mailForm" onsubmit="join(event)">
@@ -85,6 +93,8 @@ const T={
      lbl:"obras tuyas generando dinero",
      big:(b)=>`💰 Tienes regalías <span style="color:var(--cream)">sin reclamar</span>.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">El <b style="color:var(--gold)">black box</b> es el dinero que las plataformas ya recaudaron de tu música, pero que nadie ha cobrado. Te ayudamos a recuperarlo.</div>`,
      since:(y,n)=>`🎵 Generando regalías desde <b>${y}</b>${n?` — ${n} años cobrando.`:'.'}`,
+     mapT:"Mapa de tu dinero — 3 fuentes que revisar",
+     map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Máster (SoundExchange)</b> — regalías de radio digital por tus grabaciones.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecánicas (The MLC)</b> — streaming en EE.UU. Aquí vive gran parte del black box.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tu PRO)</b> — ejecución pública. Cada obra debe estar registrada con sus splits.</span></div>`,
      ej:"Ej: ", notfound:"No encontramos ese artista. Revisa el nombre exacto.",
      ctaP:'Te ayudamos a recuperar ese dinero — <b style="color:var(--gold)">0% comisión.</b> Déjanos tu correo:',
      emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto."},
@@ -95,6 +105,8 @@ const T={
      lbl:"of your works are earning money",
      big:(b)=>`💰 You have <span style="color:var(--cream)">unclaimed</span> royalties.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">The <b style="color:var(--gold)">black box</b> is money that platforms already collected from your music, but no one has claimed. We help you get it back.</div>`,
      since:(y,n)=>`🎵 Earning royalties since <b>${y}</b>${n?` — ${n} years and counting.`:'.'}`,
+     mapT:"Your money map — 3 sources to check",
+     map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — digital radio royalties for your recordings.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mechanical (The MLC)</b> — US streaming. Much of the black box lives here.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (your PRO)</b> — public performance. Each work must be registered with its splits.</span></div>`,
      ej:"E.g.: ", notfound:"We couldn't find that artist. Check the exact name.",
      ctaP:'We help you recover that money — <b style="color:var(--gold)">0% commission.</b> Drop your email:',
      emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon."}
@@ -129,6 +141,7 @@ async function scan(e){
     document.getElementById('rBig').innerHTML=t.big(d.black_box);
     var _yrs=d.year_from?(new Date().getFullYear()-d.year_from):0;
     document.getElementById('rSince').innerHTML=d.year_from?t.since(d.year_from,_yrs):"";
+    document.getElementById('rMap').innerHTML='<div class="mm-t">'+t.mapT+'</div>'+t.map;
     document.getElementById('rSamples').innerHTML=d.sample&&d.sample.length?t.ej+d.sample.map(s=>`<b>${s}</b>`).join(" · "):"";
     document.getElementById('result').style.display='block';
   }catch(ex){err.textContent="Error: "+ex.message;err.style.display='block';}

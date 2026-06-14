@@ -48,7 +48,21 @@
   .trust-link{display:inline-block;margin:0 0 26px;color:var(--gold);font-weight:800;font-size:13px;text-decoration:none}
   .foot{margin-top:34px;color:var(--mut);font-size:12px;text-align:center;line-height:1.6}
   @media(max-width:680px){.grid{grid-template-columns:1fr}h1{font-size:44px}}
-svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}</style>
+svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}
+  .sec-t{font-family:'Italiana',serif;font-size:30px;color:var(--gold);margin:40px 0 16px;letter-spacing:1px}
+  .who-for .wf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .wf{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .wf.yes{border-color:rgba(201,162,75,.4)}
+  .wf-h{font-weight:700;font-size:15px;margin-bottom:10px;color:var(--txt)}
+  .wf ul{margin:0;padding-left:18px}
+  .wf li{font-size:14px;color:var(--mut);line-height:1.6;margin:5px 0}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:8px}
+  .faq summary{cursor:pointer;font-weight:600;font-size:15px;color:var(--txt);list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::before{content:'+';color:var(--gold);font-weight:700;margin-right:10px}
+  .faq details[open] summary::before{content:'–'}
+  .faq p{font-size:14px;color:var(--mut);line-height:1.6;margin-top:10px}
+  @media(max-width:680px){.who-for .wf-grid{grid-template-columns:1fr}}</style>
 <meta property="og:image" content="https://tools.solnota.com/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
@@ -104,6 +118,39 @@ svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}
       <span class="go">Ver planes →</span>
     </a>
   </div>
+
+  <section class="who-for">
+    <h3 class="sec-t">¿Para quién es SOLNOTA?</h3>
+    <div class="wf-grid">
+      <div class="wf yes">
+        <div class="wf-h">✅ Es para ti si…</div>
+        <ul>
+          <li>Eres artista, productor o compositor latino y quieres TODO tu dinero.</li>
+          <li>Sientes que tu música genera y no sabes cuánto NO te llega.</li>
+          <li>Eres manager o sello y manejas varios artistas.</li>
+          <li>Quieres registrar y reclamar sin pagar comisión sobre tus regalías.</li>
+        </ul>
+      </div>
+      <div class="wf no">
+        <div class="wf-h">✕ No es para ti si…</div>
+        <ul>
+          <li>Buscas que alguien se quede con un % de tus regalías de por vida.</li>
+          <li>No tienes música publicada todavía.</li>
+          <li>Quieres que otro cobre tu dinero por ti (aquí cobras tú, directo).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h3 class="sec-t">Preguntas frecuentes</h3>
+    <details><summary>¿SOLNOTA toca mi dinero?</summary><p>No. Nunca. Tus regalías las pagan directamente las organizaciones (MLC, PROs, SoundExchange, distribuidora) <b>a ti</b>. SOLNOTA solo te ayuda a encontrarlas y reclamarlas. Solo cobramos la suscripción.</p></details>
+    <details><summary>¿Cobran comisión sobre mis regalías?</summary><p>0%. Nunca. Pagas una tarifa plana mensual y te quedas con el 100% de tu dinero. Sin "career tax".</p></details>
+    <details><summary>¿Mi música sigue siendo mía?</summary><p>Sí, 100%. SOLNOTA no adquiere ningún porcentaje de tu copyright. Solo administramos con tu autorización firmada.</p></details>
+    <details><summary>¿Y si cancelo?</summary><p>Tu dinero NO se corta — sigue llegándote directo de las organizaciones. Te quedas con tus registros y te llevas tus datos. Sin penalidad ni comisión de salida.</p></details>
+    <details><summary>¿Es seguro?</summary><p>Sí. Datos cifrados, no vendemos tu información, y nunca pedimos tus datos bancarios (esos los pones tú directo en cada fuente).</p></details>
+    <details><summary>¿Cuánto cuesta?</summary><p>Desde $19.99/mes (plan Artista). Sin comisión sobre regalías. Cancela cuando quieras. <a href="/precios" style="color:var(--gold);text-decoration:none">Ver planes →</a></p></details>
+  </section>
 
   <p class="foot">Sol Music Corp · SOLNOTA · Firma → Registra → Monitorea → Cobra</p>
 </div>
