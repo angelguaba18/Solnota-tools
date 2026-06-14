@@ -49,6 +49,8 @@ footer{margin-top:34px;font-size:11px;color:#55514a;letter-spacing:2px;}
 <div class="lang">
   <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
   <button id="btn-en" onclick="setLang('en')">EN</button>
+  <button id="btn-pt" onclick="setLang('pt')">PT</button>
+  <button id="btn-fr" onclick="setLang('fr')">FR</button>
 </div>
 <div class="card">
   <h1>SOLNOTA</h1>
@@ -109,7 +111,31 @@ const T={
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — digital radio royalties for your recordings.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mechanical (The MLC)</b> — US streaming. Much of the black box lives here.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (your PRO)</b> — public performance. Each work must be registered with its splits.</span></div>`,
      ej:"E.g.: ", notfound:"We couldn't find that artist. Check the exact name.",
      ctaP:'We help you recover that money — <b style="color:var(--gold)">0% commission.</b> Drop your email:',
-     emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon."}
+     emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon."},
+ pt:{tag:"Tua música · Teu dinheiro",
+     lead:"Tua música gera dinheiro há anos.<br>Descobre quanto NÃO está chegando até ti.",
+     sub:"Escreve teu nome de artista. Escaneamos teu catálogo em segundos.",
+     ph:"Teu nome de artista", scan:"Escanear", scanning:"Escaneando…",
+     lbl:"obras tuas gerando dinheiro",
+     big:(b)=>`💰 Tens royalties <span style="color:var(--cream)">não reivindicados</span>.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">O <b style="color:var(--gold)">black box</b> é o dinheiro que as plataformas já arrecadaram da tua música, mas que ninguém reivindicou. Te ajudamos a recuperá-lo.</div>`,
+     since:(y,n)=>`🎵 Gerando royalties desde <b>${y}</b>${n?` — ${n} anos recebendo.`:'.'}`,
+     mapT:"Mapa do teu dinheiro — 3 fontes para revisar",
+     map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — royalties de rádio digital pelas tuas gravações.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecânico (The MLC)</b> — streaming nos EUA. Grande parte do black box está aqui.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tua PRO)</b> — execução pública. Cada obra deve estar registrada com seus splits.</span></div>`,
+     ej:"Ex: ", notfound:"Não encontramos esse artista. Verifica o nome exato.",
+     ctaP:'Te ajudamos a recuperar esse dinheiro — <b style="color:var(--gold)">0% comissão.</b> Deixa teu e-mail:',
+     emailph:"teu@email.com", join:"Quero meu dinheiro", joined:"Estás na lista! Entramos em contato em breve."},
+ fr:{tag:"Ta musique · Ton argent",
+     lead:"Ta musique génère de l'argent depuis des années.<br>Découvre combien ne te parvient PAS.",
+     sub:"Écris ton nom d'artiste. On scanne ton catalogue en quelques secondes.",
+     ph:"Ton nom d'artiste", scan:"Scanner", scanning:"Analyse…",
+     lbl:"de tes œuvres génèrent de l'argent",
+     big:(b)=>`💰 Tu as des royalties <span style="color:var(--cream)">non réclamées</span>.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">Le <b style="color:var(--gold)">black box</b> est l'argent que les plateformes ont déjà perçu de ta musique, mais que personne n'a réclamé. On t'aide à le récupérer.</div>`,
+     since:(y,n)=>`🎵 Génère des royalties depuis <b>${y}</b>${n?` — ${n} ans et ça continue.`:'.'}`,
+     mapT:"La carte de ton argent — 3 sources à vérifier",
+     map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — royalties de la radio numérique pour tes enregistrements.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mécanique (The MLC)</b> — streaming aux États-Unis. Une grande partie du black box est ici.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (ta PRO)</b> — exécution publique. Chaque œuvre doit être enregistrée avec ses splits.</span></div>`,
+     ej:"Ex. : ", notfound:"Artiste introuvable. Vérifie le nom exact.",
+     ctaP:'On t\'aide à récupérer cet argent — <b style="color:var(--gold)">0% commission.</b> Laisse ton e-mail :',
+     emailph:"toi@email.com", join:"Je veux mon argent", joined:"Tu es sur la liste ! On te contacte bientôt."}
 };
 let L="es", last={artist:"",total:0,bb:0,year:0,sample:[],shown:false};
 function renderResult(t){
@@ -131,8 +157,7 @@ function setLang(l){
   document.getElementById('email').placeholder=t.emailph;
   document.getElementById('joinBtn').textContent=t.join;
   document.getElementById('ctaP').innerHTML=t.ctaP;
-  document.getElementById('btn-es').classList.toggle('active',l==='es');
-  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  ['es','en','pt','fr'].forEach(function(x){document.getElementById('btn-'+x).classList.toggle('active',l===x);});
   if(last.shown) renderResult(t);
 }
 async function scan(e){
@@ -162,7 +187,7 @@ async function join(e){
     const m=document.getElementById('msg'); m.textContent=t.joined; m.style.display='block';
   }catch(ex){btn.disabled=false;btn.textContent=t.join;}
 }
-setLang((navigator.language||'es').startsWith('en')?'en':'es');
+(function(){var n=(navigator.language||'es').slice(0,2).toLowerCase();setLang(['es','en','pt','fr'].indexOf(n)>=0?n:'es');})();
 </script>
 </body>
 </html>
