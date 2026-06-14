@@ -111,7 +111,16 @@ const T={
      ctaP:'We help you recover that money — <b style="color:var(--gold)">0% commission.</b> Drop your email:',
      emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon."}
 };
-let L="es", last={artist:"",total:0,bb:0};
+let L="es", last={artist:"",total:0,bb:0,year:0,sample:[],shown:false};
+function renderResult(t){
+  document.getElementById('rNum').textContent=last.total;
+  document.getElementById('rLbl').textContent=t.lbl;
+  document.getElementById('rBig').innerHTML=t.big(last.bb);
+  var _yrs=last.year?(new Date().getFullYear()-last.year):0;
+  document.getElementById('rSince').innerHTML=last.year?t.since(last.year,_yrs):"";
+  document.getElementById('rMap').innerHTML='<div class="mm-t">'+t.mapT+'</div>'+t.map;
+  document.getElementById('rSamples').innerHTML=last.sample&&last.sample.length?t.ej+last.sample.map(s=>`<b>${s}</b>`).join(" · "):"";
+}
 function setLang(l){
   L=l; const t=T[l]; document.documentElement.lang=l;
   document.getElementById('tag').textContent=t.tag;
@@ -124,6 +133,7 @@ function setLang(l){
   document.getElementById('ctaP').innerHTML=t.ctaP;
   document.getElementById('btn-es').classList.toggle('active',l==='es');
   document.getElementById('btn-en').classList.toggle('active',l==='en');
+  if(last.shown) renderResult(t);
 }
 async function scan(e){
   e.preventDefault(); const t=T[L];
@@ -135,14 +145,8 @@ async function scan(e){
     const d=await r.json();
     if(d.error)throw new Error(d.error);
     if(!d.found){err.textContent=t.notfound;err.style.display='block';return;}
-    last={artist:d.artist,total:d.total,bb:d.black_box};
-    document.getElementById('rNum').textContent=d.total;
-    document.getElementById('rLbl').textContent=t.lbl;
-    document.getElementById('rBig').innerHTML=t.big(d.black_box);
-    var _yrs=d.year_from?(new Date().getFullYear()-d.year_from):0;
-    document.getElementById('rSince').innerHTML=d.year_from?t.since(d.year_from,_yrs):"";
-    document.getElementById('rMap').innerHTML='<div class="mm-t">'+t.mapT+'</div>'+t.map;
-    document.getElementById('rSamples').innerHTML=d.sample&&d.sample.length?t.ej+d.sample.map(s=>`<b>${s}</b>`).join(" · "):"";
+    last={artist:d.artist,total:d.total,bb:d.black_box,year:d.year_from,sample:d.sample||[],shown:true};
+    renderResult(t);
     document.getElementById('result').style.display='block';
   }catch(ex){err.textContent="Error: "+ex.message;err.style.display='block';}
   finally{btn.disabled=false;btn.textContent=t.scan;}
