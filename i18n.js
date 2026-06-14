@@ -144,7 +144,30 @@
     "Escanear": { en: "Scan", pt: "Escanear", fr: "Scanner" },
     "Elige un rol y escanea.": { en: "Choose a role and scan.", pt: "Escolha uma função e escaneie.", fr: "Choisissez un rôle et scannez." },
     "Escribe el nombre…": { en: "Type the name…", pt: "Digite o nome…", fr: "Saisissez le nom…" },
-    "Visor de Catálogo": { en: "Catalog Viewer", pt: "Visualizador de Catálogo", fr: "Visionneuse de Catalogue" }
+    "Visor de Catálogo": { en: "Catalog Viewer", pt: "Visualizador de Catálogo", fr: "Visionneuse de Catalogue" },
+    "¿Para quién es SOLNOTA?": { en: "Who is SOLNOTA for?", pt: "Para quem é a SOLNOTA?", fr: "À qui s'adresse SOLNOTA ?" },
+    "✅ Es para ti si…": { en: "✅ It's for you if…", pt: "✅ É para você se…", fr: "✅ C'est pour vous si…" },
+    "Eres artista, productor o compositor latino y quieres TODO tu dinero.": { en: "You're a Latin artist, producer or songwriter and want ALL your money.", pt: "Você é artista, produtor ou compositor latino e quer TODO o seu dinheiro.", fr: "Vous êtes artiste, producteur ou compositeur latino et voulez TOUT votre argent." },
+    "Sientes que tu música genera y no sabes cuánto NO te llega.": { en: "You feel your music earns and don't know how much isn't reaching you.", pt: "Você sente que sua música gera e não sabe quanto NÃO chega até você.", fr: "Vous sentez que votre musique génère et ignorez combien ne vous parvient pas." },
+    "Eres manager o sello y manejas varios artistas.": { en: "You're a manager or label handling several artists.", pt: "Você é manager ou selo e gerencia vários artistas.", fr: "Vous êtes manager ou label gérant plusieurs artistes." },
+    "Quieres registrar y reclamar sin pagar comisión sobre tus regalías.": { en: "You want to register and claim without paying commission on your royalties.", pt: "Você quer registrar e reivindicar sem pagar comissão sobre seus royalties.", fr: "Vous voulez enregistrer et réclamer sans payer de commission sur vos royalties." },
+    "✕ No es para ti si…": { en: "✕ It's not for you if…", pt: "✕ Não é para você se…", fr: "✕ Ce n'est pas pour vous si…" },
+    "Buscas que alguien se quede con un % de tus regalías de por vida.": { en: "You want someone to keep a % of your royalties for life.", pt: "Você quer que alguém fique com uma % dos seus royalties para sempre.", fr: "Vous voulez que quelqu'un garde un % de vos royalties à vie." },
+    "No tienes música publicada todavía.": { en: "You don't have music released yet.", pt: "Você ainda não tem música publicada.", fr: "Vous n'avez pas encore de musique publiée." },
+    "Quieres que otro cobre tu dinero por ti (aquí cobras tú, directo).": { en: "You want someone else to collect your money (here you collect directly).", pt: "Você quer que outro receba seu dinheiro (aqui você recebe direto).", fr: "Vous voulez qu'un autre encaisse votre argent (ici vous encaissez directement)." },
+    "Preguntas frecuentes": { en: "Frequently asked questions", pt: "Perguntas frequentes", fr: "Questions fréquentes" },
+    "¿SOLNOTA toca mi dinero?": { en: "Does SOLNOTA touch my money?", pt: "A SOLNOTA toca no meu dinheiro?", fr: "SOLNOTA touche-t-il à mon argent ?" },
+    "No, nunca. Tus regalías las pagan directamente las organizaciones (MLC, PROs, SoundExchange) a ti. SOLNOTA solo te ayuda a encontrarlas y reclamarlas.": { en: "No, never. Your royalties are paid directly to you by the organizations (MLC, PROs, SoundExchange). SOLNOTA only helps you find and claim them.", pt: "Não, nunca. Seus royalties são pagos diretamente a você pelas organizações (MLC, PROs, SoundExchange). A SOLNOTA só ajuda a encontrá-los e reivindicá-los.", fr: "Non, jamais. Vos royalties vous sont versées directement par les organisations (MLC, PRO, SoundExchange). SOLNOTA vous aide seulement à les trouver et à les réclamer." },
+    "¿Cobran comisión sobre mis regalías?": { en: "Do you charge commission on my royalties?", pt: "Vocês cobram comissão sobre meus royalties?", fr: "Prenez-vous une commission sur mes royalties ?" },
+    "0%, nunca. Pagas una tarifa plana mensual y te quedas con el 100% de tu dinero.": { en: "0%, never. You pay a flat monthly fee and keep 100% of your money.", pt: "0%, nunca. Você paga uma taxa fixa mensal e fica com 100% do seu dinheiro.", fr: "0%, jamais. Vous payez un tarif fixe mensuel et gardez 100% de votre argent." },
+    "¿Mi música sigue siendo mía?": { en: "Is my music still mine?", pt: "Minha música continua minha?", fr: "Ma musique reste-t-elle la mienne ?" },
+    "Sí, 100%. SOLNOTA no adquiere ningún porcentaje de tu copyright. Solo administramos con tu autorización firmada.": { en: "Yes, 100%. SOLNOTA acquires no percentage of your copyright. We only administer with your signed authorization.", pt: "Sim, 100%. A SOLNOTA não adquire nenhuma porcentagem do seu copyright. Só administramos com sua autorização assinada.", fr: "Oui, 100%. SOLNOTA n'acquiert aucun pourcentage de votre copyright. Nous administrons uniquement avec votre autorisation signée." },
+    "¿Y si cancelo?": { en: "What if I cancel?", pt: "E se eu cancelar?", fr: "Et si j'annule ?" },
+    "Tu dinero no se corta: sigue llegándote directo de las organizaciones. Te quedas con tus registros y tus datos. Sin penalidad ni comisión de salida.": { en: "Your money isn't cut off: it keeps reaching you directly from the organizations. You keep your registrations and your data. No penalty or exit fee.", pt: "Seu dinheiro não é cortado: continua chegando direto das organizações. Você mantém seus registros e seus dados. Sem multa nem comissão de saída.", fr: "Votre argent n'est pas coupé : il continue de vous parvenir directement des organisations. Vous gardez vos enregistrements et vos données. Sans pénalité ni frais de sortie." },
+    "¿Es seguro?": { en: "Is it secure?", pt: "É seguro?", fr: "Est-ce sécurisé ?" },
+    "Sí. Datos cifrados, no vendemos tu información, y nunca pedimos tus datos bancarios.": { en: "Yes. Encrypted data, we don't sell your information, and we never ask for your bank details.", pt: "Sim. Dados criptografados, não vendemos suas informações e nunca pedimos seus dados bancários.", fr: "Oui. Données chiffrées, nous ne vendons pas vos informations et ne demandons jamais vos coordonnées bancaires." },
+    "¿Cuánto cuesta?": { en: "How much does it cost?", pt: "Quanto custa?", fr: "Combien ça coûte ?" },
+    "Desde $19.99 al mes (plan Artista). Sin comisión sobre regalías. Cancela cuando quieras.": { en: "From $19.99/month (Artist plan). No commission on royalties. Cancel anytime.", pt: "A partir de $19.99/mês (plano Artista). Sem comissão sobre royalties. Cancele quando quiser.", fr: "À partir de 19,99 $/mois (forfait Artiste). Sans commission sur les royalties. Annulez quand vous voulez." }
   };
 
   var ATTRS = ["placeholder", "title", "aria-label"];
@@ -203,7 +226,7 @@
       "font-family:system-ui,-apple-system,sans-serif}" +
       ".sn-lang button{background:none;border:none;color:#8A8A9A;font-weight:800;font-size:12px;" +
       "letter-spacing:.4px;padding:6px 10px;border-radius:999px;cursor:pointer;transition:.15s}" +
-      ".sn-lang button.active{background:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);color:#05050A}";
+      ".sn-lang button.active{background:linear-gradient(90deg,#E0C078,#C9A24B,#B8923D,#A87E2C);color:#05050A}";
     document.head.appendChild(css);
     var bar = document.createElement("div");
     bar.className = "sn-lang";
