@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Gabi — SOLNOTA (privado)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A24B;--gold2:#E0C078;--bg:#0D0D0F;--panel:#15140f;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;--red:#c46b5a;--green:#6fae7a;--yellow:#d6b24b;--blue:#6f8fae;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);padding:34px 18px;}
+.wrap{max-width:780px;margin:0 auto;}
+.top{text-align:center;margin-bottom:8px;}
+h1{font-family:'Italiana',serif;font-size:46px;letter-spacing:5px;}
+.tag{color:var(--gold);font-size:12px;letter-spacing:4px;text-transform:uppercase;}
+.priv{display:inline-block;margin-top:8px;font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 12px;letter-spacing:1px;}
+.bar-wrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:22px 0;}
+.bar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.bar-top .lbl{font-size:13px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.bar-top .pct{font-family:'Italiana',serif;font-size:30px;color:var(--gold);}
+.bar{height:10px;background:#231f16;border-radius:6px;overflow:hidden;}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#E0C078,#C9A24B);width:0;transition:width .4s;}
+.src{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px;}
+.src.green{border-left:4px solid var(--green);}
+.src.yellow{border-left:4px solid var(--yellow);}
+.src.red{border-left:4px solid var(--red);}
+.src.blue{border-left:4px solid var(--blue);opacity:.78;}
+.sh{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;}
+.sh h2{font-size:18px;font-weight:700;}
+.pill{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:999px;}
+.pill.green{background:rgba(111,174,122,.16);color:var(--green);}
+.pill.yellow{background:rgba(214,178,75,.16);color:var(--yellow);}
+.pill.red{background:rgba(196,107,90,.16);color:var(--red);}
+.pill.blue{background:rgba(111,143,174,.16);color:var(--blue);}
+.desc{font-size:13px;color:var(--muted);margin:8px 0 12px;line-height:1.5;}
+.desc b{color:var(--cream);}
+.step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-top:1px solid #1c190f;}
+.step input{margin-top:3px;width:17px;height:17px;accent-color:var(--gold);flex:none;cursor:pointer;}
+.step label{font-size:14px;color:#cfc8b8;line-height:1.45;cursor:pointer;}
+.step label.done{text-decoration:line-through;color:var(--muted);}
+.step a{color:var(--gold);text-decoration:none;}
+.next{margin-top:10px;font-size:12px;color:var(--gold2);}
+.reset{display:block;margin:24px auto 0;background:transparent;border:1px solid var(--line);color:var(--muted);padding:9px 18px;border-radius:10px;font-size:12px;cursor:pointer;}
+footer{margin-top:26px;text-align:center;font-size:11px;color:#55514a;letter-spacing:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Panel de Gabi</h1>
+    <div class="tag">SOLNOTA · Cobrar su dinero</div>
+    <div class="priv">🔒 Privado · solo tú · guarda tu progreso en este navegador</div>
+  </div>
+
+  <div class="bar-wrap">
+    <div class="bar-top"><span class="lbl">Progreso del carril verde</span><span class="pct" id="pct">0%</span></div>
+    <div class="bar"><i id="barFill"></i></div>
+  </div>
+
+  <div id="srcs"></div>
+
+  <button class="reset" onclick="resetAll()">↺ Reiniciar progreso</button>
+  <footer>SOLNOTA · GPS, no chofer · nunca tocamos su dinero</footer>
+</div>
+
+<script>
+const DATA=[
+ {id:"mlc",cls:"red",pill:"red",pillTx:"Pendiente",name:"🟢 Mecánicas — The MLC",
+  desc:"Streaming en EE.UU. (gran parte del black box). <b>Candado: falta el IPI de BMI (Sol Music Group Publishing).</b>",
+  next:"Próximo: conseguir el IPI → registrar las 39 obras.",
+  steps:[
+   {t:'Confirmar el IPI de BMI (Sol Music Group Publishing)'},
+   {t:'Verificar banco en The MLC (Sol Music Corp)'},
+   {t:'Registrar las 39 obras (usar el split sheet ya hecho) — <a href="https://www.themlc.com" target="_blank">themlc.com</a>'},
+   {t:'Reclamar el histórico / black box'}
+  ]},
+ {id:"bmi",cls:"yellow",pill:"yellow",pillTx:"Cobrando",name:"🟢 Performance — BMI",
+  desc:"Ejecución pública. Ya cobra (~$293 YTD). Falta confirmar que TODAS las obras estén registradas.",
+  next:"Próximo: auditar obras faltantes en BMI.",
+  steps:[
+   {t:'Entrar a BMI y listar obras registradas — <a href="https://www.bmi.com" target="_blank">bmi.com</a>'},
+   {t:'Comparar con el catálogo (46 obras) y registrar las que falten'},
+   {t:'Confirmar banco/pago al día'}
+  ]},
+ {id:"se",cls:"yellow",pill:"yellow",pillTx:"Verificar",name:"🟢 SoundExchange — parte de ARTISTA",
+  desc:"Radio digital por sus grabaciones. Ya tiene cuenta. <b>La parte de artista es de ella SIEMPRE</b> (no la toca OneRPM).",
+  next:"Próximo: verificar pagos pendientes + banco.",
+  steps:[
+   {t:'Entrar a SoundExchange y revisar pagos pendientes — <a href="https://www.soundexchange.com" target="_blank">soundexchange.com</a>'},
+   {t:'Confirmar banco (Sol Music Corp) al día'},
+   {t:'Verificar que todas las grabaciones estén asociadas'}
+  ]},
+ {id:"sync",cls:"red",pill:"red",pillTx:"Sin empezar",name:"🟢 Sync de composición",
+  desc:"Su música en TV, cine, anuncios, videojuegos. Carril libre (no hay publishing deal con OneRPM).",
+  next:"Próximo: armar one-sheet del catálogo y pitchear.",
+  steps:[
+   {t:'Armar one-sheet del catálogo (estilos, moods, ISRCs)'},
+   {t:'Listar 5 oportunidades de sync (libraries / supervisores)'},
+   {t:'Enviar pitch (recordar: requiere su aprobación por escrito si lo procura OneRPM)'}
+  ]},
+ {id:"conexos",cls:"red",pill:"red",pillTx:"Futuro",name:"🟢 Conexos (artista) fuera de EE.UU.",
+  desc:"Performance del máster fuera de EE.UU. — la parte del artista. (La del sello es de OneRPM.)",
+  next:"Próximo: registrar en una sociedad de conexos (cuando aplique).",
+  steps:[
+   {t:'Identificar países con conexos donde suena'},
+   {t:'Registrar la parte de artista (no la del sello)'}
+  ]},
+ {id:"onerpm",cls:"blue",pill:"blue",pillTx:"OneRPM · no tocar",name:"🔴 Máster · YouTube · UGC",
+  desc:"Distribución, canal @lagabi + Content ID, TikTok/IG/FB. <b>Controlado por OneRPM 8 años o hasta recuperar ~$195k.</b> Solo monitorear.",
+  next:"Solo vigilar: cuánto falta para recuperar.",
+  steps:[
+   {t:'Revisar estado de recoupment en el portal de OneRPM'},
+   {t:'NO mover másters · NO subir lo nuevo al canal viejo'}
+  ]}
+];
+
+function key(s,i){return "gabi_"+s+"_"+i;}
+function render(){
+  var box=document.getElementById("srcs"); box.innerHTML="";
+  DATA.forEach(function(s){
+    var el=document.createElement("div"); el.className="src "+s.cls;
+    var steps=s.steps.map(function(st,i){
+      var k=key(s.id,i); var done=localStorage.getItem(k)==="1";
+      return '<div class="step"><input type="checkbox" id="'+k+'" '+(done?"checked":"")+' onchange="toggle(\''+k+'\')"><label for="'+k+'" class="'+(done?"done":"")+'" id="lbl_'+k+'">'+st.t+'</label></div>';
+    }).join("");
+    el.innerHTML='<div class="sh"><h2>'+s.name+'</h2><span class="pill '+s.pill+'">'+s.pillTx+'</span></div>'+
+      '<div class="desc">'+s.desc+'</div>'+steps+'<div class="next">'+s.next+'</div>';
+    box.appendChild(el);
+  });
+  updateBar();
+}
+function toggle(k){
+  var c=document.getElementById(k); localStorage.setItem(k,c.checked?"1":"0");
+  document.getElementById("lbl_"+k).className=c.checked?"done":"";
+  updateBar();
+}
+function updateBar(){
+  var total=0,done=0;
+  DATA.forEach(function(s){s.steps.forEach(function(st,i){total++;if(localStorage.getItem(key(s.id,i))==="1")done++;});});
+  var pct=total?Math.round(done/total*100):0;
+  document.getElementById("pct").textContent=pct+"%";
+  document.getElementById("barFill").style.width=pct+"%";
+}
+function resetAll(){
+  if(!confirm("¿Reiniciar todo el progreso?"))return;
+  DATA.forEach(function(s){s.steps.forEach(function(st,i){localStorage.removeItem(key(s.id,i));});});
+  render();
+}
+render();
+</script>
+</body>
+</html>
