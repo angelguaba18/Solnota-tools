@@ -24,7 +24,7 @@
     "Escanear mi música →": { en: "Scan my music →", pt: "Escanear minha música →", fr: "Scanner ma musique →" },
     "SOLNOTA · Empieza en 60 segundos": { en: "SOLNOTA · Get started in 60 seconds", pt: "SOLNOTA · Comece em 60 segundos", fr: "SOLNOTA · Commencez en 60 secondes" },
 "Abrir →": { en: "Open →", pt: "Abrir →", fr: "Ouvrir →" },
-    "Sol Music Corp · SOLNOTA · Firma → Registra → Monitorea → Cobra": { en: "Sol Music Corp · SOLNOTA · Sign → Register → Monitor → Collect", pt: "Sol Music Corp · SOLNOTA · Assine → Registre → Monitore → Receba", fr: "Sol Music Corp · SOLNOTA · Signe → Enregistre → Surveille → Encaisse" },
+    "SOLNOTA · Firma → Registra → Monitorea → Cobra": { en: "SOLNOTA · Sign → Register → Monitor → Collect", pt: "SOLNOTA · Assine → Registre → Monitore → Receba", fr: "SOLNOTA · Signe → Enregistre → Surveille → Encaisse" },
     "Escanea la obra por ISRC, reparte splits y genera el archivo CWR byte-perfect para PROs y MLC.": { en: "Scan the work by ISRC, split shares and generate the byte-perfect CWR file for PROs and The MLC.", pt: "Escaneie a obra por ISRC, divida os splits e gere o arquivo CWR byte-perfect para PROs e MLC.", fr: "Scannez l'œuvre par ISRC, répartissez les splits et générez le fichier CWR byte-perfect pour les PRO et le MLC." },
     "Carta para que SoundExchange pague al productor su % del máster (AMP Act). Lista para firmar.": { en: "Letter so SoundExchange pays the producer their % of the master (AMP Act). Ready to sign.", pt: "Carta para que o SoundExchange pague ao produtor sua % do master (AMP Act). Pronta para assinar.", fr: "Lettre pour que SoundExchange paie au producteur son % du master (AMP Act). Prête à signer." },
 
