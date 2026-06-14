@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FF9500">
+<meta name="theme-color" content="#C9A24B">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -18,8 +18,8 @@
 <meta property="og:url" content="https://tools.solnota.com/split">
 <meta name="twitter:card" content="summary">
 <style>
-  :root{--gold:#FF9500;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
-    --grad:linear-gradient(90deg,#FFCC00,#FF9500,#FF5E00,#CC2900);}
+  :root{--gold:#C9A24B;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;--ok:#3DDC7F;--bad:#FF5E5E;
+    --grad:linear-gradient(90deg,#E0C078,#C9A24B,#B8923D,#A87E2C);}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;padding:24px 18px;min-height:100vh}
   .wrap{max-width:980px;margin:0 auto}
@@ -43,7 +43,7 @@
   .res .iz{font-family:monospace;font-size:12px;color:var(--ok)}
   .res button{background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:700}
   .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-  .chip{display:flex;align-items:center;gap:6px;background:rgba(255,149,0,.12);border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:5px 10px;font-family:monospace;font-size:12px}
+  .chip{display:flex;align-items:center;gap:6px;background:rgba(201,162,75,.12);border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:5px 10px;font-family:monospace;font-size:12px}
   .chip b{cursor:pointer}
   .writer{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;position:relative}
   .del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--bad);cursor:pointer;font-size:17px}
@@ -124,14 +124,13 @@ svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}
     <button class="b ghost" id="btnImp">📂 Importar</button>
     <input id="imp" type="file" accept=".json" style="display:none">
   </div>
-  <div class="note" style="margin-top:14px;background:rgba(255,149,0,.08);border:1px solid rgba(255,149,0,.3);border-radius:10px;padding:12px 14px;line-height:1.7">
+  <div class="note" style="margin-top:14px;background:rgba(201,162,75,.08);border:1px solid rgba(201,162,75,.3);border-radius:10px;padding:12px 14px;line-height:1.7">
     <strong style="color:var(--gold)">📤 ¿A dónde envío este CWR?</strong><br>
     • <strong>Mecánicas (USA):</strong> The MLC — <a href="https://portal.themlc.com/contact-us" target="_blank" rel="noopener" style="color:var(--gold)">portal.themlc.com/contact-us</a><br>
     • <strong>PROs (BMI · ASCAP · SOCAN a la vez):</strong> MusicMark — <a href="https://www.musicmark.com" target="_blank" rel="noopener" style="color:var(--gold)">musicmark.com</a> (un solo archivo cubre los 3)<br>
     El mismo Sender ID sirve para los dos.
   </div>
 </div>
-
 <script>
 const APPLE="https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/apple?artist=";
 const PROS=["BMI","ASCAP","SESAC","GMR","SACM (México)","SAYCO (Colombia)","SGACEDOM (Rep. Dominicana)","ABRAMUS (Brasil)","UBC (Brasil)","SADAIC (Argentina)","SGAE (España)","APDAYC (Perú)","Otra / No afiliado"];
@@ -148,7 +147,7 @@ function renderResults(list,msg){
   if(msg){box.innerHTML='<div class="note" style="padding:8px">'+msg+'</div>';return;}
   box.innerHTML=list.map((t,i)=>(
     '<div class="res"><div class="meta">'+esc(t.title)+' <span class="note">· '+esc(t.album||'')+'</span><br><span class="iz">'+(t.isrc||'sin ISRC')+'</span></div>'
-    +'<button data-pick="'+i+'">➕ usar</button></div>'
+    +'<button data-pick="'+i+'">⚕ usar</button></div>'
   )).join('');
 }
 async function buscar(){
@@ -171,7 +170,7 @@ function addISRC(code){
 }
 function renderChips(){
   document.getElementById('isrc_chips').innerHTML=ISRCS.length
-    ? ISRCS.map((c,i)=>'<span class="chip">'+c+' <b data-rmisrc="'+i+'">✕</b></span>').join('')
+    ? ISRCS.map((c,i)=>'<span class="chip">'+c+' <b data-rmisrc="'+i+'">✕</b></span>&).join('')
     : '<span class="note">— ninguno aún —</span>';
 }
 
@@ -217,7 +216,6 @@ document.getElementById('results').addEventListener('click',e=>{
     if(!val('w_title')&&t.title)setv('w_title',t.title);
     if(t.isrc)addISRC(t.isrc);
     if(!val('w_date')&&t.date)setv('w_date',t.date);
-    // prellena escritor #1 con el artista si está vacío (default lógico)
     if(WRITERS.length===1 && !WRITERS[0].name && ARTISTNAME){
       WRITERS[0].name=ARTISTNAME; if(!WRITERS[0].pub)WRITERS[0].pub='Sol Music Corp'; if(!WRITERS[0].share)WRITERS[0].share='100'; render();
     }
