@@ -87,6 +87,7 @@ footer{margin-top:30px;font-size:11px;color:#55514a;letter-spacing:2px;text-alig
     <div class="block green" id="greenBlock"><div class="b-t" id="greenT"></div><div id="greenRows"></div></div>
     <div class="block red" id="redBlock"><div class="b-t" id="redT"></div><div id="redRows"></div></div>
     <div class="block alerts" id="alertBlock"><div class="b-t" id="alertT"></div><div id="alertRows"></div></div>
+    <button class="cta" id="waBtn" onclick="waShare()" style="margin-bottom:10px;"></button>
     <button class="cta" id="shareBtn" onclick="shareLink()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);margin-bottom:14px;"></button>
     <div class="cta-box">
       <p id="ctaP"></p>
@@ -126,6 +127,7 @@ const T={
    al:{excl:"No saques música nueva por fuera durante el término — eres exclusivo.",yt:"No subas contenido nuevo a tu canal viejo si quieres que sea 100% tuyo — abre un canal nuevo.",master:"No muevas tus másters a otra distribuidora mientras dure el deal.",pub:"Tu publishing está bajo un acuerdo aparte — confirma qué cubre antes de reclamar sync.",free:"Tu publishing (composición) casi siempre queda libre — regístralo en el MLC y tu PRO."},
    ctaP:'¿Quieres que SOLNOTA te ayude a cobrar tu carril libre? <b style="color:var(--gold)">0% comisión.</b>',
    share:"🔗 Copiar mi link", shared:"✅ ¡Link copiado! Pégalo donde quieras.",
+   wa:"📲 Enviar por WhatsApp", waMsg:"Mira tu mapa de derechos con SOLNOTA 👇 Lo que tu sello controla y el dinero que SÍ puedes cobrar (0% comisión):",
    emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto.",
    disc:"SOLNOTA no es un bufete ni da asesoría legal. Esto es una guía educativa basada en tus respuestas. Confirma siempre con tu abogado."},
  en:{tag:"Your music · Your money", h2:"Read my contract",
@@ -145,6 +147,7 @@ const T={
    al:{excl:"Don't release new music elsewhere during the term — you're exclusive.",yt:"Don't upload new content to your old channel if you want it 100% yours — open a new channel.",master:"Don't move your masters to another distributor while the deal lasts.",pub:"Your publishing is under a separate deal — confirm what it covers before claiming sync.",free:"Your publishing (composition) is almost always free — register it with the MLC and your PRO."},
    ctaP:'Want SOLNOTA to help you collect your free lane? <b style="color:var(--gold)">0% commission.</b>',
    share:"🔗 Copy my link", shared:"✅ Link copied! Paste it anywhere.",
+   wa:"📲 Send via WhatsApp", waMsg:"Check your rights map with SOLNOTA 👇 What your label controls and the money you CAN collect (0% commission):",
    emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon.",
    disc:"SOLNOTA is not a law firm and does not give legal advice. This is an educational guide based on your answers. Always confirm with your attorney."},
  pt:{tag:"Tua música · Teu dinheiro", h2:"Lê meu contrato",
@@ -164,6 +167,7 @@ const T={
    al:{excl:"Não lances música nova por fora durante o termo — és exclusivo.",yt:"Não subas conteúdo novo ao teu canal antigo se queres que seja 100% teu — abre um canal novo.",master:"Não movas teus masters para outra distribuidora enquanto durar o deal.",pub:"Teu publishing está num acordo à parte — confirma o que cobre antes de reivindicar sync.",free:"Teu publishing (composição) quase sempre fica livre — regista no MLC e na tua PRO."},
    ctaP:'Queres que a SOLNOTA te ajude a cobrar teu carril livre? <b style="color:var(--gold)">0% comissão.</b>',
    share:"🔗 Copiar meu link", shared:"✅ Link copiado! Cola onde quiseres.",
+   wa:"📲 Enviar por WhatsApp", waMsg:"Vê teu mapa de direitos com a SOLNOTA 👇 O que teu selo controla e o dinheiro que PODES cobrar (0% comissão):",
    emailph:"teu@email.com", join:"Quero meu dinheiro", joined:"Estás na lista! Entramos em contato em breve.",
    disc:"A SOLNOTA não é um escritório de advocacia nem dá aconselhamento jurídico. Isto é um guia educativo baseado nas tuas respostas. Confirma sempre com teu advogado."},
  fr:{tag:"Ta musique · Ton argent", h2:"Lis mon contrat",
@@ -183,6 +187,7 @@ const T={
    al:{excl:"Ne sors pas de nouvelle musique ailleurs pendant le terme — tu es exclusif.",yt:"Ne mets pas de nouveau contenu sur ton ancienne chaîne si tu la veux 100% à toi — ouvre une nouvelle chaîne.",master:"Ne déplace pas tes masters vers un autre distributeur pendant le deal.",pub:"Ton publishing est sous un accord séparé — confirme ce qu'il couvre avant de réclamer le sync.",free:"Ton publishing (composition) est presque toujours libre — enregistre-le au MLC et à ta PRO."},
    ctaP:'Tu veux que SOLNOTA t\'aide à encaisser ta voie libre ? <b style="color:var(--gold)">0% commission.</b>',
    share:"🔗 Copier mon lien", shared:"✅ Lien copié ! Colle-le où tu veux.",
+   wa:"📲 Envoyer par WhatsApp", waMsg:"Regarde ta carte de droits avec SOLNOTA 👇 Ce que ton label contrôle et l'argent que tu PEUX encaisser (0% commission) :",
    emailph:"toi@email.com", join:"Je veux mon argent", joined:"Tu es sur la liste ! On te contacte bientôt.",
    disc:"SOLNOTA n'est pas un cabinet d'avocats et ne donne pas de conseil juridique. Ceci est un guide éducatif basé sur tes réponses. Confirme toujours avec ton avocat."}
 };
@@ -280,18 +285,24 @@ function setLang(l){
   document.getElementById("email").placeholder=t.emailph;
   document.getElementById("joinBtn").textContent=t.join;
   document.getElementById("shareBtn").textContent=t.share;
+  document.getElementById("waBtn").textContent=t.wa;
   document.getElementById("disc").textContent=t.disc;
   ['es','en','pt','fr'].forEach(function(x){document.getElementById('btn-'+x).classList.toggle('active',l===x);});
   if(document.getElementById("result").style.display==="block") run();
 }
-function shareLink(){
-  var t=T[L];
+function myURL(){
   var p=new URLSearchParams({deal:val("q1"),recoup:val("q2"),yt:val("q3"),excl:val("q4"),pub:val("q5"),lang:L});
-  var url=location.origin+location.pathname+"?"+p.toString();
-  var btn=document.getElementById("shareBtn");
+  return location.origin+location.pathname+"?"+p.toString();
+}
+function shareLink(){
+  var t=T[L]; var url=myURL(); var btn=document.getElementById("shareBtn");
   function ok(){btn.textContent=t.shared;setTimeout(function(){btn.textContent=t.share;},2500);}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(ok,function(){prompt("Link:",url);});}
   else{prompt("Link:",url);}
+}
+function waShare(){
+  var t=T[L]; var txt=t.waMsg+"\n\n"+myURL();
+  window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank");
 }
 function loadParams(){
   var p=new URLSearchParams(location.search);
@@ -307,9 +318,10 @@ async function join(e){
   e.preventDefault(); var t=T[L];
   var email=document.getElementById('email').value.trim();
   var btn=document.getElementById('joinBtn'); btn.disabled=true; btn.textContent='…';
+  var profile="contrato:"+val("q1")+"|recoup="+val("q2")+"|yt="+val("q3")+"|excl="+val("q4")+"|pub="+val("q5");
   try{
     await fetch(ENDPOINT,{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},
-      body:JSON.stringify({email,artist:"contrato-tool",total:0,black_box:0})});
+      body:JSON.stringify({email,artist:profile,total:0,black_box:0})});
     document.getElementById('mailForm').style.display='none';
     var m=document.getElementById('msg'); m.textContent=t.joined; m.style.display='block';
   }catch(ex){btn.disabled=false;btn.textContent=t.join;}
