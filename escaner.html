@@ -82,9 +82,9 @@ const T={
      lead:"Tu música lleva años generando dinero.<br>Descubre cuánto NO te está llegando.",
      sub:"Escribe tu nombre de artista. Escaneamos tu catálogo en segundos.",
      ph:"Tu nombre de artista", scan:"Escanear", scanning:"Escaneando…",
-     lbl:"obras encontradas en tus plataformas",
-     big:(b)=>`Hasta <span style="color:var(--cream)">${b}</span> podrían tener dinero sin reclamar.`,
-     since:(y)=>`💰 Tu música genera dinero desde <b>${y}</b>.`,
+     lbl:"obras tuyas generando dinero",
+     big:(b)=>`💰 Tienes regalías <span style="color:var(--cream)">sin reclamar</span>.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">El <b style="color:var(--gold)">black box</b> es el dinero que las plataformas ya recaudaron de tu música, pero que nadie ha cobrado. Te ayudamos a recuperarlo.</div>`,
+     since:(y,n)=>`🎵 Generando regalías desde <b>${y}</b>${n?` — ${n} años cobrando.`:'.'}`,
      ej:"Ej: ", notfound:"No encontramos ese artista. Revisa el nombre exacto.",
      ctaP:'Te ayudamos a recuperar ese dinero — <b style="color:var(--gold)">0% comisión.</b> Déjanos tu correo:',
      emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto."},
@@ -92,9 +92,9 @@ const T={
      lead:"Your music has been making money for years.<br>Find out how much isn't reaching you.",
      sub:"Type your artist name. We scan your catalog in seconds.",
      ph:"Your artist name", scan:"Scan", scanning:"Scanning…",
-     lbl:"works found on your platforms",
-     big:(b)=>`Up to <span style="color:var(--cream)">${b}</span> could have unclaimed money.`,
-     since:(y)=>`💰 Your music has been earning since <b>${y}</b>.`,
+     lbl:"of your works are earning money",
+     big:(b)=>`💰 You have <span style="color:var(--cream)">unclaimed</span> royalties.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">The <b style="color:var(--gold)">black box</b> is money that platforms already collected from your music, but no one has claimed. We help you get it back.</div>`,
+     since:(y,n)=>`🎵 Earning royalties since <b>${y}</b>${n?` — ${n} years and counting.`:'.'}`,
      ej:"E.g.: ", notfound:"We couldn't find that artist. Check the exact name.",
      ctaP:'We help you recover that money — <b style="color:var(--gold)">0% commission.</b> Drop your email:',
      emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon."}
@@ -127,7 +127,8 @@ async function scan(e){
     document.getElementById('rNum').textContent=d.total;
     document.getElementById('rLbl').textContent=t.lbl;
     document.getElementById('rBig').innerHTML=t.big(d.black_box);
-    document.getElementById('rSince').innerHTML=d.year_from?t.since(d.year_from):"";
+    var _yrs=d.year_from?(new Date().getFullYear()-d.year_from):0;
+    document.getElementById('rSince').innerHTML=d.year_from?t.since(d.year_from,_yrs):"";
     document.getElementById('rSamples').innerHTML=d.sample&&d.sample.length?t.ej+d.sample.map(s=>`<b>${s}</b>`).join(" · "):"";
     document.getElementById('result').style.display='block';
   }catch(ex){err.textContent="Error: "+ex.message;err.style.display='block';}
