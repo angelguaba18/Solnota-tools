@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA — Lee mi contrato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A24B;--gold2:#E0C078;--bg:#0D0D0F;--panel:#15140f;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;--red:#c46b5a;--green:#6fae7a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:46px 22px;}
+.lang{position:fixed;top:20px;right:22px;display:flex;gap:2px;border:1px solid #2a271f;border-radius:11px;padding:3px;background:rgba(13,13,15,.7);backdrop-filter:blur(6px);}
+.lang button{padding:6px 13px;border:none;background:transparent;color:var(--muted);font-weight:500;font-size:13px;border-radius:8px;cursor:pointer;letter-spacing:1px;}
+.lang button.active{background:var(--gold);color:#1a160c;}
+.card{max-width:600px;width:100%;text-align:center;}
+.home{display:inline-block;color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;margin-bottom:18px;}
+.home:hover{color:var(--gold);}
+h1{font-family:'Italiana',serif;font-size:clamp(40px,10vw,62px);letter-spacing:8px;padding-left:8px;}
+.tag{color:var(--gold);font-size:12px;letter-spacing:5px;margin-top:6px;text-transform:uppercase;}
+.h2{font-family:'Italiana',serif;font-size:28px;color:var(--cream);margin:26px 0 4px;}
+.lead{font-size:17px;color:#d6d0c4;margin:8px 0 4px;line-height:1.5;}
+.sub{font-size:13px;color:var(--muted);margin-bottom:22px;}
+.form{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:left;}
+.q{margin-bottom:16px;}
+.q label{display:block;font-size:14px;color:#d6d0c4;margin-bottom:7px;font-weight:500;}
+select{width:100%;padding:13px 14px;border-radius:11px;border:1px solid #2f2b22;background:#15140f;color:var(--cream);font-size:15px;font-family:inherit;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23C9A24B' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;}
+select:focus{outline:none;border-color:var(--gold);}
+button.cta{width:100%;margin-top:6px;padding:16px;border:none;border-radius:12px;background:var(--gold);color:#1a160c;font-weight:600;font-size:16px;cursor:pointer;transition:transform .15s,background .15s;letter-spacing:.5px;}
+button.cta:hover{transform:translateY(-2px);background:var(--gold2);}
+.result{display:none;margin-top:24px;text-align:left;}
+.block{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px;}
+.block.red{border-color:#4a2a22;}
+.block.green{border-color:#274a2e;}
+.b-t{font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+.red .b-t{color:var(--red);}
+.green .b-t{color:var(--green);}
+.row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #1c190f;}
+.row:last-child{border-bottom:none;}
+.dot{flex:none;margin-top:2px;font-size:13px;}
+.red .dot{color:var(--red);}
+.green .dot{color:var(--green);}
+.rtx{font-size:14px;color:#cfc8b8;line-height:1.45;}
+.rtx b{color:var(--cream);}
+.note{background:#1a160c;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:14px 16px;font-size:13.5px;color:#cfc8b8;line-height:1.55;margin-bottom:14px;}
+.note b{color:var(--gold2);}
+.alerts .b-t{color:var(--gold);}
+.alerts .row .dot{color:var(--gold);}
+.cta-box{background:var(--panel);border:1px solid var(--gold);border-radius:16px;padding:22px;margin-top:6px;text-align:center;}
+.cta-box p{font-size:14px;margin-bottom:12px;color:#d6d0c4;}
+.cta-box form{display:flex;gap:8px;flex-wrap:wrap;}
+.cta-box input{flex:1;min-width:180px;padding:14px;border-radius:11px;border:1px solid #2f2b22;background:#15140f;color:var(--cream);font-size:15px;font-family:inherit;}
+.cta-box input:focus{outline:none;border-color:var(--gold);}
+.cta-box button{padding:14px 22px;border:none;border-radius:11px;background:var(--gold);color:#1a160c;font-weight:600;font-size:15px;cursor:pointer;}
+.msg{display:none;margin-top:14px;font-size:15px;color:var(--gold2);font-weight:500;}
+.disc{font-size:11px;color:#55514a;line-height:1.6;margin-top:16px;}
+footer{margin-top:30px;font-size:11px;color:#55514a;letter-spacing:2px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="lang">
+  <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+  <button id="btn-pt" onclick="setLang('pt')">PT</button>
+  <button id="btn-fr" onclick="setLang('fr')">FR</button>
+</div>
+<div class="card">
+  <a href="/" class="home" id="home">← SOLNOTA</a>
+  <h1>SOLNOTA</h1>
+  <div class="tag" id="tag">Tu música · Tu dinero</div>
+  <div class="h2" id="h2"></div>
+  <p class="lead" id="lead"></p>
+  <p class="sub" id="sub"></p>
+
+  <div class="form">
+    <div class="q"><label id="lq1"></label><select id="q1"></select></div>
+    <div class="q"><label id="lq2"></label><select id="q2"></select></div>
+    <div class="q"><label id="lq3"></label><select id="q3"></select></div>
+    <div class="q"><label id="lq4"></label><select id="q4"></select></div>
+    <div class="q"><label id="lq5"></label><select id="q5"></select></div>
+    <button class="cta" id="goBtn" onclick="run()"></button>
+  </div>
+
+  <div class="result" id="result">
+    <div class="note" id="clock"></div>
+    <div class="block green" id="greenBlock"><div class="b-t" id="greenT"></div><div id="greenRows"></div></div>
+    <div class="block red" id="redBlock"><div class="b-t" id="redT"></div><div id="redRows"></div></div>
+    <div class="block alerts" id="alertBlock"><div class="b-t" id="alertT"></div><div id="alertRows"></div></div>
+    <div class="cta-box">
+      <p id="ctaP"></p>
+      <form id="mailForm" onsubmit="join(event)">
+        <input id="email" type="email" required>
+        <button type="submit" id="joinBtn"></button>
+      </form>
+      <div class="msg" id="msg"></div>
+    </div>
+    <div class="disc" id="disc"></div>
+  </div>
+
+  <footer>SOLNOTA · Firma → Registra → Monitorea → Cobra</footer>
+</div>
+
+<script>
+const ENDPOINT="https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/scan";
+const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";
+
+const SRC=["master","youtube","ugc","neigh","se","mlc","pro","sync"];
+
+const T={
+ es:{tag:"Tu música · Tu dinero", h2:"Lee mi contrato",
+   lead:"Responde 5 preguntas. Te decimos qué controla tu sello y qué dinero es tuyo — sin romper tu deal.",
+   sub:"Automático · simple · 0% comisión",
+   q1:"¿Qué tipo de deal tienes?", o1:{dist:"Distribución / Máster (Spotify, Apple…)",pub:"Publishing (composición)",threesixty:"360 / Sello completo",none:"No tengo deal — soy independiente"},
+   q2:"¿Tu adelanto es recuperable?", o2:{yes:"Sí",no:"No",idk:"No sé"},
+   q3:"¿El sello maneja tu canal de YouTube?", o3:{yes:"Sí",no:"No"},
+   q4:"¿Eres exclusivo (no puedes sacar música por fuera)?", o4:{yes:"Sí",no:"No"},
+   q5:"¿Tienes un acuerdo de publishing aparte?", o5:{yes:"Sí",no:"No"},
+   go:"Ver mi mapa",
+   greenT:"🟢 Tu carril libre — cóbralo",
+   redT:"🔴 Lo controla tu sello — no lo toques",
+   alertT:"⚠️ Alertas — qué NO hacer",
+   src:{master:"Distribución del máster (Spotify, Apple)",youtube:"YouTube: canal + Content ID + Shorts",ugc:"UGC (TikTok / Instagram / Facebook)",neigh:"Derechos conexos — parte del sello",se:"SoundExchange — parte de ARTISTA",mlc:"Mecánicas (The MLC)",pro:"Performance (tu PRO / BMI / ASCAP)",sync:"Sync de composición (TV, cine, anuncios)"},
+   clk:{yes:"⏰ <b>Reloj:</b> tu adelanto es recuperable — el sello cobra primero de TU parte hasta pagar la deuda. No te liberas hasta que recuperen (típico: 8 años o hasta recuperar, lo que tarde más).",no:"⏰ <b>Reloj:</b> revisa el término y la duración de licencia de cada canción en tu contrato (típico: varios años o hasta recuperar).",none:"⏰ <b>Reloj:</b> no tienes deal — tú controlas el 100% y el tiempo lo decides tú."},
+   al:{excl:"No saques música nueva por fuera durante el término — eres exclusivo.",yt:"No subas contenido nuevo a tu canal viejo si quieres que sea 100% tuyo — abre un canal nuevo.",master:"No muevas tus másters a otra distribuidora mientras dure el deal.",pub:"Tu publishing está bajo un acuerdo aparte — confirma qué cubre antes de reclamar sync.",free:"Tu publishing (composición) casi siempre queda libre — regístralo en el MLC y tu PRO."},
+   ctaP:'¿Quieres que SOLNOTA te ayude a cobrar tu carril libre? <b style="color:var(--gold)">0% comisión.</b>',
+   emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto.",
+   disc:"SOLNOTA no es un bufete ni da asesoría legal. Esto es una guía educativa basada en tus respuestas. Confirma siempre con tu abogado."},
+ en:{tag:"Your music · Your money", h2:"Read my contract",
+   lead:"Answer 5 questions. We tell you what your label controls and what money is yours — without breaking your deal.",
+   sub:"Automatic · simple · 0% commission",
+   q1:"What kind of deal do you have?", o1:{dist:"Distribution / Master (Spotify, Apple…)",pub:"Publishing (composition)",threesixty:"360 / Full label",none:"No deal — I'm independent"},
+   q2:"Is your advance recoupable?", o2:{yes:"Yes",no:"No",idk:"Not sure"},
+   q3:"Does the label run your YouTube channel?", o3:{yes:"Yes",no:"No"},
+   q4:"Are you exclusive (can't release music elsewhere)?", o4:{yes:"Yes",no:"No"},
+   q5:"Do you have a separate publishing deal?", o5:{yes:"Yes",no:"No"},
+   go:"See my map",
+   greenT:"🟢 Your free lane — collect it",
+   redT:"🔴 Your label controls this — don't touch",
+   alertT:"⚠️ Alerts — what NOT to do",
+   src:{master:"Master distribution (Spotify, Apple)",youtube:"YouTube: channel + Content ID + Shorts",ugc:"UGC (TikTok / Instagram / Facebook)",neigh:"Neighbouring rights — label share",se:"SoundExchange — ARTIST share",mlc:"Mechanical (The MLC)",pro:"Performance (your PRO / BMI / ASCAP)",sync:"Composition sync (TV, film, ads)"},
+   clk:{yes:"⏰ <b>Clock:</b> your advance is recoupable — the label collects from YOUR share first until the debt is paid. You can't leave until they recoup (typical: 8 years or until recouped, whichever is later).",no:"⏰ <b>Clock:</b> check the term and each song's license period in your contract (typical: several years or until recouped).",none:"⏰ <b>Clock:</b> no deal — you control 100% and you decide the timing."},
+   al:{excl:"Don't release new music elsewhere during the term — you're exclusive.",yt:"Don't upload new content to your old channel if you want it 100% yours — open a new channel.",master:"Don't move your masters to another distributor while the deal lasts.",pub:"Your publishing is under a separate deal — confirm what it covers before claiming sync.",free:"Your publishing (composition) is almost always free — register it with the MLC and your PRO."},
+   ctaP:'Want SOLNOTA to help you collect your free lane? <b style="color:var(--gold)">0% commission.</b>',
+   emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon.",
+   disc:"SOLNOTA is not a law firm and does not give legal advice. This is an educational guide based on your answers. Always confirm with your attorney."},
+ pt:{tag:"Tua música · Teu dinheiro", h2:"Lê meu contrato",
+   lead:"Responde 5 perguntas. Te dizemos o que o teu selo controla e qual dinheiro é teu — sem quebrar teu deal.",
+   sub:"Automático · simples · 0% comissão",
+   q1:"Que tipo de deal tens?", o1:{dist:"Distribuição / Master (Spotify, Apple…)",pub:"Publishing (composição)",threesixty:"360 / Selo completo",none:"Não tenho deal — sou independente"},
+   q2:"Teu adiantamento é recuperável?", o2:{yes:"Sim",no:"Não",idk:"Não sei"},
+   q3:"O selo administra teu canal do YouTube?", o3:{yes:"Sim",no:"Não"},
+   q4:"És exclusivo (não podes lançar música por fora)?", o4:{yes:"Sim",no:"Não"},
+   q5:"Tens um acordo de publishing à parte?", o5:{yes:"Sim",no:"Não"},
+   go:"Ver meu mapa",
+   greenT:"🟢 Teu carril livre — cobra",
+   redT:"🔴 O teu selo controla — não toques",
+   alertT:"⚠️ Alertas — o que NÃO fazer",
+   src:{master:"Distribuição do master (Spotify, Apple)",youtube:"YouTube: canal + Content ID + Shorts",ugc:"UGC (TikTok / Instagram / Facebook)",neigh:"Direitos conexos — parte do selo",se:"SoundExchange — parte de ARTISTA",mlc:"Mecânicas (The MLC)",pro:"Performance (tua PRO / BMI / ASCAP)",sync:"Sync de composição (TV, cinema, anúncios)"},
+   clk:{yes:"⏰ <b>Relógio:</b> teu adiantamento é recuperável — o selo cobra primeiro da TUA parte até pagar a dívida. Não te libertas até recuperarem (típico: 8 anos ou até recuperar, o que demorar mais).",no:"⏰ <b>Relógio:</b> verifica o termo e a duração de licença de cada música no contrato (típico: vários anos ou até recuperar).",none:"⏰ <b>Relógio:</b> não tens deal — controlas 100% e o tempo decides tu."},
+   al:{excl:"Não lances música nova por fora durante o termo — és exclusivo.",yt:"Não subas conteúdo novo ao teu canal antigo se queres que seja 100% teu — abre um canal novo.",master:"Não movas teus masters para outra distribuidora enquanto durar o deal.",pub:"Teu publishing está num acordo à parte — confirma o que cobre antes de reivindicar sync.",free:"Teu publishing (composição) quase sempre fica livre — regista no MLC e na tua PRO."},
+   ctaP:'Queres que a SOLNOTA te ajude a cobrar teu carril livre? <b style="color:var(--gold)">0% comissão.</b>',
+   emailph:"teu@email.com", join:"Quero meu dinheiro", joined:"Estás na lista! Entramos em contato em breve.",
+   disc:"A SOLNOTA não é um escritório de advocacia nem dá aconselhamento jurídico. Isto é um guia educativo baseado nas tuas respostas. Confirma sempre com teu advogado."},
+ fr:{tag:"Ta musique · Ton argent", h2:"Lis mon contrat",
+   lead:"Réponds à 5 questions. On te dit ce que ton label contrôle et quel argent est à toi — sans casser ton deal.",
+   sub:"Automatique · simple · 0% commission",
+   q1:"Quel type de deal as-tu ?", o1:{dist:"Distribution / Master (Spotify, Apple…)",pub:"Publishing (composition)",threesixty:"360 / Label complet",none:"Pas de deal — je suis indépendant"},
+   q2:"Ton avance est-elle récupérable ?", o2:{yes:"Oui",no:"Non",idk:"Je ne sais pas"},
+   q3:"Le label gère-t-il ta chaîne YouTube ?", o3:{yes:"Oui",no:"Non"},
+   q4:"Es-tu exclusif (pas de sortie ailleurs) ?", o4:{yes:"Oui",no:"Non"},
+   q5:"As-tu un accord de publishing séparé ?", o5:{yes:"Oui",no:"Non"},
+   go:"Voir ma carte",
+   greenT:"🟢 Ta voie libre — encaisse",
+   redT:"🔴 Ton label contrôle — n'y touche pas",
+   alertT:"⚠️ Alertes — ce qu'il NE faut PAS faire",
+   src:{master:"Distribution du master (Spotify, Apple)",youtube:"YouTube : chaîne + Content ID + Shorts",ugc:"UGC (TikTok / Instagram / Facebook)",neigh:"Droits voisins — part du label",se:"SoundExchange — part ARTISTE",mlc:"Mécanique (The MLC)",pro:"Performance (ta PRO / BMI / ASCAP)",sync:"Sync de composition (TV, ciné, pubs)"},
+   clk:{yes:"⏰ <b>Horloge :</b> ton avance est récupérable — le label encaisse d'abord sur TA part jusqu'à rembourser la dette. Tu ne peux pas partir avant qu'ils récupèrent (typique : 8 ans ou jusqu'à récupération, le plus long).",no:"⏰ <b>Horloge :</b> vérifie la durée du terme et de licence de chaque titre dans ton contrat (typique : plusieurs années ou jusqu'à récupération).",none:"⏰ <b>Horloge :</b> pas de deal — tu contrôles 100% et tu décides du timing."},
+   al:{excl:"Ne sors pas de nouvelle musique ailleurs pendant le terme — tu es exclusif.",yt:"Ne mets pas de nouveau contenu sur ton ancienne chaîne si tu la veux 100% à toi — ouvre une nouvelle chaîne.",master:"Ne déplace pas tes masters vers un autre distributeur pendant le deal.",pub:"Ton publishing est sous un accord séparé — confirme ce qu'il couvre avant de réclamer le sync.",free:"Ton publishing (composition) est presque toujours libre — enregistre-le au MLC et à ta PRO."},
+   ctaP:'Tu veux que SOLNOTA t\'aide à encaisser ta voie libre ? <b style="color:var(--gold)">0% commission.</b>',
+   emailph:"toi@email.com", join:"Je veux mon argent", joined:"Tu es sur la liste ! On te contacte bientôt.",
+   disc:"SOLNOTA n'est pas un cabinet d'avocats et ne donne pas de conseil juridique. Ceci est un guide éducatif basé sur tes réponses. Confirme toujours avec ton avocat."}
+};
+
+let L="es";
+
+function compute(a){
+  var red={},green={},alerts=[],clock="";
+  var t=T[L];
+  // default everything green (independent)
+  SRC.forEach(function(s){green[s]=true;});
+  if(a.deal==="none"){
+    clock=t.clk.none;
+    alerts.push("free");
+    return finalize(green,red,alerts,clock);
+  }
+  if(a.deal==="dist"||a.deal==="threesixty"){
+    red.master=true; delete green.master;
+    red.ugc=true; delete green.ugc;
+    red.neigh=true; delete green.neigh;
+    if(a.yt==="yes"){red.youtube=true; delete green.youtube;}
+    // se artist always green; mlc/pro green unless publishing deal
+  }
+  if(a.deal==="pub"){
+    // publishing-only: masters stay with artist, publishing managed by publisher
+    red.mlc=true; delete green.mlc;
+    red.pro=true; delete green.pro;
+    red.sync=true; delete green.sync;
+  }
+  if(a.pub==="yes" && a.deal!=="pub"){
+    red.sync=true; delete green.sync;
+    alerts.push("pub");
+  }
+  // SoundExchange artist share is ALWAYS the artist's
+  green.se=true; delete red.se;
+  // clock
+  if(a.recoup==="yes") clock=t.clk.yes; else clock=t.clk.no;
+  // alerts
+  if(a.excl==="yes") alerts.push("excl");
+  if(a.yt==="yes" && (a.deal==="dist"||a.deal==="threesixty")) alerts.push("yt");
+  if(a.deal==="dist"||a.deal==="threesixty") alerts.push("master");
+  if(Object.keys(green).length) alerts.push("free");
+  return finalize(green,red,alerts,clock);
+}
+function finalize(green,red,alerts,clock){
+  var g=SRC.filter(function(s){return green[s];});
+  var r=SRC.filter(function(s){return red[s];});
+  // de-dup alerts preserving order
+  var seen={},al=[]; alerts.forEach(function(x){if(!seen[x]){seen[x]=1;al.push(x);}});
+  return {green:g,red:r,alerts:al,clock:clock};
+}
+
+function run(){
+  var t=T[L];
+  var a={deal:val("q1"),recoup:val("q2"),yt:val("q3"),excl:val("q4"),pub:val("q5")};
+  var res=compute(a);
+  document.getElementById("clock").innerHTML=res.clock;
+  // green
+  document.getElementById("greenT").textContent=t.greenT;
+  document.getElementById("greenRows").innerHTML=res.green.map(function(s){return rowHTML(t.src[s]);}).join("")||rowHTML("—");
+  document.getElementById("greenBlock").style.display=res.green.length?"block":"none";
+  // red
+  document.getElementById("redT").textContent=t.redT;
+  document.getElementById("redRows").innerHTML=res.red.map(function(s){return rowHTML(t.src[s]);}).join("");
+  document.getElementById("redBlock").style.display=res.red.length?"block":"none";
+  // alerts
+  document.getElementById("alertT").textContent=t.alertT;
+  document.getElementById("alertRows").innerHTML=res.alerts.map(function(k){return rowHTML(t.al[k]);}).join("");
+  document.getElementById("alertBlock").style.display=res.alerts.length?"block":"none";
+  document.getElementById("result").style.display="block";
+  document.getElementById("result").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function rowHTML(tx){return '<div class="row"><span class="dot">●</span><span class="rtx">'+tx+'</span></div>';}
+function val(id){return document.getElementById(id).value;}
+
+function fillOpts(id,obj){
+  var sel=document.getElementById(id); var cur=sel.value;
+  sel.innerHTML=Object.keys(obj).map(function(k){return '<option value="'+k+'">'+obj[k]+'</option>';}).join("");
+  if(cur) sel.value=cur;
+}
+function setLang(l){
+  L=l; var t=T[l]; document.documentElement.lang=l;
+  document.getElementById("tag").textContent=t.tag;
+  document.getElementById("h2").textContent=t.h2;
+  document.getElementById("lead").textContent=t.lead;
+  document.getElementById("sub").textContent=t.sub;
+  document.getElementById("lq1").textContent=t.q1;
+  document.getElementById("lq2").textContent=t.q2;
+  document.getElementById("lq3").textContent=t.q3;
+  document.getElementById("lq4").textContent=t.q4;
+  document.getElementById("lq5").textContent=t.q5;
+  fillOpts("q1",t.o1); fillOpts("q2",t.o2); fillOpts("q3",t.o3); fillOpts("q4",t.o4); fillOpts("q5",t.o5);
+  document.getElementById("goBtn").textContent=t.go;
+  document.getElementById("ctaP").innerHTML=t.ctaP;
+  document.getElementById("email").placeholder=t.emailph;
+  document.getElementById("joinBtn").textContent=t.join;
+  document.getElementById("disc").textContent=t.disc;
+  ['es','en','pt','fr'].forEach(function(x){document.getElementById('btn-'+x).classList.toggle('active',l===x);});
+  if(document.getElementById("result").style.display==="block") run();
+}
+async function join(e){
+  e.preventDefault(); var t=T[L];
+  var email=document.getElementById('email').value.trim();
+  var btn=document.getElementById('joinBtn'); btn.disabled=true; btn.textContent='…';
+  try{
+    await fetch(ENDPOINT,{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({email,artist:"contrato-tool",total:0,black_box:0})});
+    document.getElementById('mailForm').style.display='none';
+    var m=document.getElementById('msg'); m.textContent=t.joined; m.style.display='block';
+  }catch(ex){btn.disabled=false;btn.textContent=t.join;}
+}
+(function(){var n=(navigator.language||'es').slice(0,2).toLowerCase();setLang(['es','en','pt','fr'].indexOf(n)>=0?n:'es');})();
+</script>
+</body>
+</html>
