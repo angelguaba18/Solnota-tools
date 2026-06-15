@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SOLNOTA · Planes y Precios</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <meta name="description" content="Planes de SOLNOTA: tarifa plana, 0% comisión, tu dinero directo a ti, cancela cuando quieras.">
 <meta name="theme-color" content="#C9A24B">
@@ -21,7 +21,7 @@
   :root{--gold:#C9A24B;--bg:#05050A;--card:#0E0E16;--line:#1E1E2A;--txt:#F4F4F7;--mut:#8A8A9A;
     --grad:linear-gradient(90deg,#E0C078,#C9A24B,#B8923D,#A87E2C);}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;padding:40px 18px;min-height:100vh}
+  body{background:var(--bg);color:var(--txt);font-family:'Instrument Sans',system-ui,-apple-system,sans-serif;padding:40px 18px;min-height:100vh}
   .wrap{max-width:980px;margin:0 auto}
   .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
   h1{font-family:'Italiana',serif;font-weight:400;font-size:42px;letter-spacing:2px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -55,7 +55,7 @@
   .addons p{font-size:13px;color:var(--mut);line-height:1.6}
   .foot{margin-top:24px;color:var(--mut);font-size:12px;text-align:center;line-height:1.6}
   .lang{display:none}
-  body[data-lang="es"] .lang-es,body[data-lang="en"] .lang-en,body[data-lang="pt"] .lang-pt,body[data-lang="fr"] .lang-fr{display:block}
+  html[lang="es"] .lang-es,html[lang="en"] .lang-en,html[lang="pt"] .lang-pt,html[lang="fr"] .lang-fr{display:block}
   @media(max-width:760px){.plans{grid-template-columns:1fr}h1{font-size:32px}.free{flex-direction:column;align-items:flex-start}}
 svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}</style>
 <meta property="og:image" content="https://tools.solnota.com/icon-512.png">
@@ -63,14 +63,10 @@ svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}
 <meta property="og:image:height" content="512">
 <meta property="og:site_name" content="SOLNOTA">
 <meta name="twitter:image" content="https://tools.solnota.com/icon-512.png">
-<style>.langbar{display:none!important}</style>
 </head>
 <body data-lang="es">
 <div class="wrap">
   <a class="logo" href="/"><div class="brand"><h1>SOLNOTA</h1><span class="tag">TU DINERO · A LA LUZ</span></div></a>
-  <div class="langbar">
-    <button data-l="es" class="on">ES</button><button data-l="en">EN</button><button data-l="pt">PT</button><button data-l="fr">FR</button>
-  </div>
   <a class="back" href="/"><span class="lang lang-es" style="display:inline">← Inicio</span><span class="lang lang-en">← Home</span><span class="lang lang-pt">← Início</span><span class="lang lang-fr">← Accueil</span></a>
 
   <!-- ES -->
@@ -207,22 +203,6 @@ svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}
 
   <p class="foot">Sol Music Corp · SOLNOTA · TU DINERO · A LA LUZ</p>
 </div>
-<script>
-(function(){
-  var LANGS=["es","en","pt","fr"];
-  var saved=localStorage.getItem("sn_lang");
-  var nav=(navigator.language||"es").slice(0,2).toLowerCase();
-  var lang=LANGS.indexOf(saved)>=0?saved:(LANGS.indexOf(nav)>=0?nav:"es");
-  function setLang(l){
-    document.body.setAttribute("data-lang",l);
-    localStorage.setItem("sn_lang",l);
-    document.querySelectorAll(".langbar button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-l")===l);});
-    document.documentElement.lang=l;
-  }
-  document.querySelectorAll(".langbar button").forEach(function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-l"));});});
-  setLang(lang);
-})();
-</script>
 <script src="/i18n.js" defer></script>
 </body>
 </html>
