@@ -3,81 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOLNOTA — Tu música hecha luz (prueba)</title>
+<title>SOLNOTA — Tu música hecha luz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --amber:#FFB02E;--amber-deep:#C97E00;--ink:#1A1410;--ivory:#FAF5EA;--ivory2:#FFFFFF;
-  --line:#ECE2CC;--mut:#8a8170;--green:#1d8a5a;--greenbg:rgba(47,158,106,.14);
+  --amber:#FFB02E;--amber2:#FF8A3D;--amber-deep:#B96A00;--ink:#1A1410;--ink2:#3a3024;
+  --ivory:#FBF6EC;--card:#FFFFFF;--line:#ECE2CC;--mut:#8a8170;--green:#1d8a5a;--greenbg:rgba(47,158,106,.12);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--ivory);color:var(--ink);}
-.sun{position:fixed;top:-220px;right:-160px;width:520px;height:520px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,176,46,.45),rgba(255,176,46,0) 65%);pointer-events:none;z-index:0;}
-.wrap{max-width:1000px;margin:0 auto;padding:0 22px;position:relative;z-index:1;}
-nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;}
-.logo{font-family:'Italiana',serif;font-size:26px;letter-spacing:4px;color:var(--ink);}
-.toggle{font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;background:none;}
-.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:48px 0 60px;}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#7a4d00;background:var(--amber);padding:6px 14px;border-radius:999px;}
-h1{font-family:'Italiana',serif;font-size:clamp(40px,6vw,66px);line-height:1.04;margin:18px 0 16px;font-weight:400;}
-h1 b{color:var(--amber-deep);font-weight:400;}
-.sub{font-size:18px;color:#5b5446;line-height:1.5;margin-bottom:28px;max-width:460px;}
-.cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--amber);font-weight:600;font-size:17px;padding:16px 30px;border-radius:14px;text-decoration:none;transition:transform .18s, box-shadow .18s;box-shadow:0 8px 26px rgba(26,20,16,.18);}
-.cta:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(255,176,46,.4);}
-.note{font-size:14px;color:var(--mut);margin-top:16px;}
-.trust{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
-.tb{display:flex;align-items:center;gap:7px;background:var(--ivory2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;}
-.card{background:var(--ivory2);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 20px 50px rgba(26,20,16,.10);animation:floaty 5.5s ease-in-out infinite;}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.card-h .l{font-family:'Italiana',serif;font-size:18px;letter-spacing:2px;}
-.card-h .live{font-size:11px;font-weight:600;color:var(--green);background:var(--greenbg);padding:4px 10px;border-radius:999px;}
+html{scroll-behavior:smooth;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--ivory);color:var(--ink);overflow-x:hidden;}
+.sky{position:absolute;top:0;left:0;right:0;height:620px;z-index:0;
+  background:radial-gradient(820px 460px at 82% -10%,rgba(255,176,46,.55),rgba(255,138,61,.12) 42%,transparent 66%),
+             radial-gradient(620px 380px at 6% 4%,rgba(255,176,46,.18),transparent 60%);pointer-events:none;}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px;position:relative;z-index:1;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+.logo{font-family:'Italiana',serif;font-size:27px;letter-spacing:5px;color:var(--ink);}
+.tag-mini{font-size:11px;color:var(--amber-deep);letter-spacing:2px;font-weight:600;text-transform:uppercase;}
+.hero{display:grid;grid-template-columns:1.06fr .94fr;gap:48px;align-items:center;padding:40px 0 30px;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#5e3a00;background:var(--amber);padding:7px 15px;border-radius:999px;box-shadow:0 6px 18px rgba(255,176,46,.35);}
+h1{font-family:'Italiana',serif;font-size:clamp(44px,6.6vw,74px);line-height:1.0;margin:20px 0 16px;font-weight:400;letter-spacing:-.5px;}
+h1 b{font-weight:400;background:linear-gradient(92deg,#FF8A3D,#FFB02E,#B96A00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:220% auto;animation:shimmer 5s linear infinite;}
+@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:220% 50%}}
+.sub{font-size:18.5px;color:#5b5446;line-height:1.55;margin-bottom:28px;max-width:470px;}
+.cta{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--amber);font-weight:600;font-size:17px;padding:17px 32px;border-radius:14px;text-decoration:none;transition:transform .18s, box-shadow .18s;box-shadow:0 10px 30px rgba(26,20,16,.22);animation:glow 3.2s ease-in-out infinite;}
+@keyframes glow{0%,100%{box-shadow:0 10px 30px rgba(26,20,16,.22)}50%{box-shadow:0 12px 40px rgba(255,176,46,.5)}}
+.cta:hover{transform:translateY(-2px);}
+.note{font-size:14px;color:var(--mut);margin-top:15px;}
+.proof{display:flex;align-items:center;gap:14px;margin-top:22px;flex-wrap:wrap;}
+.proof .big{font-family:'Italiana',serif;font-size:26px;color:var(--amber-deep);}
+.proof .small{font-size:13px;color:var(--mut);max-width:220px;line-height:1.4;}
+.stars{color:var(--amber);font-size:15px;letter-spacing:2px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:0 26px 60px rgba(26,20,16,.13);animation:floaty 6s ease-in-out infinite;}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.card-h .l{font-family:'Italiana',serif;font-size:19px;letter-spacing:2px;}
+.card-h .live{font-size:11px;font-weight:600;color:var(--green);background:var(--greenbg);padding:5px 11px;border-radius:999px;display:flex;align-items:center;gap:6px;}
+.card-h .live i{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 1.7s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .lbl{font-size:12px;color:var(--mut);}
-.amt{font-family:'Italiana',serif;font-size:50px;color:var(--green);line-height:1.05;margin:2px 0 4px;}
-.hr{height:1px;background:var(--line);margin:16px 0;}
-.row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:9px;color:#4a4438;}
+.amt{font-family:'Italiana',serif;font-size:54px;color:var(--green);line-height:1.04;margin:2px 0 4px;}
+.hr{height:1px;background:var(--line);margin:18px 0;}
+.row{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:10px;color:#4a4438;}
 .row b{color:var(--ink);}
-.chip{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;color:#7a4d00;background:var(--amber);padding:6px 12px;border-radius:999px;}
-.why{border-top:1px solid var(--line);padding:34px 0 60px;}
-.why h2{font-family:'Italiana',serif;font-size:30px;margin-bottom:18px;color:var(--ink);}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;}
-.wc{background:var(--ivory2);border:1px solid var(--line);border-radius:16px;padding:18px;}
-.wc .ic{font-size:22px;margin-bottom:8px;}
-.wc h3{font-size:15px;margin-bottom:6px;}
-.wc p{font-size:13.5px;color:#5b5446;line-height:1.5;}
-.foot{text-align:center;padding:26px 0;font-size:12px;color:var(--mut);}
+.chip{display:inline-block;margin-top:8px;font-size:12px;font-weight:600;color:#5e3a00;background:var(--amber);padding:7px 13px;border-radius:999px;}
+section.band{padding:34px 0;}
+.sec-t{font-family:'Italiana',serif;font-size:32px;margin-bottom:22px;text-align:center;}
+.journey{display:flex;align-items:stretch;gap:12px;justify-content:center;flex-wrap:wrap;}
+.jc{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 16px;text-align:center;}
+.jc.found{border-color:var(--amber);}
+.jc.paid{border-color:#9fd8bd;}
+.jc .v{font-family:'Italiana',serif;font-size:30px;margin-bottom:4px;}
+.jc .c{font-size:13px;color:var(--mut);}
+.jarrow{display:flex;align-items:center;color:var(--amber-deep);font-size:22px;}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.s3{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;}
+.s3 .n{width:38px;height:38px;border-radius:50%;background:var(--amber);color:#5e3a00;font-family:'Italiana',serif;font-size:18px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.s3 h3{font-size:16px;margin-bottom:6px;}
+.s3 p{font-size:14px;color:#5b5446;line-height:1.5;}
+.final{text-align:center;background:var(--ink);border-radius:24px;padding:48px 24px;margin:30px 0;}
+.final h2{font-family:'Italiana',serif;font-size:34px;color:var(--ivory);margin-bottom:10px;}
+.final h2 b{color:var(--amber);font-weight:400;}
+.final p{color:#cabfa8;font-size:15px;margin-bottom:22px;}
+.final .cta{background:var(--amber);color:#3a2400;animation:none;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1;transform:none;}
+.foot{text-align:center;padding:28px 0;font-size:12px;color:var(--mut);}
 @media(max-width:760px){.hero{grid-template-columns:1fr;gap:30px;}}
-@media(prefers-reduced-motion:reduce){.card{animation:none;}}
+@media(prefers-reduced-motion:reduce){.card,h1 b,.cta{animation:none;}}
 </style>
 </head>
 <body>
-<div class="sun"></div>
+<div class="sky"></div>
 <div class="wrap">
   <nav>
     <div class="logo">SOLNOTA</div>
-    <span class="toggle">prueba · ámbar solar</span>
+    <span class="tag-mini">Tu dinero · a la luz</span>
   </nav>
 
   <section class="hero">
     <div>
-      <span class="eyebrow">☀ Tu dinero · a la luz · 0% comisión</span>
+      <span class="eyebrow">☀ Hecho para artistas latinos · 0% comisión</span>
       <h1>Tu música,<br><b>hecha luz.</b></h1>
-      <p class="sub">Tu música genera dinero hace años. Te mostramos cuánto no te está llegando — y te ayudamos a sacarlo a la luz.</p>
-      <a href="/escaner.html" class="cta">Escanear mi música →</a>
-      <p class="note">Gratis · 60 segundos · el dinero va directo a tu banco.</p>
-      <div class="trust">
-        <span class="tb">💸 0% comisión</span>
-        <span class="tb">🔒 Nunca tocamos tu dinero</span>
-        <span class="tb">🎵 Tu música 100% tuya</span>
+      <p class="sub">Tu música genera dinero hace años. Te mostramos cuánto NO te está llegando — y te ayudamos a sacarlo a la luz.</p>
+      <a href="/escaner.html" class="cta">Escanear mi música gratis →</a>
+      <p class="note">60 segundos · sin tarjeta · el dinero va directo a tu banco.</p>
+      <div class="proof">
+        <div class="big" data-count="560" data-prefix="$" data-suffix="M+">$0</div>
+        <div class="small">esperando dueño en el MLC. Parte de eso es tuyo.</div>
+      </div>
+      <div class="proof">
+        <span class="stars">★★★★★</span>
+        <span class="small">Artistas latinos recuperando lo que es suyo.</span>
       </div>
     </div>
     <div class="card">
-      <div class="card-h"><span class="l">SOLNOTA</span><span class="live">● escáner</span></div>
+      <div class="card-h"><span class="l">SOLNOTA</span><span class="live"><i></i> escáner</span></div>
       <div class="lbl">Encontramos sin reclamar</div>
-      <div class="amt">$2,043</div>
+      <div class="amt" data-count="2043" data-prefix="$">$0</div>
       <div class="hr"></div>
       <div class="row"><span>Obras detectadas</span><b>39</b></div>
       <div class="row"><span>Con dinero suelto</span><b>31</b></div>
@@ -86,17 +111,56 @@ h1 b{color:var(--amber-deep);font-weight:400;}
     </div>
   </section>
 
-  <section class="why">
-    <h2>¿Por qué la luz?</h2>
-    <div class="why-grid">
-      <div class="wc"><div class="ic">👁️</div><h3>El ojo lo ve primero</h3><p>El ámbar es el color que más capta la atención humana. Imposible de ignorar.</p></div>
-      <div class="wc"><div class="ic">🏴</div><h3>Nadie lo tiene</h3><p>Las fintech son azul y verde. El ámbar está libre — SOLNOTA lo hace suyo.</p></div>
-      <div class="wc"><div class="ic">🌅</div><h3>Es tu nombre</h3><p>SOL = sol. "A la luz" = tu lema. El color ES tu historia, no un adorno.</p></div>
-      <div class="wc"><div class="ic">💚</div><h3>Verde = cobrado</h3><p>El dinero confirmado va en verde. Tu cerebro lo lee como billete al instante.</p></div>
+  <section class="band reveal">
+    <h2 class="sec-t">Tu dinero, contado en color</h2>
+    <div class="journey">
+      <div class="jc"><div class="v" style="color:var(--mut)">$ ?</div><div class="c">Perdido — nadie lo cobra</div></div>
+      <div class="jarrow">→</div>
+      <div class="jc found"><div class="v" style="color:var(--amber-deep)">$2,043</div><div class="c">A la luz — lo encontramos</div></div>
+      <div class="jarrow">→</div>
+      <div class="jc paid"><div class="v" style="color:var(--green)">$2,043</div><div class="c">Cobrado — directo a tu banco</div></div>
     </div>
   </section>
 
-  <div class="foot">SOLNOTA · Firma → Registra → Monitorea → Cobra · (página de prueba)</div>
+  <section class="band reveal">
+    <h2 class="sec-t">Cómo funciona</h2>
+    <div class="steps3">
+      <div class="s3"><div class="n">1</div><h3>Escanea</h3><p>Tu nombre de artista → ves tu catálogo y el dinero sin cobrar. Gratis.</p></div>
+      <div class="s3"><div class="n">2</div><h3>Sube tu split</h3><p>Quién escribió y su %. Tu único trabajo. Lo demás lo hace SOLNOTA.</p></div>
+      <div class="s3"><div class="n">3</div><h3>Cobras</h3><p>Registramos todo y la plata cae directo a tu banco. 0% comisión.</p></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="final">
+      <h2>Saca tu música <b>a la luz.</b></h2>
+      <p>Gratis en 60 segundos. Sin tarjeta, sin compromiso.</p>
+      <a href="/escaner.html" class="cta">Escanear mi música →</a>
+    </div>
+  </section>
+
+  <div class="foot">SOLNOTA · Sol Music Corp · TU DINERO · A LA LUZ · (página de prueba)</div>
 </div>
+
+<script>
+(function(){
+  function count(el){
+    if(el.dataset.done)return; el.dataset.done=1;
+    var end=parseFloat(el.getAttribute('data-count'))||0,pre=el.getAttribute('data-prefix')||'',suf=el.getAttribute('data-suffix')||'';
+    var t0=null,dur=1300;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);var e=1-Math.pow(1-p,3);
+      el.textContent=pre+Math.round(end*e).toLocaleString('en-US')+suf;
+      if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  }
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+    e.target.classList.add('in');
+    e.target.querySelectorAll('[data-count]').forEach(count);
+    if(e.target.matches('[data-count]'))count(e.target);
+    io.unobserve(e.target);}});},{threshold:.2});
+  document.querySelectorAll('.reveal,[data-count]').forEach(function(el){io.observe(el);});
+  setTimeout(function(){document.querySelectorAll('[data-count]').forEach(count);},400);
+})();
+</script>
 </body>
 </html>
