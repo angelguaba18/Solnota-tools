@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA — Tu música hecha luz (prueba)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --amber:#FFB02E;--amber-deep:#C97E00;--ink:#1A1410;--ivory:#FAF5EA;--ivory2:#FFFFFF;
+  --line:#ECE2CC;--mut:#8a8170;--green:#1d8a5a;--greenbg:rgba(47,158,106,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--ivory);color:var(--ink);}
+.sun{position:fixed;top:-220px;right:-160px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,176,46,.45),rgba(255,176,46,0) 65%);pointer-events:none;z-index:0;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px;position:relative;z-index:1;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;}
+.logo{font-family:'Italiana',serif;font-size:26px;letter-spacing:4px;color:var(--ink);}
+.toggle{font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;background:none;}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:48px 0 60px;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#7a4d00;background:var(--amber);padding:6px 14px;border-radius:999px;}
+h1{font-family:'Italiana',serif;font-size:clamp(40px,6vw,66px);line-height:1.04;margin:18px 0 16px;font-weight:400;}
+h1 b{color:var(--amber-deep);font-weight:400;}
+.sub{font-size:18px;color:#5b5446;line-height:1.5;margin-bottom:28px;max-width:460px;}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--amber);font-weight:600;font-size:17px;padding:16px 30px;border-radius:14px;text-decoration:none;transition:transform .18s, box-shadow .18s;box-shadow:0 8px 26px rgba(26,20,16,.18);}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(255,176,46,.4);}
+.note{font-size:14px;color:var(--mut);margin-top:16px;}
+.trust{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+.tb{display:flex;align-items:center;gap:7px;background:var(--ivory2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;}
+.card{background:var(--ivory2);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 20px 50px rgba(26,20,16,.10);animation:floaty 5.5s ease-in-out infinite;}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.card-h .l{font-family:'Italiana',serif;font-size:18px;letter-spacing:2px;}
+.card-h .live{font-size:11px;font-weight:600;color:var(--green);background:var(--greenbg);padding:4px 10px;border-radius:999px;}
+.lbl{font-size:12px;color:var(--mut);}
+.amt{font-family:'Italiana',serif;font-size:50px;color:var(--green);line-height:1.05;margin:2px 0 4px;}
+.hr{height:1px;background:var(--line);margin:16px 0;}
+.row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:9px;color:#4a4438;}
+.row b{color:var(--ink);}
+.chip{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;color:#7a4d00;background:var(--amber);padding:6px 12px;border-radius:999px;}
+.why{border-top:1px solid var(--line);padding:34px 0 60px;}
+.why h2{font-family:'Italiana',serif;font-size:30px;margin-bottom:18px;color:var(--ink);}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;}
+.wc{background:var(--ivory2);border:1px solid var(--line);border-radius:16px;padding:18px;}
+.wc .ic{font-size:22px;margin-bottom:8px;}
+.wc h3{font-size:15px;margin-bottom:6px;}
+.wc p{font-size:13.5px;color:#5b5446;line-height:1.5;}
+.foot{text-align:center;padding:26px 0;font-size:12px;color:var(--mut);}
+@media(max-width:760px){.hero{grid-template-columns:1fr;gap:30px;}}
+@media(prefers-reduced-motion:reduce){.card{animation:none;}}
+</style>
+</head>
+<body>
+<div class="sun"></div>
+<div class="wrap">
+  <nav>
+    <div class="logo">SOLNOTA</div>
+    <span class="toggle">prueba · ámbar solar</span>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="eyebrow">☀ Tu dinero · a la luz · 0% comisión</span>
+      <h1>Tu música,<br><b>hecha luz.</b></h1>
+      <p class="sub">Tu música genera dinero hace años. Te mostramos cuánto no te está llegando — y te ayudamos a sacarlo a la luz.</p>
+      <a href="/escaner.html" class="cta">Escanear mi música →</a>
+      <p class="note">Gratis · 60 segundos · el dinero va directo a tu banco.</p>
+      <div class="trust">
+        <span class="tb">💸 0% comisión</span>
+        <span class="tb">🔒 Nunca tocamos tu dinero</span>
+        <span class="tb">🎵 Tu música 100% tuya</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><span class="l">SOLNOTA</span><span class="live">● escáner</span></div>
+      <div class="lbl">Encontramos sin reclamar</div>
+      <div class="amt">$2,043</div>
+      <div class="hr"></div>
+      <div class="row"><span>Obras detectadas</span><b>39</b></div>
+      <div class="row"><span>Con dinero suelto</span><b>31</b></div>
+      <div class="row"><span>Black box recuperable</span><b style="color:var(--green)">~$5,250</b></div>
+      <span class="chip">Este dinero es tuyo →</span>
+    </div>
+  </section>
+
+  <section class="why">
+    <h2>¿Por qué la luz?</h2>
+    <div class="why-grid">
+      <div class="wc"><div class="ic">👁️</div><h3>El ojo lo ve primero</h3><p>El ámbar es el color que más capta la atención humana. Imposible de ignorar.</p></div>
+      <div class="wc"><div class="ic">🏴</div><h3>Nadie lo tiene</h3><p>Las fintech son azul y verde. El ámbar está libre — SOLNOTA lo hace suyo.</p></div>
+      <div class="wc"><div class="ic">🌅</div><h3>Es tu nombre</h3><p>SOL = sol. "A la luz" = tu lema. El color ES tu historia, no un adorno.</p></div>
+      <div class="wc"><div class="ic">💚</div><h3>Verde = cobrado</h3><p>El dinero confirmado va en verde. Tu cerebro lo lee como billete al instante.</p></div>
+    </div>
+  </section>
+
+  <div class="foot">SOLNOTA · Firma → Registra → Monitorea → Cobra · (página de prueba)</div>
+</div>
+</body>
+</html>
