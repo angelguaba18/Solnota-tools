@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA — Empieza aquí</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A24B;--gold2:#E0C078;--bg:#0D0D0F;--panel:#15140f;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;--grad:linear-gradient(90deg,#E0C078,#C9A24B,#A87E2C);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);padding:44px 20px;}
+.lang{position:fixed;top:18px;right:20px;display:flex;gap:2px;border:1px solid #2a271f;border-radius:11px;padding:3px;background:rgba(13,13,15,.7);backdrop-filter:blur(6px);}
+.lang button{padding:6px 12px;border:none;background:transparent;color:var(--muted);font-weight:500;font-size:13px;border-radius:8px;cursor:pointer;letter-spacing:1px;}
+.lang button.active{background:var(--gold);color:#1a160c;}
+.wrap{max-width:640px;margin:0 auto;text-align:center;}
+.home{display:inline-block;color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;margin-bottom:16px;}
+.home:hover{color:var(--gold);}
+h1{font-family:'Italiana',serif;font-size:clamp(38px,9vw,56px);letter-spacing:6px;padding-left:6px;}
+.tag{color:var(--gold);font-size:12px;letter-spacing:5px;margin-top:6px;text-transform:uppercase;}
+.lead{font-size:18px;color:#d6d0c4;margin:22px 0 6px;line-height:1.5;}
+.sub{font-size:13px;color:var(--muted);margin-bottom:26px;}
+.steps{text-align:left;}
+.step{display:flex;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:12px;align-items:flex-start;}
+.step.solnota{border-left:4px solid #7d6a3a;}
+.step.artist{border-left:4px solid var(--gold);}
+.n{flex:none;width:42px;height:42px;border-radius:50%;border:2px solid var(--gold);color:var(--gold);font-family:'Italiana',serif;font-size:22px;display:flex;align-items:center;justify-content:center;}
+.solnota .n{border-color:#7d6a3a;color:#bfa766;}
+.st h2{font-size:17px;font-weight:700;margin-bottom:4px;}
+.st p{font-size:14px;color:#bdb6a8;line-height:1.5;}
+.who{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-top:8px;padding:3px 9px;border-radius:999px;}
+.who.a{background:rgba(201,162,75,.15);color:var(--gold);}
+.who.s{background:rgba(125,106,58,.22);color:#c9b485;}
+.cta{display:inline-block;background:var(--grad);color:#1a160c;font-weight:700;font-size:17px;padding:16px 32px;border-radius:13px;text-decoration:none;margin:24px 0 8px;transition:transform .15s;}
+.cta:hover{transform:translateY(-2px);}
+.note{font-size:13px;color:var(--muted);margin-bottom:8px;}
+footer{margin-top:30px;font-size:11px;color:#55514a;letter-spacing:2px;}
+</style>
+</head>
+<body>
+<div class="lang">
+  <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+  <button id="btn-pt" onclick="setLang('pt')">PT</button>
+  <button id="btn-fr" onclick="setLang('fr')">FR</button>
+</div>
+<div class="wrap">
+  <a href="/" class="home" id="home">← SOLNOTA</a>
+  <h1>SOLNOTA</h1>
+  <div class="tag" id="tag">Tu música · Tu dinero</div>
+  <p class="lead" id="lead"></p>
+  <p class="sub" id="sub"></p>
+
+  <div class="steps" id="steps"></div>
+
+  <a class="cta" href="/escaner.html" id="cta"></a>
+  <p class="note" id="note"></p>
+
+  <footer>SOLNOTA · Firma → Registra → Monitorea → Cobra</footer>
+</div>
+
+<script>
+const T={
+ es:{tag:"Tu música · Tu dinero",
+   lead:"De cero a cobrar — así de fácil.",
+   sub:"El artista solo hace los pasos 1–3. Lo demás lo hace SOLNOTA.",
+   steps:[
+    {a:1,who:"Tú",t:"Escanea tu música",p:"Gratis. Descubre cuánto dinero tienes sin cobrar."},
+    {a:1,who:"Tú",t:"Firma 1 autorización",p:"Tu música sigue 100% tuya. SOLNOTA solo te representa para cobrar."},
+    {a:1,who:"Tú",t:"Sube tu split",p:"Quién escribió cada canción y su %. Tu único trabajo."},
+    {a:0,who:"SOLNOTA",t:"SOLNOTA registra",p:"Genera el CWR y registra en MLC + BMI/ASCAP + sociedades."},
+    {a:0,who:"SOLNOTA",t:"Cobras",p:"La plata cae directo a tu banco. SOLNOTA nunca la toca. 0% comisión."}
+   ],
+   cta:"🔍 Escanea tu música gratis →", note:"Empieza por el paso 1 — toma 10 segundos."},
+ en:{tag:"Your music · Your money",
+   lead:"From zero to getting paid — this simple.",
+   sub:"The artist only does steps 1–3. SOLNOTA does the rest.",
+   steps:[
+    {a:1,who:"You",t:"Scan your music",p:"Free. Find out how much money you have uncollected."},
+    {a:1,who:"You",t:"Sign 1 authorization",p:"Your music stays 100% yours. SOLNOTA only represents you to collect."},
+    {a:1,who:"You",t:"Upload your split",p:"Who wrote each song and their %. Your only job."},
+    {a:0,who:"SOLNOTA",t:"SOLNOTA registers",p:"Generates the CWR and registers with MLC + BMI/ASCAP + societies."},
+    {a:0,who:"SOLNOTA",t:"You get paid",p:"Money goes straight to your bank. SOLNOTA never touches it. 0% commission."}
+   ],
+   cta:"🔍 Scan your music free →", note:"Start with step 1 — it takes 10 seconds."},
+ pt:{tag:"Tua música · Teu dinheiro",
+   lead:"Do zero a receber — assim de fácil.",
+   sub:"O artista só faz os passos 1–3. O resto faz a SOLNOTA.",
+   steps:[
+    {a:1,who:"Tu",t:"Escaneia tua música",p:"Grátis. Descobre quanto dinheiro tens sem receber."},
+    {a:1,who:"Tu",t:"Assina 1 autorização",p:"Tua música segue 100% tua. A SOLNOTA só te representa para cobrar."},
+    {a:1,who:"Tu",t:"Sobe teu split",p:"Quem escreveu cada música e seu %. Teu único trabalho."},
+    {a:0,who:"SOLNOTA",t:"A SOLNOTA registra",p:"Gera o CWR e registra no MLC + BMI/ASCAP + sociedades."},
+    {a:0,who:"SOLNOTA",t:"Tu recebes",p:"O dinheiro cai direto no teu banco. A SOLNOTA nunca o toca. 0% comissão."}
+   ],
+   cta:"🔍 Escaneia tua música grátis →", note:"Começa pelo passo 1 — leva 10 segundos."},
+ fr:{tag:"Ta musique · Ton argent",
+   lead:"De zéro à encaisser — aussi simple.",
+   sub:"L'artiste ne fait que les étapes 1–3. SOLNOTA fait le reste.",
+   steps:[
+    {a:1,who:"Toi",t:"Scanne ta musique",p:"Gratuit. Découvre combien d'argent tu n'as pas encaissé."},
+    {a:1,who:"Toi",t:"Signe 1 autorisation",p:"Ta musique reste 100% à toi. SOLNOTA te représente seulement pour encaisser."},
+    {a:1,who:"Toi",t:"Charge ton split",p:"Qui a écrit chaque chanson et son %. Ton seul travail."},
+    {a:0,who:"SOLNOTA",t:"SOLNOTA enregistre",p:"Génère le CWR et enregistre au MLC + BMI/ASCAP + sociétés."},
+    {a:0,who:"SOLNOTA",t:"Tu encaisses",p:"L'argent va direct à ta banque. SOLNOTA n'y touche jamais. 0% commission."}
+   ],
+   cta:"🔍 Scanne ta musique gratuitement →", note:"Commence par l'étape 1 — ça prend 10 secondes."}
+};
+function setLang(l){
+  var t=T[l]; document.documentElement.lang=l;
+  document.getElementById('tag').textContent=t.tag;
+  document.getElementById('lead').textContent=t.lead;
+  document.getElementById('sub').textContent=t.sub;
+  document.getElementById('cta').textContent=t.cta;
+  document.getElementById('note').textContent=t.note;
+  document.getElementById('steps').innerHTML=t.steps.map(function(s,i){
+    return '<div class="step '+(s.a?'artist':'solnota')+'"><div class="n">'+(i+1)+'</div><div class="st"><h2>'+s.t+'</h2><p>'+s.p+'</p><span class="who '+(s.a?'a':'s')+'">'+s.who+'</span></div></div>';
+  }).join("");
+  ['es','en','pt','fr'].forEach(function(x){document.getElementById('btn-'+x).classList.toggle('active',l===x);});
+}
+(function(){var n=(navigator.language||'es').slice(0,2).toLowerCase();setLang(['es','en','pt','fr'].indexOf(n)>=0?n:'es');})();
+</script>
+</body>
+</html>

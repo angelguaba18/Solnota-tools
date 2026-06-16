@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SOLNOTA · Herramientas de regalías para artistas latinos</title>
-<meta name="description" content="SOLNOTA — identifica, registra y reclama tus regalías. Captura una vez, cobra en todo el mundo. Tarifa plana, 0% comisión. TU DINERO · A LA LUZ.">
-<meta name="theme-color" content="#C9A24B">
+<meta name="description" content="SOLNOTA — mira cuánto dinero te debe tu música. Cobra todas tus regalías. 0% comisión, directo a tu banco. TU DINERO · A LA LUZ.">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,153 +13,286 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0D0D0F">
 <link rel="canonical" href="https://tools.solnota.com/">
 <meta property="og:title" content="SOLNOTA · TU DINERO · A LA LUZ">
-<meta property="og:description" content="Herramientas para que artistas latinos cobren TODAS sus regalías. 0% comisión.">
+<meta property="og:description" content="Mira cuánto dinero te debe tu música. 0% comisión, directo a tu banco.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tools.solnota.com/">
-<meta name="twitter:card" content="summary">
-<style>
-  :root{--gold:#C9A24B;--gold2:#E0C078;--bg:#0D0D0F;--card:#15140f;--line:#262219;--txt:#EDE6D6;--mut:#8a8478;
-    --grad:linear-gradient(90deg,#E0C078,#C9A24B,#A87E2C);}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--txt);font-family:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;padding:40px 18px;min-height:100vh}
-  .wrap{max-width:900px;margin:0 auto}
-  .brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
-  h1{font-family:'Italiana',serif;font-weight:400;font-size:54px;letter-spacing:4px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .tag{font-weight:600;font-size:12px;letter-spacing:4px;color:var(--gold)}
-  .sub{color:var(--mut);font-size:15px;margin:14px 0 30px;max-width:620px;line-height:1.5}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  a.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;text-decoration:none;color:var(--txt);display:flex;flex-direction:column;gap:8px;transition:.15s}
-  a.card:hover{border-color:var(--gold);transform:translateY(-2px)}
-  .card .ic{font-size:26px}
-  .card h2{font-size:18px;font-weight:700}
-  .card p{font-size:13px;color:var(--mut);line-height:1.5}
-  .card .go{margin-top:6px;color:var(--gold);font-weight:600;font-size:13px}
-  .trust{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 14px}
-  .tb{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--txt)}
-  .tb .tbi{font-size:15px}
-    .cta{display:inline-block;background:var(--grad);color:#1a160c;font-weight:700;font-size:15px;padding:13px 26px;border-radius:12px;text-decoration:none;margin:2px 10px 26px 0;transition:.15s}
-  .cta:hover{transform:translateY(-2px)}
-  .hero-scan{display:inline-block;background:var(--grad);color:#1a160c;font-weight:700;font-size:18px;padding:18px 34px;border-radius:14px;text-decoration:none;margin:4px 0 10px;transition:.15s;box-shadow:0 6px 24px rgba(201,162,75,.25)}
-  .hero-scan:hover{transform:translateY(-2px)}
-  .hero-note{color:var(--mut);font-size:14px;margin:0 0 28px}
-  .trust-link{display:inline-block;margin:0 0 26px;color:var(--gold);font-weight:800;font-size:13px;text-decoration:none}
-  .foot{margin-top:34px;color:var(--mut);font-size:12px;text-align:center;line-height:1.6}
-  @media(max-width:680px){.grid{grid-template-columns:1fr}h1{font-size:44px}}
-svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}
-  .sec-t{font-family:'Italiana',serif;font-size:30px;color:var(--gold);margin:40px 0 16px;letter-spacing:1px}
-  .who-for .wf-grid{display:grid;grid-template-columns:1fr;gap:14px}
-  .wf{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
-  .wf.yes{border-color:rgba(201,162,75,.4)}
-  .wf-h{font-weight:700;font-size:15px;margin-bottom:10px;color:var(--txt)}
-  .wf ul{margin:0;padding-left:18px}
-  .wf li{font-size:14px;color:var(--mut);line-height:1.6;margin:5px 0}
-  .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:8px}
-  .faq summary{cursor:pointer;font-weight:600;font-size:15px;color:var(--txt);list-style:none}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::before{content:'+';color:var(--gold);font-weight:700;margin-right:10px}
-  .faq details[open] summary::before{content:'–'}
-  .faq p{font-size:14px;color:var(--mut);line-height:1.6;margin-top:10px}
-  .who-we .ww-p{font-size:15px;color:#cfc8b8;line-height:1.65;max-width:680px;margin:0 0 12px}
-  .who-we .ww-firma{font-size:13px;color:var(--gold);font-weight:600;margin-top:4px}
-  @media(max-width:680px){.who-for .wf-grid{grid-template-columns:1fr}}</style>
 <meta property="og:image" content="https://tools.solnota.com/icon-512.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta property="og:site_name" content="SOLNOTA">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://tools.solnota.com/icon-512.png">
+<style>
+  :root{
+    --gold:#B8860B;--gold2:#D9A52A;--gold3:#9A6E10;--ink:#1A1611;--mut:#6E6657;
+    --bg:#FFFFFF;--bg2:#FAF6EC;--bg3:#F4EFE2;--card:#FFFFFF;--line:#ECE6D8;
+    --green:#0E9F6E;--green2:#0B7E57;--greenbg:#E7F6EF;--goldbg:#FBF2DD;--purple:#7A5AF8;--purplebg:#EEEBFE;
+    --grad:linear-gradient(92deg,#D9A52A,#B8860B,#9A6E10);--gradg:linear-gradient(92deg,#13B981,#0E9F6E);
+    --sh:0 18px 50px rgba(36,30,15,.10);--sh2:0 8px 26px rgba(36,30,15,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  a{color:inherit;text-decoration:none}
+  header{position:sticky;top:0;z-index:900;backdrop-filter:blur(14px);background:rgba(255,255,255,.82);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:baseline;gap:12px}
+  .brand h1{font-family:'Italiana',serif;font-weight:400;font-size:30px;letter-spacing:3px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .brand .bt{font-size:9.5px;font-weight:600;letter-spacing:3px;color:var(--gold)}
+  .nav-cta{background:var(--grad);color:#fff;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;transition:.18s;box-shadow:var(--sh2)}
+  .nav-cta:hover{transform:translateY(-1px)}
+  .hero{position:relative;padding:74px 0 56px;overflow:hidden;background:radial-gradient(900px 460px at 78% -8%,var(--goldbg),transparent 60%),radial-gradient(700px 420px at 8% 20%,var(--greenbg),transparent 55%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .h-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--green2);border:1px solid #CDEBDD;background:var(--greenbg);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+  .h-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+  h2.hero-t{font-size:clamp(38px,5.4vw,62px);line-height:1.04;font-weight:700;letter-spacing:-1.6px;color:var(--ink)}
+  h2.hero-t b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+  .hero-sub{font-size:18px;color:var(--mut);margin:20px 0 30px;max-width:480px}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:var(--grad);color:#fff;font-weight:700;font-size:17px;padding:16px 30px;border-radius:14px;transition:.2s;box-shadow:var(--sh2)}
+  .cta:hover{transform:translateY(-2px);box-shadow:var(--sh)}
+  .cta.big{font-size:19px;padding:18px 38px}
+  .hero-note{color:var(--mut);font-size:14px;margin-top:16px}
+  .trust-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:30px}
+  .trust-row span{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--ink);font-weight:500}
+  .trust-row b{color:var(--green2)}
+  .phone{position:relative;justify-self:center;width:300px;height:600px;border-radius:42px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh);padding:14px;animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .scr{height:100%;border-radius:32px;background:linear-gradient(180deg,#fff,#FBF8F0);border:1px solid var(--line);padding:22px 18px;display:flex;flex-direction:column;gap:13px;overflow:hidden}
+  .scr-top{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--mut)}
+  .scr-logo{font-family:'Italiana',serif;font-size:17px;letter-spacing:2px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .scr-amt{font-family:'Italiana',serif;font-size:50px;line-height:1;color:var(--green2);margin-top:4px}
+  .scr-lbl{font-size:12px;color:var(--mut);letter-spacing:.2px}
+  .bar{height:1px;background:var(--line);margin:2px 0}
+  .row{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;padding:8px 0;border-bottom:1px solid #F1ECDF}
+  .row .t{color:var(--ink)}.row .v{color:var(--gold);font-weight:700}
+  .chip{align-self:flex-start;font-size:10.5px;font-weight:700;color:#fff;background:var(--gradg);padding:6px 12px;border-radius:999px;letter-spacing:.3px}
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);padding:42px 0}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+  .stat .n{font-family:'Italiana',serif;font-size:clamp(38px,5vw,58px);line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .c{font-size:14px;color:var(--mut);margin-top:8px}
+  section.feat{padding:80px 0}
+  .feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+  .feat.alt .feat-grid{direction:rtl}.feat.alt .feat-grid>*{direction:ltr}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+  h3.feat-t{font-size:clamp(28px,3.6vw,40px);line-height:1.1;font-weight:700;letter-spacing:-.8px;color:var(--ink)}
+  .feat p{color:var(--mut);font-size:17px;margin:16px 0 22px;max-width:440px}
+  .link-g{color:var(--green2);font-weight:700;font-size:15px;display:inline-flex;gap:6px;align-items:center}
+  .screen{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--sh)}
+  .screen-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .screen-h .ttl{font-weight:700;font-size:14px;color:var(--ink)}
+  .screen-h .live{font-size:11px;font-weight:600;color:var(--green2);display:flex;align-items:center;gap:6px;background:var(--greenbg);padding:4px 10px;border-radius:999px}
+  .screen-h .live i{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .mrow{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;margin-bottom:7px}
+  .mrow .lab{color:var(--ink);display:flex;align-items:center;gap:8px}
+  .mrow .lab .sw{width:10px;height:10px;border-radius:3px}
+  .mrow .amt{font-weight:700;color:var(--ink)}
+  .pbar{height:9px;border-radius:999px;background:#F1ECDF;overflow:hidden;margin-bottom:16px}
+  .pbar i{display:block;height:100%;width:0;border-radius:999px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+  .fill-gold{background:var(--grad)}.fill-green{background:var(--gradg)}.fill-purple{background:linear-gradient(92deg,#9A7BFF,#7A5AF8)}
+  .mini-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mini{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .mini .mn{font-family:'Italiana',serif;font-size:30px;color:var(--ink);line-height:1}
+  .mini .mn.g{color:var(--green2)}
+  .mini .ml{font-size:11px;color:var(--mut);margin-top:5px;display:flex;align-items:center;gap:5px}
+  .up{color:var(--green2);font-weight:700;font-size:11px}
+  .spark{display:flex;align-items:flex-end;gap:5px;height:54px;margin-top:6px}
+  .spark span{flex:1;background:var(--gradg);border-radius:4px 4px 0 0;opacity:.9}
+  .sem{display:flex;align-items:center;justify-content:space-between;padding:10px 0;font-size:13.5px;border-bottom:1px solid #F1ECDF}
+  .pill{font-size:11px;font-weight:700;padding:4px 11px;border-radius:999px}
+  .pill.g{color:var(--green2);background:var(--greenbg)}.pill.r{color:#C0392B;background:#FCEBE9}
+  .tools{padding:36px 0 84px}
+  .tools h3{font-size:clamp(26px,3.4vw,36px);font-weight:700;letter-spacing:-.6px;color:var(--ink);text-align:center;margin-bottom:8px}
+  .tools .ts{text-align:center;color:var(--mut);margin-bottom:38px}
+  .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  a.tcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:8px;transition:.2s;box-shadow:var(--sh2)}
+  a.tcard:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:var(--sh)}
+  .tcard .ic{font-size:24px}
+  .tcard h4{font-size:17px;font-weight:700;color:var(--ink)}
+  .tcard p{font-size:13.5px;color:var(--mut);line-height:1.5}
+  .tcard .go{margin-top:auto;color:var(--green2);font-weight:700;font-size:13px}
+  .final{position:relative;text-align:center;padding:92px 0;background:var(--bg2);border-top:1px solid var(--line)}
+  .final h3{font-size:clamp(32px,4.6vw,52px);font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1.06}
+  .final h3 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .final p{color:var(--mut);font-size:17px;margin:18px 0 30px}
+  footer{padding:34px 0;text-align:center}
+  footer .fl{font-family:'Italiana',serif;font-size:20px;letter-spacing:2px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  footer .ft{color:var(--mut);font-size:12.5px;margin-top:8px}
+  footer a{color:var(--green2)}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(max-width:860px){
+    .hero-grid,.feat-grid,.stats-grid,.tgrid{grid-template-columns:1fr!important}
+    .feat.alt .feat-grid{direction:ltr}
+    .phone{order:-1;width:270px;height:540px}
+    .hero{padding:44px 0 36px}section.feat{padding:54px 0}
+    .stats-grid{gap:30px}.tgrid{gap:14px}
+  }
+</style>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand"><h1>SOLNOTA</h1><span class="tag brand-tag">TU DINERO · A LA LUZ</span></div>
-  <p class="sub" style="font-size:24px;color:var(--txt);font-weight:600;line-height:1.3;margin:18px 0 22px">Mira cuánto dinero te debe tu música.</p>
-
-  <a class="hero-scan" href="/escaner.html">Escanear mi música →</a>
-  <p class="hero-note">Gratis · 60 segundos · 0% comisión. No tocamos tu dinero — va directo a tu banco.</p>
-
-  <div class="trust">
-    <span class="tb"><span class="tbi">💸</span>0% comisión</span>
-    <span class="tb"><span class="tbi"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V7a5 5 0 0 1 10 0v4'/></svg></span>Nunca tocamos tu dinero</span>
-    <span class="tb"><span class="tbi"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18V5l12-2v13'/><circle cx='6' cy='18' r='3'/><circle cx='18' cy='16' r='3'/></svg></span>Tu música es 100% tuya</span>
-    <span class="tb"><span class="tbi"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9'/><path d='m8.3 12.4 2.6 2.6 4.8-5.2'/></svg></span>Cancelas cuando quieras</span>
+<header>
+  <div class="wrap nav">
+    <a href="/" class="brand"><h1>SOLNOTA</h1><span class="bt brand-tag">TU DINERO · A LA LUZ</span></a>
+    <a href="/escaner.html" class="nav-cta">Escanear gratis</a>
   </div>
+</header>
 
-  <div class="grid">
-    <a class="card" href="/escaner.html">
-      <div class="ic">🔍</div><h2>Escanea tu música</h2>
-      <p>Escribe tu nombre de artista y descubre tu catálogo + el dinero que tienes sin reclamar. Gratis.</p>
-      <span class="go">Escanear →</span>
-    </a>
-    <a class="card" href="/contrato.html">
-      <div class="ic"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z'/><path d='M14 2v6h6'/><path d='M9 13h6'/><path d='M9 17h4'/></svg></div><h2>Lee mi contrato</h2>
-      <p>Responde 5 preguntas y descubre qué controla tu sello y qué dinero es tuyo — sin romper tu deal.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a class="card" href="/split">
-      <div class="ic"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z'/></svg></div><h2>Split Sheet + CWR</h2>
-      <p>Escanea la obra por ISRC, reparte splits y genera el archivo CWR byte-perfect para PROs y MLC.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a class="card" href="/dinero">
-      <div class="ic"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='2' x2='12' y2='22'/><path d='M17 5.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/></svg></div><h2>Dinero sin reclamar</h2>
-      <p>Escanea el catálogo y verifica dónde hay regalías pendientes: SoundExchange, MLC, PRO.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a class="card" href="/lod">
-      <div class="ic"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z'/><path d='M14 2v6h6'/></svg></div><h2>Letter of Direction</h2>
-      <p>Carta para que SoundExchange pague al productor su % del máster (AMP Act). Lista para firmar.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a class="card" href="/visor">
-      <div class="ic">🔎</div><h2>Visor de catálogo</h2>
-      <p>Escáner multi-rol (cantante, productor, compositor, audiolibro) con exportación CSV.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a class="card" href="/precios">
-      <div class="ic"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='5' width='20' height='14' rx='2'/><line x1='2' y1='10' x2='22' y2='10'/></svg></div><h2>Planes y precios</h2>
-      <p>Tarifa plana, 0% comisión. Elige tu plan: Artista, Pro o Manager. Cancela cuando quieras.</p>
-      <span class="go">Ver planes →</span>
-    </a>
-  </div>
-
-  <section class="who-for">
-    <h3 class="sec-t">¿Para quién es SOLNOTA?</h3>
-    <div class="wf-grid">
-      <div class="wf yes">
-        <div class="wf-h">✅ Es para ti si…</div>
-        <ul>
-          <li>Eres artista, productor o compositor latino y quieres TODO tu dinero.</li>
-          <li>Sientes que tu música genera y no sabes cuánto NO te llega.</li>
-          <li>Eres manager o sello y manejas varios artistas.</li>
-          <li>Quieres registrar y reclamar sin pagar comisión sobre tus regalías.</li>
-        </ul>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <span class="h-eyebrow"><span class="dot"></span>Hecho para artistas latinos · 0% comisión</span>
+      <h2 class="hero-t">Mira cuánto dinero <b>te debe tu música.</b></h2>
+      <p class="hero-sub">Tu música genera dinero hace años. Te mostramos cuánto no te está llegando — y te ayudamos a cobrarlo.</p>
+      <a href="/escaner.html" class="cta">Escanear mi música →</a>
+      <p class="hero-note">Gratis · 60 segundos · No tocamos tu dinero — va directo a tu banco. · <a href="/empezar.html" style="color:var(--green2);font-weight:700;text-decoration:none">Cómo empieza →</a></p>
+      <div class="trust-row">
+        <span>💸 <b>0%</b> comisión</span>
+        <span>🔒 Nunca tocamos tu dinero</span>
+        <span>🎵 Tu música es <b>100% tuya</b></span>
       </div>
     </div>
-  </section>
+    <div class="phone reveal in">
+      <div class="scr">
+        <div class="scr-top"><span class="scr-logo">SOLNOTA</span><span>escáner</span></div>
+        <div>
+          <div class="scr-lbl">Encontramos sin reclamar</div>
+          <div class="scr-amt" data-count="17500" data-prefix="$">$0</div>
+        </div>
+        <div class="bar"></div>
+        <div class="row"><span class="t">Obras detectadas</span><span class="v">39</span></div>
+        <div class="row"><span class="t">Con dinero suelto</span><span class="v">31</span></div>
+        <div class="row"><span class="t">Black box recuperable</span><span class="v">~$5,250</span></div>
+        <span class="chip">Este dinero es tuyo →</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="faq">
-    <h3 class="sec-t">Preguntas frecuentes</h3>
-    <details><summary>¿SOLNOTA toca mi dinero?</summary><p>No, nunca. Tus regalías las pagan directamente las organizaciones (MLC, PROs, SoundExchange) a ti. SOLNOTA solo te ayuda a encontrarlas y reclamarlas.</p></details>
-    <details><summary>¿Cobran comisión sobre mis regalías?</summary><p>0%, nunca. Pagas una tarifa plana mensual y te quedas con el 100% de tu dinero.</p></details>
-    <details><summary>¿Mi música sigue siendo mía?</summary><p>Sí, 100%. SOLNOTA no adquiere ningún porcentaje de tu copyright. Solo administramos con tu autorización firmada.</p></details>
-    <details><summary>¿Y si cancelo?</summary><p>Tu dinero no se corta: sigue llegándote directo de las organizaciones. Te quedas con tus registros y tus datos. Sin penalidad ni comisión de salida.</p></details>
-    <details><summary>¿Es seguro?</summary><p>Sí. Datos cifrados, no vendemos tu información, y nunca pedimos tus datos bancarios.</p></details>
-    <details><summary>¿Cuánto cuesta?</summary><p>Desde $19.99 al mes (plan Artista). Sin comisión sobre regalías. Cancela cuando quieras.</p></details>
-  </section>
-
-  <section class="who-we">
-    <h3 class="sec-t">Quiénes somos</h3>
-    <p class="ww-p">Somos gente del movimiento urbano latino que se cansó de ver a los artistas perder lo que es suyo.</p>
-    <p class="ww-p">SOLNOTA nació de una idea terca: tu música YA genera dinero — lo justo es que te llegue todo, sin que nadie te muerda un porcentaje de por vida.</p>
-    <p class="ww-p">Por eso es tarifa plana y 0% de comisión. Tu dinero es tuyo; nosotros solo te damos las herramientas para reclamarlo.</p>
-    <p class="ww-firma">— SOLNOTA · Florida, EE.UU.</p>
-  </section>
-
-  <p class="foot">SOLNOTA · Firma → Registra → Monitorea → Cobra</p>
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat reveal"><div class="n" data-count="560" data-prefix="$" data-suffix="M+">$0</div><div class="c">sin reclamar en el MLC, esperando dueño</div></div>
+    <div class="stat reveal"><div class="n">0%</div><div class="c">comisión sobre tus regalías — siempre</div></div>
+    <div class="stat reveal"><div class="n" data-count="4">0</div><div class="c">idiomas · ES · EN · PT · FR · Latino-first</div></div>
+  </div>
 </div>
-<p class="foot" style="margin-top:8px"><a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
+
+<section class="feat">
+  <div class="wrap feat-grid">
+    <div class="reveal">
+      <div class="kicker">El dinero de tu música</div>
+      <h3 class="feat-t">Tu música genera 3 tipos de dinero. Casi nadie cobra los 2 importantes.</h3>
+      <p>El máster ya lo cobras. Pero el <b>publishing</b> (mecánicas + performance) y el <b>black box</b> casi siempre quedan botados. Eso es lo que rescatamos.</p>
+      <a href="/dinero" class="link-g">Ver dónde está tu dinero →</a>
+    </div>
+    <div class="screen reveal">
+      <div class="screen-h"><span class="ttl">Mapa de tu dinero</span><span class="live"><i></i>en vivo</span></div>
+      <div class="mrow"><span class="lab"><span class="sw" style="background:var(--gold)"></span>Máster (ya lo cobras)</span><span class="amt">$52,500</span></div>
+      <div class="pbar"><i class="fill-gold" data-w="75"></i></div>
+      <div class="mrow"><span class="lab"><span class="sw" style="background:var(--green)"></span>Publishing (SOLNOTA)</span><span class="amt">$17,500</span></div>
+      <div class="pbar"><i class="fill-green" data-w="25"></i></div>
+      <div class="mrow"><span class="lab"><span class="sw" style="background:var(--purple)"></span>Black box recuperable</span><span class="amt">$5,250</span></div>
+      <div class="pbar"><i class="fill-purple" data-w="40"></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="feat alt" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap feat-grid">
+    <div class="reveal">
+      <div class="kicker">No-custodial · 0%</div>
+      <h3 class="feat-t">Tu dinero llega directo a tu banco. Nosotros nunca lo tocamos.</h3>
+      <p>Registramos y cobramos todo por ti (MLC, BMI/PRO, SoundExchange) con tu acuerdo firmado. El dinero va <b>directo a tu cuenta</b> — 0% de comisión, cancelas cuando quieras.</p>
+      <a href="/precios" class="link-g">Ver planes y precios →</a>
+    </div>
+    <div class="screen reveal">
+      <div class="screen-h"><span class="ttl">Tu panel de regalías</span><span class="live"><i></i>cobrando</span></div>
+      <div class="mini-cards">
+        <div class="mini"><div class="mn g" data-count="293" data-prefix="$">$0</div><div class="ml">BMI · cobrado YTD <span class="up">▲ 18%</span></div></div>
+        <div class="mini"><div class="mn">MLC</div><div class="ml">mecánicas · activo</div></div>
+      </div>
+      <div class="mini" style="margin-top:12px">
+        <div class="ml" style="margin:0 0 4px">Ingresos por mes</div>
+        <div class="spark"><span style="height:35%"></span><span style="height:50%"></span><span style="height:42%"></span><span style="height:68%"></span><span style="height:60%"></span><span style="height:85%"></span><span style="height:100%"></span></div>
+      </div>
+      <div class="mrow" style="margin-top:14px"><span class="lab">→ A tu banco, directo</span><span class="pill g">✓ 0% comisión</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="feat">
+  <div class="wrap feat-grid">
+    <div class="reveal">
+      <div class="kicker">Lee mi contrato</div>
+      <h3 class="feat-t">Descubre qué controla tu sello — y qué dinero es tuyo, sin romper tu deal.</h3>
+      <p>Responde 5 preguntas y SOLNOTA te explica tu contrato con un semáforo claro: qué está bloqueado y qué puedes cobrar hoy mismo.</p>
+      <a href="/contrato.html" class="link-g">Leer mi contrato →</a>
+    </div>
+    <div class="screen reveal">
+      <div class="screen-h"><span class="ttl">Semáforo de derechos</span><span class="live"><i></i>análisis</span></div>
+      <div class="sem"><span>Mecánicas (MLC)</span><span class="pill g">Libre</span></div>
+      <div class="sem"><span>Performance (PRO/BMI)</span><span class="pill g">Libre</span></div>
+      <div class="sem"><span>SoundExchange (artista)</span><span class="pill g">Libre</span></div>
+      <div class="sem"><span>Distribución del máster</span><span class="pill r">Sello</span></div>
+      <div class="sem" style="border:none"><span>YouTube · Content ID</span><span class="pill r">Sello</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="tools">
+  <div class="wrap">
+    <h3>Todo lo que necesitas para cobrar</h3>
+    <p class="ts">Herramientas profesionales, en tu idioma.</p>
+    <div class="tgrid">
+      <a class="tcard reveal" href="/escaner.html"><div class="ic">🔍</div><h4>Escanea tu música</h4><p>Mete tu nombre y ve tu catálogo + el dinero sin reclamar. Gratis.</p><span class="go">Escanear →</span></a>
+      <a class="tcard reveal" href="/contrato.html"><div class="ic">📄</div><h4>Lee mi contrato</h4><p>5 preguntas → semáforo de qué controla tu sello y qué es tuyo.</p><span class="go">Abrir →</span></a>
+      <a class="tcard reveal" href="/split"><div class="ic">✍️</div><h4>Split Sheet + CWR</h4><p>Reparte splits y genera el archivo CWR byte-perfect para PROs y MLC.</p><span class="go">Abrir →</span></a>
+      <a class="tcard reveal" href="/dinero"><div class="ic">💰</div><h4>Dinero sin reclamar</h4><p>Verifica dónde hay regalías pendientes: SoundExchange, MLC, PRO.</p><span class="go">Abrir →</span></a>
+      <a class="tcard reveal" href="/visor"><div class="ic">🔎</div><h4>Visor de catálogo</h4><p>Escáner multi-rol (cantante, productor, compositor) con export CSV.</p><span class="go">Abrir →</span></a>
+      <a class="tcard reveal" href="/precios"><div class="ic">🏷️</div><h4>Planes y precios</h4><p>Tarifa plana, 0% comisión. Cancela cuando quieras.</p><span class="go">Ver planes →</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h3 class="reveal">Tu música ya hizo el dinero.<br><b>Ve a cobrarlo.</b></h3>
+    <p class="reveal">Escanea gratis en 60 segundos. Sin tarjeta, sin compromiso.</p>
+    <a href="/escaner.html" class="cta big reveal">Escanear mi música →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fl">Solnota</div>
+    <div class="ft">Sol Music Corp · TU DINERO · A LA LUZ · <a href="/legal">Términos y Privacidad</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in');
+      e.target.querySelectorAll('[data-count]').forEach(count);
+      e.target.querySelectorAll('.pbar i[data-w]').forEach(function(b){ b.style.width=b.getAttribute('data-w')+'%'; });
+      if(e.target.matches('[data-count]')) count(e.target);
+      io.unobserve(e.target);
+    }});
+  },{threshold:.25});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  function count(el){
+    if(el.dataset.done) return; el.dataset.done=1;
+    var end=parseFloat(el.getAttribute('data-count'))||0, pre=el.getAttribute('data-prefix')||'', suf=el.getAttribute('data-suffix')||'';
+    var t0=null, dur=1300;
+    function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); var ease=1-Math.pow(1-p,3);
+      var val=Math.round(end*ease); el.textContent=pre+val.toLocaleString('en-US')+suf;
+      if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  setTimeout(function(){ document.querySelectorAll('.in [data-count]').forEach(count);
+    document.querySelectorAll('.in .pbar i[data-w]').forEach(function(b){b.style.width=b.getAttribute('data-w')+'%';}); },350);
+})();
+</script>
 <script src="/i18n.js" defer></script>
 </body>
 </html>
