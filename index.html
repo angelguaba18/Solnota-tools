@@ -135,6 +135,47 @@
     .hero{padding:44px 0 36px}section.feat{padding:54px 0}
     .stats-grid{gap:30px}.tgrid{gap:14px}
   }
+  /* ===== PULIDO PREMIUM (nivel mundial) ===== */
+  :root{
+    --sh:0 1px 2px rgba(36,30,15,.05),0 8px 24px rgba(36,30,15,.07),0 24px 60px rgba(36,30,15,.10);
+    --sh2:0 1px 2px rgba(36,30,15,.05),0 6px 18px rgba(36,30,15,.07);
+  }
+  ::selection{background:rgba(255,176,46,.28);color:var(--ink)}
+  body{letter-spacing:-.005em}
+  h2.hero-t,h3.feat-t,.final h3,.tools h3{text-wrap:balance}
+  .hero-sub,.feat p,.final p{text-wrap:pretty}
+  /* línea de luz superior */
+  header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,176,46,.55),transparent)}
+  .brand h1{transition:.25s}
+  .brand:hover h1{filter:brightness(1.08)}
+  /* foco accesible premium */
+  a:focus-visible,button:focus-visible{outline:2px solid var(--gold2);outline-offset:3px;border-radius:8px}
+  /* CTA: flecha que respira + brillo al pasar */
+  .cta,.nav-cta{position:relative;overflow:hidden}
+  .cta::after{content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;background:linear-gradient(110deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .55s ease}
+  .cta:hover::after{left:140%}
+  /* enlaces verdes: la flecha se desliza */
+  .link-g{transition:gap .2s ease}
+  .link-g:hover{gap:11px}
+  /* tarjetas de herramientas: la flecha entra al hover */
+  .tcard .go{transition:.2s}
+  .tcard:hover .go{padding-left:4px}
+  /* paneles flotantes: leve elevación al pasar */
+  .screen{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+  .screen:hover{transform:translateY(-6px)}
+  .mini{transition:.2s}
+  .mini:hover{border-color:var(--gold);background:var(--goldbg)}
+  /* aire premium en hero y secciones */
+  .hero{padding:92px 0 70px}
+  .hero-sub{margin:22px 0 32px;line-height:1.6}
+  .stats{padding:52px 0}
+  /* halo cálido detrás del teléfono */
+  .phone::before{content:"";position:absolute;inset:-40px;z-index:-1;background:radial-gradient(closest-side,rgba(255,176,46,.22),transparent 72%);filter:blur(8px)}
+  /* badge "0%" con peso de marca */
+  .trust-row span{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.6);backdrop-filter:blur(6px);transition:.2s}
+  .trust-row span:hover{border-color:var(--gold);transform:translateY(-1px)}
+  @media(prefers-reduced-motion:reduce){.cta::after,.screen,.mini,.trust-row span{transition:none}}
+  @media(max-width:860px){.hero{padding:48px 0 38px}}
 </style>
 </head>
 <body>
