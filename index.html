@@ -83,6 +83,13 @@
   .screen-h .live{font-size:11px;font-weight:600;color:var(--green2);display:flex;align-items:center;gap:6px;background:var(--greenbg);padding:4px 10px;border-radius:999px}
   .screen-h .live i{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  @keyframes glowpulse{0%,100%{box-shadow:0 8px 28px rgba(201,162,75,.28)}50%{box-shadow:0 10px 40px rgba(201,162,75,.55)}}
+  .screen,.phone .scr{animation:floaty 5.5s ease-in-out infinite}
+  h2.hero-t b{background-size:220% auto;animation:shimmer 4.5s linear infinite}
+  .hero .cta{animation:glowpulse 3s ease-in-out infinite}
+  @media(prefers-reduced-motion:reduce){.screen,.phone .scr,h2.hero-t b,.hero .cta{animation:none}}
   .mrow{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;margin-bottom:7px}
   .mrow .lab{color:var(--ink);display:flex;align-items:center;gap:8px}
   .mrow .lab .sw{width:10px;height:10px;border-radius:3px}
