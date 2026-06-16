@@ -235,7 +235,7 @@
       "font-family:system-ui,-apple-system,sans-serif}" +
       ".sn-lang button{background:none;border:none;color:#8A8A9A;font-weight:800;font-size:12px;" +
       "letter-spacing:.4px;padding:6px 10px;border-radius:999px;cursor:pointer;transition:.15s}" +
-      ".sn-lang button.active{background:linear-gradient(90deg,#E0C078,#C9A24B,#B8923D,#A87E2C);color:#05050A}";
+      ".sn-lang button.active{background:linear-gradient(90deg,#FFC65C,#FFB02E,#E08A00,#B96A00);color:#05050A}";
     document.head.appendChild(css);
     var bar = document.createElement("div");
     bar.className = "sn-lang";
