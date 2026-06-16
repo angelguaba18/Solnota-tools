@@ -8,19 +8,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#C9A24B;--gold2:#E0C078;--bg:#0D0D0F;--panel:#15140f;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;}
+:root{--gold:#D9A52A;--gold2:#E8C063;--bg:#FFFFFF;--panel:#FBF8F0;--cream:#1A1611;--muted:#6E6657;--line:#ECE6D8;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;}
-.lang{position:fixed;top:20px;right:22px;display:flex;gap:2px;border:1px solid #2a271f;border-radius:11px;padding:3px;}
+.lang{position:fixed;top:20px;right:22px;display:flex;gap:2px;border:1px solid #ECE6D8;border-radius:11px;padding:3px;}
 .lang button{padding:6px 13px;border:none;background:transparent;color:var(--muted);font-weight:500;font-size:13px;border-radius:8px;cursor:pointer;letter-spacing:1px;}
 .lang button.active{background:var(--gold);color:#1a160c;}
 .card{max-width:560px;width:100%;text-align:center;}
-h1{font-family:'Italiana',serif;font-size:clamp(44px,11vw,70px);letter-spacing:8px;padding-left:8px;}
+h1{font-family:'Italiana',serif;font-size:clamp(44px,11vw,70px);letter-spacing:8px;padding-left:8px;background:linear-gradient(90deg,#E8C063,#D9A52A,#9A6E10);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .tag{color:var(--gold);font-size:12px;letter-spacing:5px;margin-top:6px;text-transform:uppercase;}
-.lead{font-size:19px;color:#d6d0c4;margin:28px 0 6px;line-height:1.5;}
+.lead{font-size:19px;color:#2A2419;margin:28px 0 6px;line-height:1.5;}
 .sub{font-size:14px;color:var(--muted);margin-bottom:26px;}
 form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
-input{flex:1;min-width:230px;padding:16px 18px;border-radius:12px;border:1px solid #2f2b22;background:#15140f;color:var(--cream);font-size:16px;font-family:inherit;}
+input{flex:1;min-width:230px;padding:16px 18px;border-radius:12px;border:1px solid #ECE6D8;background:#FBF8F0;color:var(--cream);font-size:16px;font-family:inherit;}
 input:focus{outline:none;border-color:var(--gold);}
 button.cta{padding:16px 28px;border:none;border-radius:12px;background:var(--gold);color:#1a160c;font-weight:600;font-size:16px;cursor:pointer;transition:transform .15s,background .15s;letter-spacing:.5px;}
 button.cta:hover{transform:translateY(-2px);background:var(--gold2);}
@@ -29,20 +29,20 @@ button.cta:disabled{opacity:.5;cursor:wait;transform:none;}
 .result .num{font-family:'Italiana',serif;font-size:64px;color:var(--cream);line-height:1;}
 .result .lbl{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:18px;}
 .result .big{font-family:'Italiana',serif;font-size:30px;color:var(--gold);line-height:1.25;margin-bottom:6px;}
-.samples{font-size:13px;color:#b8b2a4;margin:14px 0;line-height:1.7;}
+.samples{font-size:13px;color:#6E6657;margin:14px 0;line-height:1.7;}
 .samples b{color:var(--gold);}
 .moneymap{margin:18px 0 4px;border-top:1px solid var(--line);padding-top:16px;}
 .moneymap .mm-t{font-size:13px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
-.mm-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #1c190f;}
+.mm-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #F4EFE2;}
 .mm-row:last-child{border-bottom:none;}
 .mm-ic{color:var(--gold);font-size:15px;flex:none;margin-top:1px;}
-.mm-tx{font-size:13px;color:#cfc8b8;line-height:1.45;}
+.mm-tx{font-size:13px;color:#4a4438;line-height:1.45;}
 .mm-tx b{color:var(--cream);}
 .cta-box{margin-top:18px;border-top:1px solid var(--line);padding-top:18px;}
-.cta-box p{font-size:14px;margin-bottom:12px;color:#d6d0c4;}
+.cta-box p{font-size:14px;margin-bottom:12px;color:#2A2419;}
 .msg{display:none;margin-top:16px;font-size:16px;color:var(--gold2);font-weight:500;}
 .err{color:#e0a; font-size:14px; margin-top:12px; display:none;}
-footer{margin-top:34px;font-size:11px;color:#55514a;letter-spacing:2px;}
+footer{margin-top:34px;font-size:11px;color:#6E6657;letter-spacing:2px;}
 </style>
 </head>
 <body>
@@ -93,7 +93,7 @@ const T={
      sub:"Escribe tu nombre de artista. Escaneamos tu catálogo en segundos.",
      ph:"Tu nombre de artista", scan:"Escanear", scanning:"Escaneando…",
      lbl:"obras tuyas generando dinero",
-     big:(b)=>`💰 Tienes regalías <span style="color:var(--cream)">sin reclamar</span>.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">El <b style="color:var(--gold)">black box</b> es el dinero que las plataformas ya recaudaron de tu música, pero que nadie ha cobrado. Te ayudamos a recuperarlo.</div>`,
+     big:(b)=>`💰 Tienes regalías <span style="color:var(--cream)">sin reclamar</span>.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">El <b style="color:var(--gold)">black box</b> es el dinero que las plataformas ya recaudaron de tu música, pero que nadie ha cobrado. Te ayudamos a recuperarlo.</div>`,
      since:(y,n)=>`🎵 Generando regalías desde <b>${y}</b>${n?` — ${n} años cobrando.`:'.'}`,
      mapT:"Dónde está tu dinero — 6 fuentes",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Máster (SoundExchange)</b> — radio digital por tus grabaciones.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecánicas (The MLC)</b> — streaming en EE.UU. (gran parte del black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tu PRO)</b> — ejecución pública (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — tu música en TV, cine, anuncios y videojuegos.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Derechos conexos</b> — performance del máster fuera de EE.UU.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — cuando tu música suena en videos de otros.</span></div>`,
@@ -105,7 +105,7 @@ const T={
      sub:"Type your artist name. We scan your catalog in seconds.",
      ph:"Your artist name", scan:"Scan", scanning:"Scanning…",
      lbl:"of your works are earning money",
-     big:(b)=>`💰 You have <span style="color:var(--cream)">unclaimed</span> royalties.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">The <b style="color:var(--gold)">black box</b> is money that platforms already collected from your music, but no one has claimed. We help you get it back.</div>`,
+     big:(b)=>`💰 You have <span style="color:var(--cream)">unclaimed</span> royalties.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">The <b style="color:var(--gold)">black box</b> is money that platforms already collected from your music, but no one has claimed. We help you get it back.</div>`,
      since:(y,n)=>`🎵 Earning royalties since <b>${y}</b>${n?` — ${n} years and counting.`:'.'}`,
      mapT:"Where your money is — 6 sources",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — digital radio for your recordings.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mechanical (The MLC)</b> — US streaming (much of the black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (your PRO)</b> — public performance (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — your music in TV, film, ads and video games.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Neighbouring rights</b> — master performance outside the US.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — when your music plays in others' videos.</span></div>`,
@@ -117,7 +117,7 @@ const T={
      sub:"Escreve teu nome de artista. Escaneamos teu catálogo em segundos.",
      ph:"Teu nome de artista", scan:"Escanear", scanning:"Escaneando…",
      lbl:"obras tuas gerando dinheiro",
-     big:(b)=>`💰 Tens royalties <span style="color:var(--cream)">não reivindicados</span>.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">O <b style="color:var(--gold)">black box</b> é o dinheiro que as plataformas já arrecadaram da tua música, mas que ninguém reivindicou. Te ajudamos a recuperá-lo.</div>`,
+     big:(b)=>`💰 Tens royalties <span style="color:var(--cream)">não reivindicados</span>.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">O <b style="color:var(--gold)">black box</b> é o dinheiro que as plataformas já arrecadaram da tua música, mas que ninguém reivindicou. Te ajudamos a recuperá-lo.</div>`,
      since:(y,n)=>`🎵 Gerando royalties desde <b>${y}</b>${n?` — ${n} anos recebendo.`:'.'}`,
      mapT:"Onde está o teu dinheiro — 6 fontes",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — rádio digital pelas tuas gravações.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecânicas (The MLC)</b> — streaming nos EUA (grande parte do black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tua PRO)</b> — execução pública (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — tua música em TV, cinema, anúncios e jogos.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Direitos conexos</b> — performance do master fora dos EUA.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — quando tua música toca em vídeos de outros.</span></div>`,
@@ -129,7 +129,7 @@ const T={
      sub:"Écris ton nom d'artiste. On scanne ton catalogue en quelques secondes.",
      ph:"Ton nom d'artiste", scan:"Scanner", scanning:"Analyse…",
      lbl:"de tes œuvres génèrent de l'argent",
-     big:(b)=>`💰 Tu as des royalties <span style="color:var(--cream)">non réclamées</span>.<div style="font-size:14px;color:#b8b2a4;font-weight:400;margin-top:12px;line-height:1.55">Le <b style="color:var(--gold)">black box</b> est l'argent que les plateformes ont déjà perçu de ta musique, mais que personne n'a réclamé. On t'aide à le récupérer.</div>`,
+     big:(b)=>`💰 Tu as des royalties <span style="color:var(--cream)">non réclamées</span>.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">Le <b style="color:var(--gold)">black box</b> est l'argent que les plateformes ont déjà perçu de ta musique, mais que personne n'a réclamé. On t'aide à le récupérer.</div>`,
      since:(y,n)=>`🎵 Génère des royalties depuis <b>${y}</b>${n?` — ${n} ans et ça continue.`:'.'}`,
      mapT:"Où est ton argent — 6 sources",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — radio numérique pour tes enregistrements.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mécanique (The MLC)</b> — streaming aux États-Unis (une grande partie du black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (ta PRO)</b> — exécution publique (BMI/ASCAP + PRO).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — ta musique à la TV, au cinéma, dans les pubs et jeux.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Droits voisins</b> — performance du master hors des États-Unis.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — quand ta musique joue dans les vidéos des autres.</span></div>`,
