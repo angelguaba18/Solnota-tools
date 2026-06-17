@@ -183,7 +183,7 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
       <h1>Splits</h1>
       <p class="lead">Quién escribió cada canción y qué % le toca. Sin esto, el dinero se traba.</p>
       <div class="panel">
-        <h3>Maldita Guerra <span style="font-size:12px;color:var(--muted)">· ISRC QZTVM2678291</span></h3>
+        <h3 id="splitSong">Splits de tu canción</h3>
         <div style="display:grid;grid-template-columns:1fr 90px 110px;gap:10px;color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase;padding-bottom:4px;"><span>Escritor</span><span>%</span><span>Rol</span></div>
         <div id="splitRows"></div>
         <div style="margin-top:14px;display:flex;gap:10px;align-items:center;">
@@ -198,36 +198,32 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
     <!-- REGISTRAR -->
     <section class="screen" id="registrar">
       <h1>Registrar / Reclamar</h1>
-      <p class="lead">Mete tus obras en el MLC y reclama el dinero sin cobrar.</p>
+      <p class="lead">Metemos tus obras en el MLC y los PROs, y reclamamos el dinero sin cobrar.</p>
       <div class="panel">
-        <h3>Reclamar "Maldita Guerra" en el MLC</h3>
-        <div class="step done"><div class="sn">✓</div><div><div class="st">Obra mapeada con ISRC</div><div class="sd">QZTVM2678291 · detectada en Apple</div></div></div>
-        <div class="step done"><div class="sn">✓</div><div><div class="st">Split confirmado (100%)</div><div class="sd">Gabriela Cabrera Guaba · IPI 01122430810</div></div></div>
-        <div class="step" id="st3"><div class="sn">3</div><div><div class="st">Generar archivo CWR</div><div class="sd">El formato que el MLC entiende — automático</div></div></div>
-        <div class="step" id="st4"><div class="sn">4</div><div><div class="st">Enviar al MLC + reclamar</div><div class="sd">Retroactivo desde 2021</div></div></div>
+        <h3>Cómo reclamamos una obra</h3>
+        <div class="step done"><div class="sn">1</div><div><div class="st">Mapeamos tu obra con su ISRC</div><div class="sd">Automático desde Apple Music / Deezer</div></div></div>
+        <div class="step done"><div class="sn">2</div><div><div class="st">Confirmas el split (suma 100%)</div><div class="sd">Con tu nombre legal y tu IPI de escritor/a</div></div></div>
+        <div class="step" id="st3"><div class="sn">3</div><div><div class="st">Generamos el archivo CWR</div><div class="sd">El formato que el MLC y los PROs entienden — automático</div></div></div>
+        <div class="step" id="st4"><div class="sn">4</div><div><div class="st">Enviamos y reclamamos</div><div class="sd">Retroactivo desde que salió tu música</div></div></div>
         <div style="margin-top:18px;"><button class="btn" id="regBtn" onclick="doRegister()">Generar CWR y reclamar</button></div>
       </div>
+      <p class="note">🔒 KYA: solo reclamamos lo que tú <b>controlas</b> y lo que esté confirmado. Nunca reclamamos de más.</p>
     </section>
 
     <!-- PAGOS -->
     <section class="screen" id="pagos">
       <h1>Pagos</h1>
-      <p class="lead">Tu música paga por varios lados. Si falta el banco en alguno, ese dinero NO te llega. Aquí lo ves de un vistazo.</p>
-      <div class="cards">
-        <div class="kc"><div class="n" style="color:var(--green)">3</div><div class="l">Fuentes listas</div></div>
-        <div class="kc hot"><div class="n">2</div><div class="l">Falta configurar</div></div>
-      </div>
+      <p class="lead">Tu música paga por varios lados. Si falta tu banco en alguno, ese dinero NO te llega. Aquí está dónde ponerlo.</p>
       <div class="panel">
-        <h3>Dónde cobras (y dónde falta)</h3>
-        <div class="step done"><div class="sn">✓</div><div><div class="st">BMI — Performance (escritor)</div><div class="sd">Cobrando · paga a Sol Music Corp · BofA ...7347</div></div></div>
-        <div class="step done"><div class="sn">✓</div><div><div class="st">BMI — Publisher (editor)</div><div class="sd">Banco agregado · verificando 8-10 días · IPI 01355087345</div></div></div>
-        <div class="step done"><div class="sn">✓</div><div><div class="st">Dirección de cobro</div><div class="sd">Correcta · cheques y correo llegan bien</div></div></div>
-        <div class="step"><div class="sn" style="background:#2a1410;color:var(--red)">!</div><div><div class="st">MLC — Mecánicas <span class="badge b-red">Falta banco</span></div><div class="sd">Member aprobado, pero confirmar datos de pago</div></div></div>
-        <div class="step done"><div class="sn">✓</div><div><div class="st">SoundExchange — Máster radio digital</div><div class="sd">Cuenta activa · verificar banco y pagos pendientes (Pandora, SiriusXM, etc.)</div></div></div>
+        <h3>Dónde poner tu banco (para que el dinero llegue)</h3>
+        <div class="step"><div class="sn">$</div><div><div class="st">MLC — Mecánicas</div><div class="sd">Agrega tu banco en el portal del MLC (pagos mensuales)</div></div></div>
+        <div class="step"><div class="sn">$</div><div><div class="st">Tu PRO (BMI / ASCAP) — Performance</div><div class="sd">Direct deposit de escritor/a y de editor/a (trimestral)</div></div></div>
+        <div class="step"><div class="sn">$</div><div><div class="st">SoundExchange — Conexos (máster)</div><div class="sd">Si tienes el máster, agrega tu banco (radio digital US)</div></div></div>
+        <div class="step"><div class="sn">$</div><div><div class="st">Tu distribuidora — Máster</div><div class="sd">Ahí ya cobras tu streaming (mensual)</div></div></div>
       </div>
       <div class="panel">
         <h3>Cómo SOLNOTA te ayuda</h3>
-        <p class="note">Te decimos exactamente <b style="color:var(--gold)">dónde falta</b> poner tu banco y te guiamos paso a paso — en minutos. <b>Nunca tocamos tus datos bancarios</b>: tú los pones, nosotros te mostramos dónde. Una sola pantalla para saber si ya cobras en TODOS lados.</p>
+        <p class="note">Te decimos exactamente <b style="color:var(--gold)">dónde falta</b> poner tu banco y te guiamos paso a paso. <b>Nunca tocamos tus datos bancarios</b>: tú los pones directo en cada fuente, nosotros solo te mostramos dónde. 0% comisión.</p>
       </div>
     </section>
 
@@ -355,7 +351,7 @@ document.querySelectorAll('.per').forEach(b=>b.addEventListener('click',()=>{
   render();
 }));
 // splits
-let writers=[["Gabriela Cabrera Guaba","50","Escritora"],["Productor (por confirmar)","50","Productor"]];
+let writers=[["Tú (escritor/a)","100","Escritor/a"]];
 function renderSplits(){
   const c=document.getElementById('splitRows');
   c.innerHTML=writers.map((w,i)=>`<div class="split-row">
@@ -376,7 +372,7 @@ function doRegister(){
     document.getElementById('rSin').textContent='45';document.getElementById('rEn').textContent='1';
     document.getElementById('rl3').classList.add('done');document.getElementById('rl3').querySelector('.sn').textContent='✓';
     document.getElementById('rMoney').textContent='$110';
-    flash('Maldita Guerra reclamada en el MLC ✓');
+    flash('Obra reclamada en el MLC ✓');
   },900);
 }
 function flash(msg){const f=document.getElementById('flash');f.textContent=msg;f.classList.add('show');setTimeout(()=>f.classList.remove('show'),2200);}
@@ -501,6 +497,7 @@ async function loadArtistData(profile){
   const sin=tracks.filter(t=>t[4]==='sin').length;
   const ok=tracks.filter(t=>t[4]==='grn').length;
   document.getElementById('hello').textContent='Hola, '+artistName+' 👋';
+  writers=[[artistName,"100","Escritor/a"]]; renderSplits();   // split arranca con el artista logueado
   document.getElementById('sideName').textContent=artistName;
   document.getElementById('sideAvatar').textContent=(artistName[0]||'·').toUpperCase();
   document.getElementById('sideRole').textContent = adminView ? 'Admin · vista' : (CT_LABEL[profile.creator_type]||'Creador');
