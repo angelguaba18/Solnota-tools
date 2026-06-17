@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA — Escanea tu música</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A24B;--gold2:#E0C078;--bg:#0D0D0F;--panel:#15140f;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;}
+.lang{position:fixed;top:20px;right:22px;display:flex;gap:2px;border:1px solid #2a271f;border-radius:11px;padding:3px;}
+.lang button{padding:6px 13px;border:none;background:transparent;color:var(--muted);font-weight:500;font-size:13px;border-radius:8px;cursor:pointer;letter-spacing:1px;}
+.lang button.active{background:var(--gold);color:#1a160c;}
+.card{max-width:560px;width:100%;text-align:center;}
+h1{font-family:'Italiana',serif;font-size:clamp(44px,11vw,70px);letter-spacing:8px;padding-left:8px;}
+.tag{color:var(--gold);font-size:12px;letter-spacing:5px;margin-top:6px;text-transform:uppercase;}
+.lead{font-size:19px;color:#d6d0c4;margin:28px 0 6px;line-height:1.5;}
+.sub{font-size:14px;color:var(--muted);margin-bottom:26px;}
+form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+input{flex:1;min-width:230px;padding:16px 18px;border-radius:12px;border:1px solid #2f2b22;background:#15140f;color:var(--cream);font-size:16px;font-family:inherit;}
+input:focus{outline:none;border-color:var(--gold);}
+button.cta{padding:16px 28px;border:none;border-radius:12px;background:var(--gold);color:#1a160c;font-weight:600;font-size:16px;cursor:pointer;transition:transform .15s,background .15s;letter-spacing:.5px;}
+button.cta:hover{transform:translateY(-2px);background:var(--gold2);}
+button.cta:disabled{opacity:.5;cursor:wait;transform:none;}
+.result{display:none;margin-top:30px;background:var(--panel);border:1px solid var(--gold);border-radius:18px;padding:30px;text-align:left;}
+.result .num{font-family:'Italiana',serif;font-size:64px;color:var(--cream);line-height:1;}
+.result .lbl{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:18px;}
+.result .big{font-family:'Italiana',serif;font-size:30px;color:var(--gold);line-height:1.25;margin-bottom:6px;}
+.samples{font-size:13px;color:#b8b2a4;margin:14px 0;line-height:1.7;}
+.samples b{color:var(--gold);}
+.cta-box{margin-top:18px;border-top:1px solid var(--line);padding-top:18px;}
+.cta-box p{font-size:14px;margin-bottom:12px;color:#d6d0c4;}
+.msg{display:none;margin-top:16px;font-size:16px;color:var(--gold2);font-weight:500;}
+.err{color:#e0a; font-size:14px; margin-top:12px; display:none;}
+footer{margin-top:34px;font-size:11px;color:#55514a;letter-spacing:2px;}
+</style>
+</head>
+<body>
+<div class="lang">
+  <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+<div class="card">
+  <h1>SOLNOTA</h1>
+  <div class="tag" id="tag">Tu música · Tu dinero</div>
+  <p class="lead" id="lead"></p>
+  <p class="sub" id="sub"></p>
+
+  <form id="scanForm" onsubmit="scan(event)">
+    <input id="artist" type="text" required autocomplete="off">
+    <button type="submit" class="cta" id="scanBtn"></button>
+  </form>
+  <div class="err" id="err"></div>
+
+  <div class="result" id="result">
+    <div class="num" id="rNum">0</div>
+    <div class="lbl" id="rLbl"></div>
+    <div class="big" id="rBig"></div>
+    <div class="since" id="rSince" style="font-size:13px;color:var(--gold2);margin:6px 0 0;"></div>
+    <div class="samples" id="rSamples"></div>
+    <div class="cta-box">
+      <p id="ctaP"></p>
+      <form id="mailForm" onsubmit="join(event)">
+        <input id="email" type="email" required>
+        <button type="submit" class="cta" id="joinBtn"></button>
+      </form>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
+  <footer>SOLNOTA · SOL MUSIC CORP</footer>
+</div>
+
+<script>
+const ENDPOINT="https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/scan";
+const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";
+const T={
+ es:{tag:"Tu música · Tu dinero",
+     lead:"Tu música lleva años generando dinero.<br>Descubre cuánto NO te está llegando.",
+     sub:"Escribe tu nombre de artista. Escaneamos tu catálogo en segundos.",
+     ph:"Tu nombre de artista", scan:"Escanear", scanning:"Escaneando…",
+     lbl:"obras encontradas en tus plataformas",
+     big:(b)=>`Hasta <span style="color:var(--cream)">${b}</span> podrían tener dinero sin reclamar.`,
+     since:(y)=>`💰 Tu música genera dinero desde <b>${y}</b>.`,
+     ej:"Ej: ", notfound:"No encontramos ese artista. Revisa el nombre exacto.",
+     ctaP:'Te ayudamos a recuperar ese dinero — <b style="color:var(--gold)">0% comisión.</b> Déjanos tu correo:',
+     emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto."},
+ en:{tag:"Your music · Your money",
+     lead:"Your music has been making money for years.<br>Find out how much isn't reaching you.",
+     sub:"Type your artist name. We scan your catalog in seconds.",
+     ph:"Your artist name", scan:"Scan", scanning:"Scanning…",
+     lbl:"works found on your platforms",
+     big:(b)=>`Up to <span style="color:var(--cream)">${b}</span> could have unclaimed money.`,
+     since:(y)=>`💰 Your music has been earning since <b>${y}</b>.`,
+     ej:"E.g.: ", notfound:"We couldn't find that artist. Check the exact name.",
+     ctaP:'We help you recover that money — <b style="color:var(--gold)">0% commission.</b> Drop your email:',
+     emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon."}
+};
+let L="es", last={artist:"",total:0,bb:0};
+function setLang(l){
+  L=l; const t=T[l]; document.documentElement.lang=l;
+  document.getElementById('tag').textContent=t.tag;
+  document.getElementById('lead').innerHTML=t.lead;
+  document.getElementById('sub').textContent=t.sub;
+  document.getElementById('artist').placeholder=t.ph;
+  document.getElementById('scanBtn').textContent=t.scan;
+  document.getElementById('email').placeholder=t.emailph;
+  document.getElementById('joinBtn').textContent=t.join;
+  document.getElementById('ctaP').innerHTML=t.ctaP;
+  document.getElementById('btn-es').classList.toggle('active',l==='es');
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+}
+async function scan(e){
+  e.preventDefault(); const t=T[L];
+  const artist=document.getElementById('artist').value.trim();
+  const btn=document.getElementById('scanBtn'),err=document.getElementById('err');
+  err.style.display='none'; btn.disabled=true; btn.textContent=t.scanning;
+  try{
+    const r=await fetch(ENDPOINT+"?artist="+encodeURIComponent(artist),{headers:{apikey:KEY}});
+    const d=await r.json();
+    if(d.error)throw new Error(d.error);
+    if(!d.found){err.textContent=t.notfound;err.style.display='block';return;}
+    last={artist:d.artist,total:d.total,bb:d.black_box};
+    document.getElementById('rNum').textContent=d.total;
+    document.getElementById('rLbl').textContent=t.lbl;
+    document.getElementById('rBig').innerHTML=t.big(d.black_box);
+    document.getElementById('rSince').innerHTML=d.year_from?t.since(d.year_from):"";
+    document.getElementById('rSamples').innerHTML=d.sample&&d.sample.length?t.ej+d.sample.map(s=>`<b>${s}</b>`).join(" · "):"";
+    document.getElementById('result').style.display='block';
+  }catch(ex){err.textContent="Error: "+ex.message;err.style.display='block';}
+  finally{btn.disabled=false;btn.textContent=t.scan;}
+}
+async function join(e){
+  e.preventDefault(); const t=T[L];
+  const email=document.getElementById('email').value.trim();
+  const btn=document.getElementById('joinBtn'); btn.disabled=true; btn.textContent='…';
+  try{
+    await fetch(ENDPOINT,{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({email,artist:last.artist,total:last.total,black_box:last.bb})});
+    document.getElementById('mailForm').style.display='none';
+    const m=document.getElementById('msg'); m.textContent=t.joined; m.style.display='block';
+  }catch(ex){btn.disabled=false;btn.textContent=t.join;}
+}
+setLang((navigator.language||'es').startsWith('en')?'en':'es');
+</script>
+</body>
+</html>

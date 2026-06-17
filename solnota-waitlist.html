@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA — Lista de espera / Waitlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root{--gold:#E08A00;--gold2:#FFB02E;--gold3:#B96A00;--ink:#1A1611;--mut:#6E6657;
+      --bg:#FCFAF5;--bg2:#FAF6EC;--card:#FFFFFF;--line:#ECE6D8;--green:#0E9F6E;
+      --grad:linear-gradient(92deg,#FFB02E,#E08A00,#B96A00);--sh:0 18px 50px rgba(36,30,15,.10);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:radial-gradient(1100px 520px at 50% -10%,var(--bg2),var(--bg));color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;line-height:1.55}
+.lang{position:fixed;top:22px;right:24px;display:flex;gap:2px;border:1px solid var(--line);border-radius:11px;padding:3px;background:#fff}
+.lang button{padding:7px 14px;border:none;background:transparent;color:var(--mut);font-weight:600;font-size:13px;border-radius:8px;cursor:pointer;letter-spacing:1px;}
+.lang button.active{background:var(--grad);color:#fff;}
+.card{max-width:540px;width:100%;text-align:center;}
+.sn-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(42px,10vw,64px);letter-spacing:0;color:var(--ink);display:inline-flex;align-items:center;line-height:1;justify-content:center}
+.sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto}
+.sn-disc::before{content:"";position:absolute;inset:31%;border-radius:50%;background:var(--bg)}
+.sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:#1A1611}
+.tag{color:var(--gold);font-size:11px;letter-spacing:4px;margin-top:10px;text-transform:uppercase;font-weight:600}
+.lead{font-size:20px;color:var(--ink);margin:28px 0 6px;line-height:1.45;font-weight:600;font-family:'Fraunces',serif}
+.sub{font-size:14.5px;color:var(--mut);margin-bottom:28px;line-height:1.5;}
+form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+input{flex:1;min-width:230px;padding:16px 18px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:16px;font-family:inherit;}
+input:focus{outline:none;border-color:var(--gold2);box-shadow:0 0 0 3px rgba(255,176,46,.18)}
+button.cta{padding:16px 30px;border:none;border-radius:13px;background:var(--grad);color:#fff;font-weight:700;font-size:16px;cursor:pointer;transition:transform .15s;letter-spacing:.3px;}
+button.cta:hover{transform:translateY(-2px);}
+button.cta:disabled{opacity:.6;cursor:default;transform:none}
+.ok{display:none;margin-top:22px;color:var(--green);font-weight:600;font-size:17px;background:#E7F6EF;border:1px solid #BFE9D6;padding:14px 16px;border-radius:13px}
+.err{display:none;margin-top:18px;color:#C0392B;font-size:14.5px;background:#FDECEC;border:1px solid #F4C9C5;padding:12px 14px;border-radius:12px}
+.badges{margin-top:34px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;font-size:12px;color:var(--mut);letter-spacing:.4px;}
+.badges span::before{content:"— ";color:var(--gold);}
+footer{margin-top:40px;font-size:11px;color:#a59b86;letter-spacing:2px;}
+</style>
+</head>
+<body>
+<div class="lang">
+  <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+<div class="card">
+  <span class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</span>
+  <div class="tag" id="tag">Tu música · Tu dinero</div>
+  <p class="lead" id="lead"></p>
+  <p class="sub" id="sub"></p>
+  <form id="f" onsubmit="join(event)">
+    <input id="email" type="email" required autocomplete="email">
+    <button type="submit" class="cta" id="cta"></button>
+  </form>
+  <div class="ok" id="ok"></div>
+  <div class="err" id="err"></div>
+  <div class="badges" id="badges"></div>
+  <footer>SOLNOTA · SOL MUSIC CORP</footer>
+</div>
+<script>
+var SB_URL="https://bdjjalwlcuhfzjeqxtwi.supabase.co";
+var SB_ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";
+const T={
+  es:{lead:"Cobra todo tu dinero.<br>0% comisión. En tu idioma.",
+      sub:"Estamos abriendo acceso a artistas latinos. Apúntate y sé de los primeros.",
+      ph:"tu@email.com", cta:"Quiero entrar", tag:"Tu música · Tu dinero",
+      ok:"Estás en la lista. Te avisamos pronto.",
+      dup:"Ya estabas en la lista 🙌 Te avisamos pronto.",
+      err:"No se pudo guardar. Intenta de nuevo.",
+      badges:["Nunca tocamos tu dinero","Tu música es 100% tuya","0% comisión"]},
+  en:{lead:"Collect all your money.<br>0% commission. In your language.",
+      sub:"We're opening access to Latin artists. Join and be one of the first.",
+      ph:"you@email.com", cta:"Join the list", tag:"Your music · Your money",
+      ok:"You're on the list. We'll be in touch soon.",
+      dup:"You were already on the list 🙌 We'll be in touch.",
+      err:"Couldn't save. Please try again.",
+      badges:["We never touch your money","Your music is 100% yours","0% commission"]}
+};
+let cur='es';
+function setLang(l){
+  cur=l; const t=T[l]; document.documentElement.lang=l;
+  document.getElementById('lead').innerHTML=t.lead;
+  document.getElementById('sub').textContent=t.sub;
+  document.getElementById('email').placeholder=t.ph;
+  document.getElementById('cta').textContent=t.cta;
+  document.getElementById('tag').textContent=t.tag;
+  document.getElementById('badges').innerHTML=t.badges.map(b=>`<span>${b}</span>`).join('');
+  document.getElementById('btn-es').classList.toggle('active',l==='es');
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+}
+async function join(e){
+  e.preventDefault();
+  const t=T[cur];
+  const email=document.getElementById('email').value.trim();
+  const cta=document.getElementById('cta');
+  const errEl=document.getElementById('err'); errEl.style.display='none';
+  cta.disabled=true; cta.textContent='…';
+  try{
+    const r=await fetch(SB_URL+"/rest/v1/waitlist",{
+      method:"POST",
+      headers:{apikey:SB_ANON,"Authorization":"Bearer "+SB_ANON,"Content-Type":"application/json","Prefer":"return=minimal"},
+      body:JSON.stringify({email:email,source:"waitlist"})
+    });
+    if(r.ok || r.status===409){
+      document.getElementById('f').style.display='none';
+      const ok=document.getElementById('ok');
+      ok.textContent = (r.status===409)? t.dup : t.ok;
+      ok.style.display='block';
+    } else { throw new Error("HTTP "+r.status); }
+  }catch(err){
+    errEl.textContent=t.err; errEl.style.display='block';
+    cta.disabled=false; cta.textContent=t.cta;
+  }
+}
+setLang((navigator.language||'es').startsWith('en')?'en':'es');
+</script>
+</body>
+</html>

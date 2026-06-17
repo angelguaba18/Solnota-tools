@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA · Alta de artista (admin)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+  :root{--gold:#E08A00;--gold2:#FFB02E;--ink:#1A1611;--mut:#6E6657;--bg:#FCFAF5;--bg2:#FAF6EC;--card:#FFFFFF;--line:#ECE6D8;--green:#0E9F6E;--grad:linear-gradient(92deg,#FFB02E,#E08A00,#B96A00);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Instrument Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding:30px 20px 80px}
+  .wrap{max-width:760px;margin:0 auto}
+  .sn-wm{font-family:'Fraunces',serif;font-weight:600;font-size:28px;display:inline-flex;align-items:center;line-height:1}
+  .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00}
+  .sn-disc::before{content:"";position:absolute;inset:31%;border-radius:50%;background:var(--bg)}
+  .sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:#1A1611}
+  h1{font-family:'Fraunces',serif;font-size:26px;margin:18px 0 4px}
+  p.sub{color:var(--mut);margin-bottom:22px;font-size:14.5px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 8px 26px rgba(36,30,15,.06)}
+  .card h3{font-family:'Fraunces',serif;font-size:18px;margin-bottom:14px}
+  label{display:block;font-size:12px;font-weight:600;color:var(--mut);margin:10px 0 5px;letter-spacing:.3px}
+  select,input{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);font-size:15px;font-family:inherit}
+  select:focus,input:focus{outline:none;border-color:var(--gold2)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  button{padding:13px 22px;border:none;border-radius:12px;background:var(--grad);color:#fff;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;margin-top:16px}
+  button:hover{transform:translateY(-1px)}button:disabled{opacity:.5;cursor:default;transform:none}
+  .msg{margin-top:14px;padding:12px 14px;border-radius:11px;font-size:14px;display:none;line-height:1.5}
+  .msg.ok{display:block;background:#E7F6EF;color:var(--green);border:1px solid #BFE9D6}
+  .msg.err{display:block;background:#FDECEC;color:#C0392B;border:1px solid #F4C9C5}
+  .note{font-size:12.5px;color:var(--mut);margin-top:8px;line-height:1.5}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+  th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line)}
+  th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  a.link{color:var(--gold);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</span>
+  <h1>Alta de artista</h1>
+  <p class="sub">Da de alta a cualquier creador y vincúlalo a su catálogo. Cuando entre con su correo, verá su Nota lista. <a class="link" href="/solnota-import.html">Importar regalías →</a></p>
+
+  <div class="card">
+    <h3>Datos del creador</h3>
+    <div class="grid">
+      <div><label>Nombre artístico *</label><input id="name" placeholder="La Gabi" list="artistList"><datalist id="artistList"></datalist></div>
+      <div><label>Correo (con el que entrará) *</label><input id="email" type="email" placeholder="artista@email.com"></div>
+    </div>
+    <div class="grid3">
+      <div><label>Tipo de creador</label><select id="ctype">
+        <option value="cantante">Cantante</option>
+        <option value="productor">Productor</option>
+        <option value="poeta">Poeta</option>
+        <option value="compositor">Compositor</option>
+        <option value="audiolibro">Audiolibro</option>
+        <option value="otro">Otro</option>
+      </select></div>
+      <div><label>Acceso</label><select id="role">
+        <option value="artist">Artista (ve lo suyo)</option>
+        <option value="producer">Productor / Manager</option>
+        <option value="admin">Admin (torre CEO)</option>
+      </select></div>
+      <div><label>País</label><input id="country" placeholder="US / DO / MX…"></div>
+    </div>
+    <div class="grid">
+      <div><label>PRO (BMI/ASCAP…)</label><input id="pro" placeholder="BMI"></div>
+      <div><label>IPI (opcional)</label><input id="ipi" placeholder="01122430810"></div>
+    </div>
+    <button id="save">Dar de alta y vincular</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="card">
+    <h3>Artistas dados de alta</h3>
+    <div id="list"><p class="note">Cargando…</p></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/solnota-auth.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+function slugify(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);}
+const sb=()=>snAuth.client;
+
+async function refreshList(){
+  const r=await sb().from('artists').select('slug,name,country,pro,status').order('name');
+  const arts=r.data||[];
+  $('artistList').innerHTML=arts.map(a=>`<option value="${a.name||a.slug}">`).join('');
+  $('list').innerHTML = arts.length ? ('<table><thead><tr><th>Nombre</th><th>Slug</th><th>País</th><th>PRO</th></tr></thead><tbody>'+
+    arts.map(a=>`<tr><td>${a.name||'—'}</td><td style="color:var(--mut)">${a.slug}</td><td>${a.country||'—'}</td><td>${a.pro||'—'}</td></tr>`).join('')+'</tbody></table>')
+    : '<p class="note">Aún no hay artistas.</p>';
+}
+
+$('save').addEventListener('click', async ()=>{
+  const name=$('name').value.trim(), email=$('email').value.trim().toLowerCase();
+  const msg=$('msg'); msg.className='msg';
+  if(!name || !email){ msg.className='msg err'; msg.textContent='Falta el nombre o el correo.'; return; }
+  const slug=slugify(name);
+  $('save').disabled=true; $('save').textContent='Guardando…';
+  try{
+    // 1) crear/actualizar el artista
+    const a=await sb().from('artists').upsert({
+      slug:slug, name:name,
+      country:$('country').value.trim()||null,
+      pro:$('pro').value.trim()||null,
+      ipi:$('ipi').value.trim()||null,
+      status:'activo'
+    },{onConflict:'slug'});
+    if(a.error) throw a.error;
+
+    const role=$('role').value, ctype=$('ctype').value;
+    // 2) dejar la invitación (se aplica sola cuando entre)
+    const inv=await sb().from('artist_invites').upsert({email:email,artist_slug:slug,role:role,creator_type:ctype},{onConflict:'email'});
+    if(inv.error) throw inv.error;
+
+    // 3) si ya tiene cuenta, vincular ya mismo
+    let yaEntro=false;
+    const pr=await sb().from('profiles').select('id').ilike('email',email).maybeSingle();
+    if(pr.data && pr.data.id){
+      const up=await sb().from('profiles').update({role:role,creator_type:ctype,artist_slug:slug}).eq('id',pr.data.id);
+      if(up.error) throw up.error; yaEntro=true;
+    }
+    msg.className='msg ok';
+    msg.innerHTML = yaEntro
+      ? `✓ <b>${name}</b> vinculado. Ya tiene cuenta — al recargar verá su Nota.`
+      : `✓ <b>${name}</b> dado de alta. Dile que entre en <b>/login.html</b> con <b>${email}</b> y su Nota aparecerá lista.`;
+    await refreshList();
+  }catch(e){
+    msg.className='msg err'; msg.textContent='Error: '+(e.message||e);
+  }
+  $('save').disabled=false; $('save').textContent='Dar de alta y vincular';
+});
+
+(async function(){
+  const p=await snAuth.guard({role:'admin'});
+  if(!p) return;
+  await refreshList();
+})();
+</script>
+</body>
+</html>

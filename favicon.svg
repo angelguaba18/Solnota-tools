@@ -1,16 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-<defs><linearGradient id="t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB02E"/><stop offset="1" stop-color="#B96A00"/></linearGradient>
-<clipPath id="tc"><rect x="3" y="3" width="58" height="58" rx="17"/></clipPath></defs>
-<rect x="3" y="3" width="58" height="58" rx="17" fill="url(#t)"/>
-<rect x="3" y="3" width="58" height="58" rx="17" fill="none" stroke="#fff" stroke-opacity="0.22" stroke-width="1.4"/>
-<g clip-path="url(#tc)">
-<line x1="3" y1="42" x2="61" y2="42" stroke="#fff" stroke-opacity="0.5" stroke-width="2"/>
-<rect x="12" y="31" width="4" height="11" rx="2" fill="#fff"/>
-<rect x="18.7" y="25" width="4" height="17" rx="2" fill="#fff"/>
-<rect x="25.4" y="19" width="4" height="23" rx="2" fill="#fff"/>
-<rect x="32.1" y="15" width="4" height="27" rx="2" fill="#fff"/>
-<rect x="38.8" y="21" width="4" height="21" rx="2" fill="#fff"/>
-<rect x="45.5" y="26" width="4" height="16" rx="2" fill="#fff"/>
-<rect x="52.2" y="31" width="4" height="11" rx="2" fill="#fff"/>
-</g>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC062"/><stop offset="0.45" stop-color="#FFB02E"/><stop offset="1" stop-color="#A85F00"/></linearGradient></defs>
+<circle cx="32" cy="32" r="30" fill="url(#g)"/>
+<circle cx="32" cy="32" r="24" fill="none" stroke="#FFE9C2" stroke-width="1" opacity="0.4"/>
+<circle cx="32" cy="32" r="18" fill="none" stroke="#FFE9C2" stroke-width="1" opacity="0.3"/>
+<path d="M12 26 A30 30 0 0 1 26 12" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+<circle cx="32" cy="32" r="30" fill="none" stroke="#A85F00" stroke-width="2"/>
+<circle cx="32" cy="32" r="11" fill="#FCFAF5"/>
+<circle cx="32" cy="32" r="6" fill="#1A1611"/>
 </svg>

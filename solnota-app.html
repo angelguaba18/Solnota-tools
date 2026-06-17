@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLNOTA — App del Artista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root{--gold:#FFB02E;--gold2:#FFCF6B;--gold3:#B96A00;--bg:#0D0D0F;--panel:#15140f;--panel2:#1b1913;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;--green:#13B981;--red:#e0795a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);}
+.app{display:flex;min-height:100vh;}
+/* sidebar */
+.side{width:230px;background:var(--panel);border-right:1px solid var(--line);padding:24px 0;flex-shrink:0;position:sticky;top:0;height:100vh;}
+.brand{font-family:'Fraunces',serif;font-size:30px;letter-spacing:0;padding:0 24px 4px;}
+.sn-wm{font-family:'Fraunces',serif;font-weight:600;color:var(--cream);display:inline-flex;align-items:center;line-height:1}
+.sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto}
+.sn-disc::before{content:"";position:absolute;inset:31%;border-radius:50%;background:var(--panel)}
+.sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:var(--cream)}
+.brandsub{font-size:9px;letter-spacing:3px;color:var(--gold);padding:0 24px 26px;text-transform:uppercase;}
+.nav a{display:flex;align-items:center;gap:12px;padding:13px 24px;color:var(--muted);cursor:pointer;font-size:14.5px;font-weight:500;border-left:3px solid transparent;}
+.nav a:hover{color:var(--cream);background:#1a1813;}
+.nav a.active{color:var(--gold);border-left-color:var(--gold);background:#1a1813;}
+.nav a .ic{font-size:17px;width:20px;text-align:center;}
+.artist{margin-top:auto;padding:18px 24px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;position:absolute;bottom:0;width:230px;}
+.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a160c;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+.artist .nm{font-size:14px;font-weight:600;}.artist .rl{font-size:11px;color:var(--muted);}
+/* main */
+.main{flex:1;padding:34px 40px 60px;max-width:1000px;}
+.screen{display:none;}.screen.on{display:block;animation:fade .25s;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+h1{font-family:'Fraunces',serif;font-size:34px;letter-spacing:1px;margin-bottom:4px;}
+.lead{color:var(--muted);font-size:14px;margin-bottom:26px;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px;}
+.kc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;}
+.kc .n{font-family:'Fraunces',serif;font-size:38px;color:var(--gold);line-height:1;}
+.kc .l{font-size:12px;color:var(--muted);margin-top:7px;}
+.kc.hot{border-color:var(--gold);background:#1d1a12;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;color:var(--muted);font-weight:500;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--line);}
+td{padding:11px 12px;border-bottom:1px solid var(--line);}
+tr:hover td{background:#16140f;}
+.badge{font-size:10px;padding:3px 9px;border-radius:20px;letter-spacing:.5px;font-weight:600;white-space:nowrap;}
+.b-red{background:#2a1410;color:var(--red);border:1px solid #5a2c1f;}
+.b-yel{background:#2a2410;color:var(--gold);border:1px solid #5a4f1f;}
+.b-grn{background:#0f2419;color:var(--green);border:1px solid #1f5a3f;}
+.b-feat{background:#1a1426;color:#b694e8;border:1px solid #3a2c5a;}
+.chip{display:inline-block;font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--line);color:var(--muted);margin:0 6px 18px 0;cursor:pointer;}
+.chip.on{background:var(--gold);color:#1a160c;border-color:var(--gold);}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px;}
+h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:14px;}
+.btn{background:var(--gold);color:#1a160c;border:none;border-radius:10px;padding:12px 22px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;}
+.btn:hover{background:var(--gold2);}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--cream);}
+.preset{background:#1b1913;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.preset:hover{border-color:var(--gold);color:var(--gold);}
+.preset.on{background:var(--gold);color:#1a160c;border-color:var(--gold);}
+#nS:focus{outline:none;border-color:var(--gold2);}
+.split-row{display:grid;grid-template-columns:1fr 90px 110px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);}
+.split-row input{background:#15140f;border:1px solid var(--line);color:var(--cream);border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit;}
+.money-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+.mbox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;}
+.mbox .e{font-family:'Fraunces',serif;font-size:34px;color:var(--cream);}.mbox.g .e{color:var(--gold);}
+.mbox .ml{font-size:12px;color:var(--muted);margin-top:5px;}
+.bar{height:8px;background:#241f15;border-radius:6px;overflow:hidden;margin-top:8px;}
+.bar > i{display:block;height:100%;background:var(--gold);}
+.slider{width:100%;accent-color:var(--gold);margin:8px 0;}
+.note{font-size:12px;color:var(--muted);line-height:1.5;}
+.step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:flex-start;}
+.step .sn{width:26px;height:26px;border-radius:50%;background:#241f15;color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.step .st{font-weight:600;font-size:14.5px;}.step .sd{font-size:13px;color:var(--muted);margin-top:2px;}
+.step.done .sn{background:var(--green);color:#0a1f14;}
+.flash{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a160c;padding:13px 24px;border-radius:12px;font-weight:600;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;}
+.flash.show{opacity:1;}
+@media(max-width:760px){.side{display:none;}.main{padding:22px;}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</span></div>
+    <div class="brandsub">Tu música · Tu dinero</div>
+    <nav class="nav" id="nav">
+      <a data-s="inicio" class="active"><span class="ic">⌂</span> Inicio</a>
+      <a data-s="catalogo"><span class="ic">♪</span> Mi Catálogo</a>
+      <a data-s="dinero"><span class="ic">$</span> Mi Dinero</a>
+      <a data-s="splits"><span class="ic">%</span> Splits</a>
+      <a data-s="registrar"><span class="ic">⬆</span> Registrar / Reclamar</a>
+      <a data-s="pagos"><span class="ic">🏦</span> Pagos</a>
+      <a data-s="regalias"><span class="ic">◷</span> Mis Regalías</a>
+    </nav>
+    <div class="artist"><div class="avatar" id="sideAvatar">·</div><div><div class="nm" id="sideName">…</div><div class="rl" id="sideRole">Artista</div></div><a id="logout" title="Salir" style="margin-left:auto;color:var(--muted);font-size:18px;cursor:pointer">⏻</a></div>
+  </aside>
+
+  <main class="main">
+    <!-- INICIO -->
+    <section class="screen on" id="inicio">
+      <h1 id="hello">Hola 👋</h1>
+      <p class="lead">Esto es todo tu dinero de música en un solo lugar.</p>
+      <div class="cards">
+        <div class="kc"><div class="n" id="iTotal">—</div><div class="l">Obras tuyas</div></div>
+        <div class="kc"><div class="n" id="iArt">—</div><div class="l">Como artista</div></div>
+        <div class="kc"><div class="n" id="iFeat">—</div><div class="l">Como feature</div></div>
+        <div class="kc hot"><div class="n" id="iHot">—</div><div class="l">Con dinero sin reclamar</div></div>
+      </div>
+      <div class="panel">
+        <h3>Tu música genera dinero</h3>
+        <p class="note">SOLNOTA escaneó tu catálogo completo en Apple Music y encontró <b style="color:var(--gold)"><span id="iTotal2">—</span> obras</b>. Una parte tiene regalías sin reclamar (black box). Te ayudamos a recuperarlas — <b>0% comisión</b>.</p>
+        <div style="margin-top:16px;display:flex;gap:10px;"><button class="btn" onclick="go('catalogo')">Ver mi catálogo</button><button class="btn ghost" onclick="go('dinero')">Ver mi dinero</button></div>
+      </div>
+    </section>
+
+    <!-- CATALOGO -->
+    <section class="screen" id="catalogo">
+      <h1>Mi Catálogo</h1>
+      <p class="lead">Todas tus obras, mapeadas con ISRC oficial desde Apple Music.</p>
+      <div id="chips">
+        <span class="chip on" data-f="todas" id="chipAll">Todas</span>
+        <span class="chip" data-f="artista">Como artista</span>
+        <span class="chip" data-f="feat">Features</span>
+        <span class="chip" data-f="sin">Sin reclamar</span>
+      </div>
+      <div class="panel" style="padding:6px 0;">
+        <table><thead><tr><th>Título</th><th>Año</th><th>ISRC</th><th>Tipo</th><th>Estado</th></tr></thead>
+        <tbody id="tbody"></tbody></table>
+      </div>
+    </section>
+
+    <!-- DINERO -->
+    <section class="screen" id="dinero">
+      <h1>Mi Dinero</h1>
+      <p class="lead">Tu música paga por 3 lados. Esto es un <b style="color:var(--gold)">estimado</b> — el número real aparece cuando reclamas en el MLC.</p>
+      <div class="money-grid">
+        <div class="mbox g"><div class="e" id="dTotal">$0</div><div class="ml">Publishing potencial <span id="dPer">/ año</span> (todo el catálogo) · <span id="dMonth" style="color:var(--gold2)">$0/mes</span></div></div>
+        <div class="mbox"><div class="e" id="dBB">$0</div><div class="ml">Recuperable (black box)</div></div>
+      </div>
+      <div class="panel">
+        <h3>Las fuentes de tu dinero</h3>
+        <div style="margin:14px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>Mecánicas (MLC) <span style="color:var(--gold)">· publishing</span></span><span style="color:var(--gold2)" id="m1">$0</span></div><div class="bar"><i id="b1" style="width:16%"></i></div></div>
+        <div style="margin:14px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>Performance (BMI/ASCAP) <span style="color:var(--gold)">· publishing</span></span><span style="color:var(--gold2)" id="m2">$0</span></div><div class="bar"><i id="b2" style="width:17%"></i></div></div>
+        <div style="margin:14px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>Máster (distribuidora)</span><span style="color:var(--muted)" id="m3">$0</span></div><div class="bar"><i id="b3" style="width:100%;background:#5a4f2f"></i></div></div>
+        <p class="note" style="margin-top:4px;">El <b style="color:var(--gold)">publishing</b> (mecánicas + performance) es lo que SOLNOTA rescata. El máster ya lo cobra tu distribuidora.</p>
+        <div style="margin-top:14px;border-top:1px solid #2a2620;padding-top:12px;">
+          <div style="font-size:12px;color:var(--gold);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">+ 3 fuentes que también te pertenecen</div>
+          <p class="note" style="line-height:1.8;"><b style="color:#fff">Sync</b> — tu música en TV, cine, anuncios y videojuegos (pagos puntuales).<br><b style="color:#fff">Derechos conexos</b> — performance del máster fuera de EE.UU. (SoundExchange solo cubre EE.UU.).<br><b style="color:#fff">YouTube (Content ID)</b> — cuando tu música suena en videos de otros.</p>
+          <p class="note" style="margin-top:6px;color:var(--muted)">No se estiman aquí porque son variables/puntuales — pero SOLNOTA te guía para reclamarlas.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Tu publishing por plataforma</h3>
+        <div id="platRows"></div>
+        <p class="note" style="margin-top:8px;">Reparto típico de un artista urbano latino. <b style="color:var(--gold)">Spotify NO es el único</b> — Apple, YouTube y Amazon juntos pagan más. Por eso cobrar de todas importa.</p>
+      </div>
+      <div class="panel">
+        <h3>Ajusta el estimado</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:12px;flex-wrap:wrap;">
+          <span style="font-size:13px;color:#d6d0c4;">Streams totales · <b style="color:var(--gold)">todas las plataformas</b> · al año</span>
+          <span style="display:flex;align-items:center;gap:7px;"><span style="font-size:11px;color:var(--muted);">Ver dinero:</span>
+            <span style="display:flex;gap:2px;border:1px solid var(--line);border-radius:9px;padding:3px;">
+              <button class="per" data-p="month" style="background:none;border:none;color:var(--muted);font-size:12px;font-weight:600;padding:6px 16px;border-radius:6px;cursor:pointer;font-family:inherit;">Mes</button>
+              <button class="per on" data-p="year" style="background:var(--gold);color:#1a160c;border:none;font-size:12px;font-weight:600;padding:6px 16px;border-radius:6px;cursor:pointer;font-family:inherit;">Año</button>
+            </span>
+          </span>
+        </div>
+        <input id="nS" type="text" inputmode="numeric" value="17,500,000" style="width:100%;text-align:right;background:#15140f;border:1px solid var(--gold);color:var(--gold);border-radius:10px;padding:13px 16px;font-size:24px;font-weight:700;font-family:'Fraunces',serif;letter-spacing:1px;">
+        <input class="slider" id="sS" type="range" min="100000" max="500000000" step="100000" value="17500000" style="margin-top:12px;">
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+          <button class="preset" data-v="1000000">1M</button>
+          <button class="preset" data-v="5000000">5M</button>
+          <button class="preset" data-v="18000000">18M</button>
+          <button class="preset" data-v="50000000">50M</button>
+          <button class="preset" data-v="100000000">100M</button>
+        </div>
+        <p class="note" style="margin-top:12px;">💡 Mete tus streams totales de <b>todas</b> las plataformas (los ves en tu distribuidora). <b style="color:var(--gold)">Es solo un estimado</b> — tu número real aparece al reclamar en el MLC y conectar tu distribuidora.</p>
+      </div>
+    </section>
+
+    <!-- SPLITS -->
+    <section class="screen" id="splits">
+      <h1>Splits</h1>
+      <p class="lead">Quién escribió cada canción y qué % le toca. Sin esto, el dinero se traba.</p>
+      <div class="panel">
+        <h3>Maldita Guerra <span style="font-size:12px;color:var(--muted)">· ISRC QZTVM2678291</span></h3>
+        <div style="display:grid;grid-template-columns:1fr 90px 110px;gap:10px;color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase;padding-bottom:4px;"><span>Escritor</span><span>%</span><span>Rol</span></div>
+        <div id="splitRows"></div>
+        <div style="margin-top:14px;display:flex;gap:10px;align-items:center;">
+          <button class="btn ghost" onclick="addWriter()">+ Agregar escritor</button>
+          <span style="margin-left:auto;font-size:13px;">Total: <b id="splitTotal" style="color:var(--gold)">100%</b></span>
+          <button class="btn" onclick="flash('Split guardado ✓')">Guardar split</button>
+        </div>
+      </div>
+      <p class="note">Regla SOLNOTA: si no sumas 100%, la obra se congela (overclaim). Registra solo lo confirmado.</p>
+    </section>
+
+    <!-- REGISTRAR -->
+    <section class="screen" id="registrar">
+      <h1>Registrar / Reclamar</h1>
+      <p class="lead">Mete tus obras en el MLC y reclama el dinero sin cobrar.</p>
+      <div class="panel">
+        <h3>Reclamar "Maldita Guerra" en el MLC</h3>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">Obra mapeada con ISRC</div><div class="sd">QZTVM2678291 · detectada en Apple</div></div></div>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">Split confirmado (100%)</div><div class="sd">Gabriela Cabrera Guaba · IPI 01122430810</div></div></div>
+        <div class="step" id="st3"><div class="sn">3</div><div><div class="st">Generar archivo CWR</div><div class="sd">El formato que el MLC entiende — automático</div></div></div>
+        <div class="step" id="st4"><div class="sn">4</div><div><div class="st">Enviar al MLC + reclamar</div><div class="sd">Retroactivo desde 2021</div></div></div>
+        <div style="margin-top:18px;"><button class="btn" id="regBtn" onclick="doRegister()">Generar CWR y reclamar</button></div>
+      </div>
+    </section>
+
+    <!-- PAGOS -->
+    <section class="screen" id="pagos">
+      <h1>Pagos</h1>
+      <p class="lead">Tu música paga por varios lados. Si falta el banco en alguno, ese dinero NO te llega. Aquí lo ves de un vistazo.</p>
+      <div class="cards">
+        <div class="kc"><div class="n" style="color:var(--green)">3</div><div class="l">Fuentes listas</div></div>
+        <div class="kc hot"><div class="n">2</div><div class="l">Falta configurar</div></div>
+      </div>
+      <div class="panel">
+        <h3>Dónde cobras (y dónde falta)</h3>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">BMI — Performance (escritor)</div><div class="sd">Cobrando · paga a Sol Music Corp · BofA ...7347</div></div></div>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">BMI — Publisher (editor)</div><div class="sd">Banco agregado · verificando 8-10 días · IPI 01355087345</div></div></div>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">Dirección de cobro</div><div class="sd">Correcta · cheques y correo llegan bien</div></div></div>
+        <div class="step"><div class="sn" style="background:#2a1410;color:var(--red)">!</div><div><div class="st">MLC — Mecánicas <span class="badge b-red">Falta banco</span></div><div class="sd">Member aprobado, pero confirmar datos de pago</div></div></div>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">SoundExchange — Máster radio digital</div><div class="sd">Cuenta activa · verificar banco y pagos pendientes (Pandora, SiriusXM, etc.)</div></div></div>
+      </div>
+      <div class="panel">
+        <h3>Cómo SOLNOTA te ayuda</h3>
+        <p class="note">Te decimos exactamente <b style="color:var(--gold)">dónde falta</b> poner tu banco y te guiamos paso a paso — en minutos. <b>Nunca tocamos tus datos bancarios</b>: tú los pones, nosotros te mostramos dónde. Una sola pantalla para saber si ya cobras en TODOS lados.</p>
+      </div>
+    </section>
+
+    <!-- REGALIAS -->
+    <section class="screen" id="regalias">
+      <h1>La Nota 🎵</h1>
+      <p class="lead">Todo tu dinero de regalías — de <b style="color:var(--gold)">todas</b> las plataformas — en un solo lugar.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:-10px 0 20px;">
+        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:#0f2419;border:1px solid #1f5a3f;border-radius:20px;padding:6px 12px;">✓ 0% comisión</span>
+        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:#0f2419;border:1px solid #1f5a3f;border-radius:20px;padding:6px 12px;">✓ Nunca tocamos tu dinero</span>
+        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:#0f2419;border:1px solid #1f5a3f;border-radius:20px;padding:6px 12px;">✓ Nunca pedimos tus contraseñas</span>
+      </div>
+      <div class="cards">
+        <div class="kc"><div class="n" id="rCobrado">$0</div><div class="l">Ya cobrado</div></div>
+        <div class="kc hot"><div class="n" id="rPend">$0</div><div class="l">Vas a cobrar</div></div>
+        <div class="kc"><div class="n" id="rNext" style="font-size:19px">—</div><div class="l">Próximo pago</div></div>
+        <div class="kc"><div class="n" id="rSrc">0</div><div class="l">Plataformas</div></div>
+      </div>
+      <div class="panel" style="border-color:var(--gold);background:#1d1a12"><h3 style="margin-bottom:6px">Tu música vale ~<span id="rValue">$0</span></h3>
+        <p class="note">Estimado del valor de tu catálogo de publishing (ajústalo en "Mi Dinero"). Útil si algún día quieres un adelanto — <b style="color:var(--gold)">sin vender tu música</b>.</p></div>
+      <div class="panel"><h3>Salud de tus registros 🚦</h3><div id="rHealth"></div>
+        <p class="note">Lo <b style="color:var(--red)">rojo</b> es dinero sobre la mesa (obras sin reclamar). Lo <b style="color:var(--green)">verde</b> ya está registrado y cobrando.</p></div>
+      <div class="panel" style="border-color:var(--red);background:#231410" id="rUnclaimedWrap"><h3 style="color:var(--red)">💸 Dinero sobre la mesa</h3><div id="rUnclaimed"></div>
+        <div style="margin-top:12px"><button class="btn" onclick="go('registrar')">Reclamar ahora</button></div></div>
+      <div class="panel"><h3>Estado de tu dinero</h3><div id="rStates"></div>
+        <p class="note">Tu música paga con retraso: el publishing tarda más que el máster. Aquí ves en qué punto está cada peso.</p></div>
+      <div class="panel"><h3>De dónde viene</h3><div id="rBySource"><p class="note">Aún no hay reportes cargados. Cuando subas tus CSV (OneRPM, MLC, BMI…), aquí verás cada plataforma.</p></div></div>
+      <div class="panel"><h3>Por tipo de regalía</h3><div id="rByKind"><p class="note">Sin datos aún — sube tus reportes.</p></div></div>
+      <div class="panel"><h3>Tus canciones que más pagan 🔥</h3><div id="rTopSongs"><p class="note">Sin datos aún — sube tus reportes.</p></div></div>
+      <div class="panel"><h3>Cuándo te llega 📅</h3><div id="rCalendar"></div></div>
+
+      <h2 style="font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:34px 0 14px;">Estado de tus reclamos</h2>
+      <div class="cards">
+        <div class="kc"><div class="n" id="rSin">46</div><div class="l">Sin reclamar</div></div>
+        <div class="kc"><div class="n" id="rEn">0</div><div class="l">En proceso</div></div>
+        <div class="kc"><div class="n" id="rOk">0</div><div class="l">Registradas</div></div>
+        <div class="kc hot"><div class="n" id="rMoney">$0</div><div class="l">Estimado en camino</div></div>
+      </div>
+      <div class="panel">
+        <h3>Línea de tiempo</h3>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">Catálogo escaneado</div><div class="sd">46 obras con ISRC · hoy</div></div></div>
+        <div class="step done"><div class="sn">✓</div><div><div class="st">Splits en revisión</div><div class="sd">2 confirmados, resto en proceso</div></div></div>
+        <div class="step" id="rl3"><div class="sn">3</div><div><div class="st">Reclamos enviados al MLC</div><div class="sd">esperando que reclames desde "Registrar"</div></div></div>
+        <div class="step"><div class="sn">4</div><div><div class="st">Primer pago</div><div class="sd">el MLC paga trimestral</div></div></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="flash" id="flash"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/solnota-auth.js"></script>
+<script>
+let tracks=[];   // se llena con los datos REALES del artista logueado
+const STT={sin:["Sin reclamar","b-red"],yel:["En proceso","b-yel"],grn:["Reclamada","b-grn"]};
+let filter="todas";
+function renderTable(){
+  const tb=document.getElementById('tbody'); let rows=tracks;
+  if(filter==="artista")rows=tracks.filter(t=>t[3]==="artista");
+  if(filter==="feat")rows=tracks.filter(t=>t[3]==="feat");
+  if(filter==="sin")rows=tracks.filter(t=>t[4]==="sin");
+  tb.innerHTML=rows.map(t=>{
+    const s=STT[t[4]]||STT.sin; const typ=t[3]==="feat"?'<span class="badge b-feat">Feature</span>':'Artista';
+    return `<tr><td style="font-weight:500">${t[0]}</td><td>${t[1]}</td><td style="color:var(--muted);font-size:12px">${t[2]}</td><td>${typ}</td><td><span class="badge ${s[1]}">${s[0]}</span></td></tr>`;
+  }).join('');
+}
+document.getElementById('chips').addEventListener('click',e=>{
+  if(!e.target.dataset.f)return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  e.target.classList.add('on'); filter=e.target.dataset.f; renderTable();
+});
+// nav
+function go(s){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+  document.getElementById(s).classList.add('on');
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('active',a.dataset.s===s));
+  window.scrollTo(0,0);
+}
+document.getElementById('nav').addEventListener('click',e=>{const a=e.target.closest('a');if(a)go(a.dataset.s);});
+// money
+const RATE=0.003,OBRAS=46;
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const sS=document.getElementById('sS'), nS=document.getElementById('nS');
+let totalAnnual=17500000, VIEW='year';             // streams TOTALES (todas las plataformas) al año · VIEW = vista del $
+const SPOTIFY_MULT=2.7;                             // Spotify ~37% del total -> ×2.7
+const PLATFORMS=[["Spotify",0.35],["Apple Music",0.18],["YouTube",0.22],["Amazon Music",0.12],["Otras (Tidal, Deezer…)",0.13]];
+const fmtN=n=>Math.round(n).toLocaleString('en-US');
+function render(skipInput){
+  totalAnnual=Math.max(0,Math.min(5000000000,Math.round(totalAnnual)||0));
+  if(!skipInput) nS.value=fmtN(totalAnnual);
+  sS.value=Math.max(100000,Math.min(500000000,totalAnnual));
+  const allinA=totalAnnual*0.004;                              // ingreso total estimado al año
+  const mecA=allinA*0.12, perfA=allinA*0.13, masA=allinA*0.75;
+  const pubA=mecA+perfA;                                       // publishing anual (~25%)
+  const f = VIEW==='month' ? 1/12 : 1;                         // mostrar por mes o por año (mismo dinero)
+  document.getElementById('dTotal').textContent=fmt(pubA*f);
+  document.getElementById('dPer').textContent = VIEW==='month' ? '/ mes' : '/ año';
+  document.getElementById('dMonth').textContent = VIEW==='month' ? fmt(pubA)+'/año' : fmt(pubA/12)+'/mes';
+  document.getElementById('dBB').textContent=fmt(pubA*0.3*f);
+  document.getElementById('m1').textContent=fmt(mecA*f);
+  document.getElementById('m2').textContent=fmt(perfA*f);
+  document.getElementById('m3').textContent=fmt(masA*f);
+  const mx=masA||1;
+  document.getElementById('b1').style.width=(mecA/mx*100)+'%';
+  document.getElementById('b2').style.width=(perfA/mx*100)+'%';
+  document.getElementById('b3').style.width='100%';
+  // Desglose por plataforma (publishing)
+  const pubPerPlat = PLATFORMS.map(([n,sh])=>[n, pubA*sh*f]);
+  const maxp = Math.max(...pubPerPlat.map(x=>x[1]),1);
+  document.getElementById('platRows').innerHTML = pubPerPlat.map(([n,v])=>`
+    <div style="margin:11px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>${n}</span><span style="color:var(--gold2);font-weight:600;">${fmt(v)}</span></div>
+    <div class="bar"><i style="width:${v/maxp*100}%"></i></div></div>`).join('');
+  document.querySelectorAll('.preset').forEach(p=>p.classList.toggle('on',+p.dataset.v===totalAnnual));
+}
+function calcMoney(){render();}
+function fromInput(v){totalAnnual=parseInt(String(v).replace(/[^0-9]/g,''))||0; render(true);}
+sS.addEventListener('input',()=>{totalAnnual=+sS.value;render();});
+nS.addEventListener('input',()=>fromInput(nS.value));
+nS.addEventListener('blur',()=>render());
+document.querySelectorAll('.preset').forEach(p=>p.addEventListener('click',()=>{totalAnnual=+p.dataset.v;render();}));
+document.querySelectorAll('.per').forEach(b=>b.addEventListener('click',()=>{
+  VIEW=b.dataset.p;                                  // solo cambia la VISTA del dinero
+  document.querySelectorAll('.per').forEach(x=>{const on=x.dataset.p===VIEW;x.classList.toggle('on',on);x.style.background=on?'var(--gold)':'none';x.style.color=on?'#1a160c':'var(--muted)';});
+  render();
+}));
+// splits
+let writers=[["Gabriela Cabrera Guaba","50","Escritora"],["Productor (por confirmar)","50","Productor"]];
+function renderSplits(){
+  const c=document.getElementById('splitRows');
+  c.innerHTML=writers.map((w,i)=>`<div class="split-row">
+    <input value="${w[0]}" onchange="writers[${i}][0]=this.value">
+    <input type="number" value="${w[1]}" onchange="writers[${i}][1]=this.value;sumSplits()">
+    <input value="${w[2]}" onchange="writers[${i}][2]=this.value"></div>`).join('');
+  sumSplits();
+}
+function sumSplits(){const t=writers.reduce((a,w)=>a+(+w[1]||0),0);const el=document.getElementById('splitTotal');el.textContent=t+'%';el.style.color=t===100?'var(--green)':'var(--red)';}
+function addWriter(){writers.push(["Nuevo escritor","0","Escritor"]);renderSplits();}
+// register flow
+function doRegister(){
+  document.getElementById('st3').classList.add('done');document.getElementById('st3').querySelector('.sn').textContent='✓';
+  setTimeout(()=>{
+    document.getElementById('st4').classList.add('done');document.getElementById('st4').querySelector('.sn').textContent='✓';
+    document.getElementById('regBtn').textContent='✓ Reclamado en el MLC';document.getElementById('regBtn').style.background='var(--green)';
+    // update regalias
+    document.getElementById('rSin').textContent='45';document.getElementById('rEn').textContent='1';
+    document.getElementById('rl3').classList.add('done');document.getElementById('rl3').querySelector('.sn').textContent='✓';
+    document.getElementById('rMoney').textContent='$110';
+    flash('Maldita Guerra reclamada en el MLC ✓');
+  },900);
+}
+function flash(msg){const f=document.getElementById('flash');f.textContent=msg;f.classList.add('show');setTimeout(()=>f.classList.remove('show'),2200);}
+
+// ---- Mapas de datos reales (Supabase) ----
+function statusKey(claim){
+  const c=(claim||'').toLowerCase();
+  if(/reclamad|registrad|pagando|matched/.test(c)) return 'grn';
+  if(/enviad|proceso|revis/.test(c)) return 'yel';
+  return 'sin';
+}
+function firstName(p){
+  const n=(p.full_name||p.email||'').split('@')[0].split(' ')[0];
+  return n ? (n.charAt(0).toUpperCase()+n.slice(1)) : 'artista';
+}
+
+// ---- La Nota: dashboard unificado de regalías ----
+const CT_LABEL={cantante:'Cantante',productor:'Productor',poeta:'Poeta',compositor:'Compositor',audiolibro:'Audiolibro',otro:'Creador'};
+const KIND_LABEL={master:'Máster',production:'Producción',mechanical:'Mecánicas',performance:'Performance',publishing:'Publishing',sync:'Sync',neighboring:'Conexos',audiobook:'Audiolibro'};
+const SRC_LABEL={soundexchange:'SoundExchange',bmi:'BMI',ascap:'ASCAP',mlc:'The MLC',songtrust:'Songtrust',onerpm:'OneRPM',distrokid:'DistroKid',spotify:'Spotify',apple:'Apple Music',youtube:'YouTube',amazon:'Amazon Music',audible:'Audible / ACX',findaway:'Findaway',googlebooks:'Google Play Books'};
+const ST_LABEL={estimado:['Estimado','#8a8478'],pendiente:['Pendiente','#FFB02E'],en_camino:['En camino','#5aa9e0'],cobrado:['Cobrado','#13B981']};
+function renderRoyalties(rows){
+  rows=rows||[];
+  const sum=f=>rows.filter(f).reduce((a,r)=>a+(+r.amount||0),0);
+  document.getElementById('rCobrado').textContent=fmt(sum(r=>r.status==='cobrado'));
+  document.getElementById('rPend').textContent=fmt(sum(r=>r.status==='pendiente'||r.status==='en_camino'));
+  const today=new Date().toISOString().slice(0,10);
+  const upcoming=rows.filter(r=>r.pay_date&&r.pay_date>=today&&r.status!=='cobrado').sort((a,b)=>a.pay_date<b.pay_date?-1:1);
+  document.getElementById('rNext').textContent=upcoming.length?upcoming[0].pay_date:'—';
+  const bySrc={}; rows.forEach(r=>{bySrc[r.source]=(bySrc[r.source]||0)+(+r.amount||0);});
+  const keys=Object.keys(bySrc);
+  document.getElementById('rSrc').textContent=keys.length;
+  // estado del dinero (semáforo)
+  document.getElementById('rStates').innerHTML=['estimado','pendiente','en_camino','cobrado'].map(s=>{
+    const L=ST_LABEL[s], v=sum(r=>r.status===s);
+    return `<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px"><span><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${L[1]};margin-right:8px"></span>${L[0]}</span><b style="color:${L[1]}">${fmt(v)}</b></div>`;
+  }).join('');
+  // de dónde viene
+  if(keys.length){
+    const mx=Math.max.apply(null,keys.map(k=>bySrc[k]).concat([1]));
+    document.getElementById('rBySource').innerHTML=keys.sort((a,b)=>bySrc[b]-bySrc[a]).map(k=>
+      `<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${SRC_LABEL[k]||k}</span><b style="color:var(--gold2)">${fmt(bySrc[k])}</b></div><div class="bar"><i style="width:${bySrc[k]/mx*100}%"></i></div></div>`).join('');
+  }
+  // salud de registros (usa los estados de las obras)
+  const g=tracks.filter(t=>t[4]==='grn').length, y=tracks.filter(t=>t[4]==='yel').length, rd=tracks.filter(t=>t[4]==='sin').length, tot=tracks.length||1;
+  document.getElementById('rHealth').innerHTML=
+    `<div style="display:flex;height:12px;border-radius:6px;overflow:hidden;margin:4px 0 14px;background:#241f15">`+
+    `<i style="width:${g/tot*100}%;background:#13B981"></i><i style="width:${y/tot*100}%;background:#FFB02E"></i><i style="width:${rd/tot*100}%;background:#e0795a"></i></div>`+
+    `<div style="display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:8px"><span style="color:#13B981">✓ Registradas ${g}</span><span style="color:#FFB02E">◷ En proceso ${y}</span><span style="color:#e0795a">! Sin reclamar ${rd}</span></div>`;
+  // valor estimado del catálogo (~5× el publishing anual estimado)
+  const pubA=(totalAnnual*0.004*0.25)||0;
+  document.getElementById('rValue').textContent=fmt(pubA*5);
+  // dinero sobre la mesa (obras sin reclamar)
+  const uw=document.getElementById('rUnclaimedWrap'), ud=document.getElementById('rUnclaimed');
+  if(rd>0){ uw.style.display='block';
+    ud.innerHTML=`<p class="note" style="color:#e0795a"><b style="font-size:16px">${rd} obras sin reclamar</b> · ~<b>${fmt(pubA*0.3)}</b> estimado en black box.<br><span style="color:var(--muted)">⏳ SoundExchange borra lo no reclamado a los 3 años. No dejes ese dinero ahí.</span></p>`;
+  } else { uw.style.display='none'; }
+  // por tipo de regalía + canciones que más pagan (solo si hay datos cargados)
+  if(rows.length){
+    const bk={}; rows.forEach(r=>{bk[r.kind]=(bk[r.kind]||0)+(+r.amount||0);});
+    const kk=Object.keys(bk), mxk=Math.max.apply(null,kk.map(k=>bk[k]).concat([1]));
+    document.getElementById('rByKind').innerHTML=kk.sort((a,b)=>bk[b]-bk[a]).map(k=>
+      `<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${KIND_LABEL[k]||k}</span><b style="color:var(--gold2)">${fmt(bk[k])}</b></div><div class="bar"><i style="width:${bk[k]/mxk*100}%"></i></div></div>`).join('');
+    const bt={}; rows.forEach(r=>{ if(r.title){bt[r.title]=(bt[r.title]||0)+(+r.amount||0);} });
+    const top=Object.keys(bt).sort((a,b)=>bt[b]-bt[a]).slice(0,5);
+    if(top.length) document.getElementById('rTopSongs').innerHTML='<table><tbody>'+top.map((t,i)=>
+      `<tr><td style="padding:8px 0;border-bottom:1px solid var(--line)">${i+1}. ${t}</td><td style="padding:8px 0;border-bottom:1px solid var(--line);text-align:right;color:var(--gold2);font-weight:600">${fmt(bt[t])}</td></tr>`).join('')+'</tbody></table>';
+  }
+  renderCalendar(upcoming);
+}
+function renderCalendar(upcoming){
+  let html='';
+  if(upcoming&&upcoming.length){
+    html+=upcoming.slice(0,6).map(r=>`<div class="step"><div class="sn">$</div><div><div class="st">${fmt(+r.amount)} · ${SRC_LABEL[r.source]||r.source}</div><div class="sd">${r.pay_date}${r.period?' · '+r.period:''}</div></div></div>`).join('');
+  }
+  html+=`<p class="note" style="margin-top:10px;line-height:1.8">Calendario típico de pagos:<br>
+   <b style="color:#fff">Máster (OneRPM)</b> y <b style="color:#fff">Mecánicas (MLC)</b> → cada mes.<br>
+   <b style="color:#fff">Performance (BMI)</b> → feb · may · ago · nov.<br>
+   <b style="color:#fff">SoundExchange</b> y <b style="color:#fff">Songtrust</b> → mar · jun · sep · dic.<br>
+   <b style="color:#fff">Audiolibros (Audible/ACX)</b> → cada mes (~2 meses de retraso).<br>
+   <span style="color:var(--gold)">El publishing siempre llega más lento que el máster.</span></p>`;
+  document.getElementById('rCalendar').innerHTML=html;
+}
+
+async function loadArtistData(profile){
+  const sb=snAuth.client;
+  const params=new URLSearchParams(location.search);
+  const adminView = profile.role==='admin';
+  // qué artista cargar: admin puede ver cualquiera con ?artist=slug; el resto, el suyo (RLS lo respalda)
+  let slug = adminView ? params.get('artist') : profile.artist_slug;
+  if(adminView && !slug){
+    const f=await sb.from('artists').select('slug').order('name').limit(1).maybeSingle();
+    slug = f.data ? f.data.slug : null;
+  }
+  // 1) ficha del artista
+  let artistName=profile.full_name||firstName(profile);
+  if(slug){
+    const a=await sb.from('artists').select('name').eq('slug',slug).maybeSingle();
+    if(a.data && a.data.name) artistName=a.data.name;
+  }
+  // 2) sus obras
+  let rows=[];
+  if(slug){
+    const t=await sb.from('tracks')
+      .select('title,date,isrc,role,claim_status,black_box')
+      .eq('artist_slug',slug)
+      .order('date',{ascending:false});
+    rows=t.data||[];
+  }
+  tracks = rows.map(r=>[
+    r.title||'(sin título)',
+    (r.date||'').toString().slice(0,4),
+    r.isrc||'—',
+    /feat/i.test(r.role||'') ? 'feat' : 'artista',
+    statusKey(r.claim_status)
+  ]);
+
+  // 3) cabecera + conteos
+  const total=tracks.length;
+  const art=tracks.filter(t=>t[3]==='artista').length;
+  const feat=total-art;
+  const sin=tracks.filter(t=>t[4]==='sin').length;
+  const ok=tracks.filter(t=>t[4]==='grn').length;
+  document.getElementById('hello').textContent='Hola, '+artistName+' 👋';
+  document.getElementById('sideName').textContent=artistName;
+  document.getElementById('sideAvatar').textContent=(artistName[0]||'·').toUpperCase();
+  document.getElementById('sideRole').textContent = adminView ? 'Admin · vista' : (CT_LABEL[profile.creator_type]||'Creador');
+  document.getElementById('iTotal').textContent=total;
+  document.getElementById('iTotal2').textContent=total;
+  document.getElementById('iArt').textContent=art;
+  document.getElementById('iFeat').textContent=feat;
+  document.getElementById('iHot').textContent=sin;
+  document.getElementById('chipAll').textContent='Todas ('+total+')';
+  document.getElementById('rSin').textContent=sin;
+  document.getElementById('rOk').textContent=ok;
+  renderTable();
+  // La Nota: regalías del artista (RLS: solo las suyas; admin ve todas)
+  let ry=[];
+  if(slug){
+    const q=await sb.from('royalties').select('source,kind,title,amount,status,pay_date,period').eq('artist_slug',slug);
+    ry=q.data||[];
+  }
+  renderRoyalties(ry);
+  if(total===0){
+    document.getElementById('tbody').innerHTML='<tr><td colspan="5" style="padding:26px;color:var(--muted);text-align:center">Tu catálogo aún no está vinculado. Escríbenos y lo conectamos.</td></tr>';
+  }
+}
+
+// 🔒 Candado: solo artistas/productores logueados. Carga SUS datos reales.
+(async function(){
+  const p = await snAuth.guard({role:['artist','producer','admin']});
+  if(!p) return;                         // guard ya redirigió
+  document.getElementById('logout').addEventListener('click', async()=>{ await snAuth.signOut(); location.replace('/login.html'); });
+  calcMoney(); renderSplits();           // herramientas/estimadores (demo)
+  try{ await loadArtistData(p); }catch(e){ console.error('No se pudo cargar el catálogo:',e); }
+})();
+</script>
+</body>
+</html>
