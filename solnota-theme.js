@@ -53,4 +53,9 @@
     }, 200);
   }
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
+
+  // 4) PWA: registrar el service worker (instalable + offline)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
+  }
 })();
