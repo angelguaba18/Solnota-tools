@@ -8,11 +8,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script>(function(){try{if(localStorage.getItem('sn-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}})();</script>
 <style>
-:root{--gold:#FFB02E;--gold2:#FFCF6B;--gold3:#B96A00;--bg:#0D0D0F;--panel:#15140f;--panel2:#1b1913;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;--green:#13B981;--red:#e0795a;}
+/* ☀️ Claro por defecto · 🌙 modo oscuro = html.dark (mismos nombres, otros valores) */
+:root{
+  --gold:#E08A00;--gold2:#FFB02E;--gold3:#B96A00;
+  --bg:#FCFAF5;--panel:#FFFFFF;--panel2:#FAF6EC;--cream:#1A1611;--muted:#6E6657;--line:#ECE6D8;
+  --green:#0E9F6E;--red:#C0392B;
+  --hover:#FAF6EC;--hot:#FBF2DD;--track:#F0E8D6;--on-gold:#1a160c;--done-fg:#FFFFFF;
+  --red-bg:#FDECEC;--red-line:#F4C9C5;--yel-bg:#FBF2DD;--yel-line:#E9D5A8;
+  --grn-bg:#E7F6EF;--grn-line:#BFE9D6;--feat:#7A5AF8;--feat-bg:#EEEBFE;--feat-line:#D9D2FB;
+}
+html.dark{
+  --gold:#FFB02E;--gold2:#FFCF6B;
+  --bg:#0D0D0F;--panel:#15140f;--panel2:#1b1913;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;
+  --green:#13B981;--red:#e0795a;
+  --hover:#1a1813;--hot:#1d1a12;--track:#241f15;--on-gold:#1a160c;--done-fg:#0a1f14;
+  --red-bg:#2a1410;--red-line:#5a2c1f;--yel-bg:#2a2410;--yel-line:#5a4f1f;
+  --grn-bg:#0f2419;--grn-line:#1f5a3f;--feat:#b694e8;--feat-bg:#1a1426;--feat-line:#3a2c5a;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);}
+body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);transition:background .2s,color .2s;}
 .app{display:flex;min-height:100vh;}
+/* botón de tema */
+.themebtn{position:fixed;top:14px;right:16px;z-index:200;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--gold);font-size:17px;cursor:pointer;box-shadow:0 6px 18px rgba(36,30,15,.14);display:flex;align-items:center;justify-content:center}
+.themebtn:hover{transform:translateY(-1px)}
 /* sidebar */
 .side{width:230px;background:var(--panel);border-right:1px solid var(--line);padding:24px 0;flex-shrink:0;position:sticky;top:0;height:100vh;}
 .brand{font-family:'Fraunces',serif;font-size:30px;letter-spacing:0;padding:0 24px 4px;}
@@ -22,11 +42,11 @@ body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg)
 .sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:var(--cream)}
 .brandsub{font-size:9px;letter-spacing:3px;color:var(--gold);padding:0 24px 26px;text-transform:uppercase;}
 .nav a{display:flex;align-items:center;gap:12px;padding:13px 24px;color:var(--muted);cursor:pointer;font-size:14.5px;font-weight:500;border-left:3px solid transparent;}
-.nav a:hover{color:var(--cream);background:#1a1813;}
-.nav a.active{color:var(--gold);border-left-color:var(--gold);background:#1a1813;}
+.nav a:hover{color:var(--cream);background:var(--hover);}
+.nav a.active{color:var(--gold);border-left-color:var(--gold);background:var(--hover);}
 .nav a .ic{font-size:17px;width:20px;text-align:center;}
 .artist{margin-top:auto;padding:18px 24px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;position:absolute;bottom:0;width:230px;}
-.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a160c;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--on-gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
 .artist .nm{font-size:14px;font-weight:600;}.artist .rl{font-size:11px;color:var(--muted);}
 /* main */
 .main{flex:1;padding:34px 40px 60px;max-width:1000px;}
@@ -35,45 +55,45 @@ body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg)
 h1{font-family:'Fraunces',serif;font-size:34px;letter-spacing:1px;margin-bottom:4px;}
 .lead{color:var(--muted);font-size:14px;margin-bottom:26px;}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px;}
-.kc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;}
+.kc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(36,30,15,.04);}
 .kc .n{font-family:'Fraunces',serif;font-size:38px;color:var(--gold);line-height:1;}
 .kc .l{font-size:12px;color:var(--muted);margin-top:7px;}
-.kc.hot{border-color:var(--gold);background:#1d1a12;}
+.kc.hot{border-color:var(--gold);background:var(--hot);}
 table{width:100%;border-collapse:collapse;font-size:13.5px;}
 th{text-align:left;color:var(--muted);font-weight:500;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--line);}
 td{padding:11px 12px;border-bottom:1px solid var(--line);}
-tr:hover td{background:#16140f;}
+tr:hover td{background:var(--hover);}
 .badge{font-size:10px;padding:3px 9px;border-radius:20px;letter-spacing:.5px;font-weight:600;white-space:nowrap;}
-.b-red{background:#2a1410;color:var(--red);border:1px solid #5a2c1f;}
-.b-yel{background:#2a2410;color:var(--gold);border:1px solid #5a4f1f;}
-.b-grn{background:#0f2419;color:var(--green);border:1px solid #1f5a3f;}
-.b-feat{background:#1a1426;color:#b694e8;border:1px solid #3a2c5a;}
+.b-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-line);}
+.b-yel{background:var(--yel-bg);color:var(--gold);border:1px solid var(--yel-line);}
+.b-grn{background:var(--grn-bg);color:var(--green);border:1px solid var(--grn-line);}
+.b-feat{background:var(--feat-bg);color:var(--feat);border:1px solid var(--feat-line);}
 .chip{display:inline-block;font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--line);color:var(--muted);margin:0 6px 18px 0;cursor:pointer;}
-.chip.on{background:var(--gold);color:#1a160c;border-color:var(--gold);}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px;}
+.chip.on{background:var(--gold);color:var(--on-gold);border-color:var(--gold);}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px;box-shadow:0 6px 20px rgba(36,30,15,.05);}
 h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:14px;}
-.btn{background:var(--gold);color:#1a160c;border:none;border-radius:10px;padding:12px 22px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;}
+.btn{background:var(--gold);color:var(--on-gold);border:none;border-radius:10px;padding:12px 22px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;}
 .btn:hover{background:var(--gold2);}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--cream);}
-.preset{background:#1b1913;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.preset{background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
 .preset:hover{border-color:var(--gold);color:var(--gold);}
-.preset.on{background:var(--gold);color:#1a160c;border-color:var(--gold);}
+.preset.on{background:var(--gold);color:var(--on-gold);border-color:var(--gold);}
 #nS:focus{outline:none;border-color:var(--gold2);}
 .split-row{display:grid;grid-template-columns:1fr 90px 110px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);}
-.split-row input{background:#15140f;border:1px solid var(--line);color:var(--cream);border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit;}
+.split-row input{background:var(--panel);border:1px solid var(--line);color:var(--cream);border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit;}
 .money-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
 .mbox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;}
 .mbox .e{font-family:'Fraunces',serif;font-size:34px;color:var(--cream);}.mbox.g .e{color:var(--gold);}
 .mbox .ml{font-size:12px;color:var(--muted);margin-top:5px;}
-.bar{height:8px;background:#241f15;border-radius:6px;overflow:hidden;margin-top:8px;}
+.bar{height:8px;background:var(--track);border-radius:6px;overflow:hidden;margin-top:8px;}
 .bar > i{display:block;height:100%;background:var(--gold);}
 .slider{width:100%;accent-color:var(--gold);margin:8px 0;}
 .note{font-size:12px;color:var(--muted);line-height:1.5;}
 .step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:flex-start;}
-.step .sn{width:26px;height:26px;border-radius:50%;background:#241f15;color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.step .sn{width:26px;height:26px;border-radius:50%;background:var(--track);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
 .step .st{font-weight:600;font-size:14.5px;}.step .sd{font-size:13px;color:var(--muted);margin-top:2px;}
-.step.done .sn{background:var(--green);color:#0a1f14;}
-.flash{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a160c;padding:13px 24px;border-radius:12px;font-weight:600;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;}
+.step.done .sn{background:var(--green);color:var(--done-fg);}
+.flash{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--on-gold);padding:13px 24px;border-radius:12px;font-weight:600;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;}
 .flash.show{opacity:1;}
 .mobnav{display:none}
 @media(max-width:760px){
@@ -87,6 +107,7 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
 </style>
 </head>
 <body>
+<button class="themebtn" id="themebtn" title="Cambiar claro/oscuro" aria-label="Cambiar tema">🌙</button>
 <div class="app">
   <aside class="side">
     <div class="brand"><span class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</span></div>
@@ -149,7 +170,7 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
         <h3>Las fuentes de tu dinero</h3>
         <div style="margin:14px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>Mecánicas (MLC) <span style="color:var(--gold)">· publishing</span></span><span style="color:var(--gold2)" id="m1">$0</span></div><div class="bar"><i id="b1" style="width:16%"></i></div></div>
         <div style="margin:14px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>Performance (BMI/ASCAP) <span style="color:var(--gold)">· publishing</span></span><span style="color:var(--gold2)" id="m2">$0</span></div><div class="bar"><i id="b2" style="width:17%"></i></div></div>
-        <div style="margin:14px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>Máster (distribuidora)</span><span style="color:var(--muted)" id="m3">$0</span></div><div class="bar"><i id="b3" style="width:100%;background:#5a4f2f"></i></div></div>
+        <div style="margin:14px 0;"><div style="display:flex;justify-content:space-between;font-size:13px;"><span>Máster (distribuidora)</span><span style="color:var(--muted)" id="m3">$0</span></div><div class="bar"><i id="b3" style="width:100%;background:var(--muted)"></i></div></div>
         <p class="note" style="margin-top:4px;">El <b style="color:var(--gold)">publishing</b> (mecánicas + performance) es lo que SOLNOTA rescata. El máster ya lo cobra tu distribuidora.</p>
         <div style="margin-top:14px;border-top:1px solid #2a2620;padding-top:12px;">
           <div style="font-size:12px;color:var(--gold);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">+ 3 fuentes que también te pertenecen</div>
@@ -173,7 +194,7 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
             </span>
           </span>
         </div>
-        <input id="nS" type="text" inputmode="numeric" value="17,500,000" style="width:100%;text-align:right;background:#15140f;border:1px solid var(--gold);color:var(--gold);border-radius:10px;padding:13px 16px;font-size:24px;font-weight:700;font-family:'Fraunces',serif;letter-spacing:1px;">
+        <input id="nS" type="text" inputmode="numeric" value="17,500,000" style="width:100%;text-align:right;background:var(--panel);border:1px solid var(--gold);color:var(--gold);border-radius:10px;padding:13px 16px;font-size:24px;font-weight:700;font-family:'Fraunces',serif;letter-spacing:1px;">
         <input class="slider" id="sS" type="range" min="100000" max="500000000" step="100000" value="17500000" style="margin-top:12px;">
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
           <button class="preset" data-v="1000000">1M</button>
@@ -240,9 +261,9 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
       <h1>La Nota 🎵</h1>
       <p class="lead">Todo tu dinero de regalías — de <b style="color:var(--gold)">todas</b> las plataformas — en un solo lugar.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin:-10px 0 20px;">
-        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:#0f2419;border:1px solid #1f5a3f;border-radius:20px;padding:6px 12px;">✓ 0% comisión</span>
-        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:#0f2419;border:1px solid #1f5a3f;border-radius:20px;padding:6px 12px;">✓ Nunca tocamos tu dinero</span>
-        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:#0f2419;border:1px solid #1f5a3f;border-radius:20px;padding:6px 12px;">✓ Nunca pedimos tus contraseñas</span>
+        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:var(--grn-bg);border:1px solid var(--grn-line);border-radius:20px;padding:6px 12px;">✓ 0% comisión</span>
+        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:var(--grn-bg);border:1px solid var(--grn-line);border-radius:20px;padding:6px 12px;">✓ Nunca tocamos tu dinero</span>
+        <span style="font-size:11px;letter-spacing:.4px;color:var(--green);background:var(--grn-bg);border:1px solid var(--grn-line);border-radius:20px;padding:6px 12px;">✓ Nunca pedimos tus contraseñas</span>
       </div>
       <div class="cards">
         <div class="kc"><div class="n" id="rCobrado">$0</div><div class="l">Ya cobrado · total</div></div>
@@ -251,11 +272,11 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
         <div class="kc"><div class="n" id="rSrc">0</div><div class="l">Plataformas</div></div>
       </div>
       <p class="note" style="margin:-12px 0 20px">💡 Estos son <b style="color:var(--gold)">totales acumulados</b> de tus reportes — no es por mes ni por año. ¿Quieres tu estimado <b>mensual o anual</b>? Está en <b>"Mi Dinero"</b>.</p>
-      <div class="panel" style="border-color:var(--gold);background:#1d1a12"><h3 style="margin-bottom:6px">Tu música vale ~<span id="rValue">$0</span></h3>
+      <div class="panel" style="border-color:var(--gold);background:var(--hot)"><h3 style="margin-bottom:6px">Tu música vale ~<span id="rValue">$0</span></h3>
         <p class="note">Estimado del valor de tu catálogo de publishing (ajústalo en "Mi Dinero"). Útil si algún día quieres un adelanto — <b style="color:var(--gold)">sin vender tu música</b>.</p></div>
       <div class="panel"><h3>Salud de tus registros 🚦</h3><div id="rHealth"></div>
         <p class="note">Lo <b style="color:var(--red)">rojo</b> es dinero sobre la mesa (obras sin reclamar). Lo <b style="color:var(--green)">verde</b> ya está registrado y cobrando.</p></div>
-      <div class="panel" style="border-color:var(--red);background:#231410" id="rUnclaimedWrap"><h3 style="color:var(--red)">💸 Dinero sobre la mesa</h3><div id="rUnclaimed"></div>
+      <div class="panel" style="border-color:var(--red);background:var(--red-bg)" id="rUnclaimedWrap"><h3 style="color:var(--red)">💸 Dinero sobre la mesa</h3><div id="rUnclaimed"></div>
         <div style="margin-top:12px"><button class="btn" onclick="go('registrar')">Reclamar ahora</button></div></div>
       <div class="panel"><h3>Estado de tu dinero</h3><div id="rStates"></div>
         <p class="note">Tu música paga con retraso: el publishing tarda más que el máster. Aquí ves en qué punto está cada peso.</p></div>
@@ -436,7 +457,7 @@ function renderRoyalties(rows){
   // salud de registros (usa los estados de las obras)
   const g=tracks.filter(t=>t[4]==='grn').length, y=tracks.filter(t=>t[4]==='yel').length, rd=tracks.filter(t=>t[4]==='sin').length, tot=tracks.length||1;
   document.getElementById('rHealth').innerHTML=
-    `<div style="display:flex;height:12px;border-radius:6px;overflow:hidden;margin:4px 0 14px;background:#241f15">`+
+    `<div style="display:flex;height:12px;border-radius:6px;overflow:hidden;margin:4px 0 14px;background:var(--track)">`+
     `<i style="width:${g/tot*100}%;background:#13B981"></i><i style="width:${y/tot*100}%;background:#FFB02E"></i><i style="width:${rd/tot*100}%;background:#e0795a"></i></div>`+
     `<div style="display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:8px"><span style="color:#13B981">✓ Registradas ${g}</span><span style="color:#FFB02E">◷ En proceso ${y}</span><span style="color:#e0795a">! Sin reclamar ${rd}</span></div>`;
   // valor estimado del catálogo (~5× el publishing anual estimado)
@@ -547,6 +568,10 @@ async function loadArtistData(profile){
   calcMoney(); renderSplits();           // herramientas/estimadores (demo)
   try{ await loadArtistData(p); }catch(e){ console.error('No se pudo cargar el catálogo:',e); }
 })();
+</script>
+<script>
+(function(){var b=document.getElementById('themebtn');if(!b)return;function s(){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';}s();
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');try{localStorage.setItem('sn-theme',document.documentElement.classList.contains('dark')?'dark':'light');}catch(e){}s();});})();
 </script>
 </body>
 </html>
