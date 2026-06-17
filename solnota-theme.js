@@ -14,7 +14,7 @@
     "--sh:0 18px 50px rgba(0,0,0,.5);--sh2:0 8px 26px rgba(0,0,0,.45)}" +
     "html.dark body{background:var(--bg);color:var(--ink,var(--cream))}" +
     "html.dark header{background:rgba(13,13,15,.82)!important}" +
-    ".sn-themebtn{position:fixed;top:14px;right:16px;z-index:9999;width:40px;height:40px;border-radius:50%;" +
+    ".sn-themebtn{position:fixed;top:62px;right:14px;z-index:9998;width:40px;height:40px;border-radius:50%;" +
     "border:1px solid var(--line,#e5e5e5);background:var(--card,#fff);color:var(--gold,#E08A00);font-size:17px;" +
     "cursor:pointer;box-shadow:0 6px 18px rgba(36,30,15,.16);display:flex;align-items:center;justify-content:center}" +
     ".sn-themebtn:hover{transform:translateY(-1px)}";

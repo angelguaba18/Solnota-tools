@@ -10,6 +10,17 @@
   var LABEL = { es: "ES", en: "EN", pt: "PT", fr: "FR" };
 
   var DICT = {
+    // ---------- Login ----------
+    "SOLNOTA · Entrar": { en: "SOLNOTA · Sign in", pt: "SOLNOTA · Entrar", fr: "SOLNOTA · Connexion" },
+    "Entra a tu dinero": { en: "Access your money", pt: "Acesse seu dinheiro", fr: "Accède à ton argent" },
+    "Te enviamos un enlace mágico a tu correo. Sin contraseñas.": { en: "We send a magic link to your email. No passwords.", pt: "Enviamos um link mágico para o seu e-mail. Sem senhas.", fr: "Nous t'envoyons un lien magique par e-mail. Sans mot de passe." },
+    "Enviar enlace": { en: "Send link", pt: "Enviar link", fr: "Envoyer le lien" },
+    "Nunca tocamos tu dinero": { en: "We never touch your money", pt: "Nunca tocamos no seu dinheiro", fr: "On ne touche jamais à ton argent" },
+    "Tu música es 100% tuya": { en: "Your music is 100% yours", pt: "Sua música é 100% sua", fr: "Ta musique est 100% à toi" },
+    "0% comisión": { en: "0% commission", pt: "0% de comissão", fr: "0% de commission" },
+    "Entrando…": { en: "Signing in…", pt: "Entrando…", fr: "Connexion…" },
+    "Un segundo, cargando tu cuenta.": { en: "One second, loading your account.", pt: "Um segundo, carregando sua conta.", fr: "Une seconde, chargement de ton compte." },
+
     // ---------- Portada ----------
     "SOLNOTA · Herramientas de regalías para artistas latinos": { en: "SOLNOTA · Royalty tools for Latin artists", pt: "SOLNOTA · Ferramentas de royalties para artistas latinos", fr: "SOLNOTA · Outils de royalties pour artistes latinos" },
     "SOLNOTA · Dinero sin reclamar": { en: "SOLNOTA · Unclaimed money", pt: "SOLNOTA · Dinheiro não reivindicado", fr: "SOLNOTA · Argent non réclamé" },
