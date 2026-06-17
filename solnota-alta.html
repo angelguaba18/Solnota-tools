@@ -38,7 +38,9 @@
   th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
   a.link{color:var(--gold);font-weight:600}
 </style>
+<script>window.__snTitle="SOLNOTA · Alta de artista (admin)";</script>
 <script src="/solnota-theme.js"></script>
+<script src="/i18n.js" defer></script>
 </head>
 <body>
 <div class="wrap">
@@ -129,8 +131,8 @@ $('save').addEventListener('click', async ()=>{
     }
     msg.className='msg ok';
     msg.innerHTML = yaEntro
-      ? `✓ <b>${name}</b> vinculado. Ya tiene cuenta — al recargar verá su Nota.`
-      : `✓ <b>${name}</b> dado de alta. Dile que entre en <b>/login.html</b> con <b>${email}</b> y su Nota aparecerá lista.`;
+      ? `✓ ${name} vinculado. Ya tiene cuenta — al recargar verá su Nota.`
+      : `✓ ${name} dado de alta. Dile que entre en /login.html con ${email} y su Nota aparecerá lista.`;
     await refreshList();
   }catch(e){
     msg.className='msg err'; msg.textContent='Error: '+(e.message||e);

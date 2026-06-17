@@ -40,13 +40,15 @@
   .hide{display:none}
   .note{font-size:12.5px;color:var(--mut);margin-top:8px;line-height:1.5}
 </style>
+<script>window.__snTitle="SOLNOTA · Importar regalías (admin)";</script>
 <script src="/solnota-theme.js"></script>
+<script src="/i18n.js" defer></script>
 </head>
 <body>
 <div class="wrap">
   <span class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</span>
   <h1>Importar regalías → La Nota</h1>
-  <p class="sub">Para todos: cantantes, productores, poetas, compositores y audiolibros. Sube el reporte (CSV) de cualquier plataforma. <b>No-custodial:</b> solo números, nunca dinero ni contraseñas.</p>
+  <p class="sub">Para todos: cantantes, productores, poetas, compositores y audiolibros. Sube el reporte (CSV) de cualquier plataforma. No-custodial: solo números, nunca dinero ni contraseñas.</p>
 
   <div class="card">
     <h3>1 · ¿De quién y de dónde?</h3>
@@ -100,7 +102,7 @@
 
   <div class="card hide" id="mapCard">
     <h3>3 · Conecta las columnas</h3>
-    <p class="note">Dinos qué columna del CSV es cada dato. Solo <b>Monto</b> es obligatorio.</p>
+    <p class="note">Dinos qué columna del CSV es cada dato. Solo Monto es obligatorio.</p>
     <div class="grid3">
       <div><label>Monto $ *</label><select id="mAmount"></select></div>
       <div><label>Canción</label><select id="mTitle"></select></div>
@@ -183,7 +185,7 @@ function buildRows(){
 
 $('previewBtn').addEventListener('click',()=>{
   const rows=buildRows(); const sum=rows.reduce((a,r)=>a+r.amount,0);
-  $('prev').innerHTML=`<p class="note"><b>${rows.length}</b> filas · total <b>$${sum.toLocaleString('en-US',{maximumFractionDigits:2})}</b></p>`+
+  $('prev').innerHTML=`<p class="note">${rows.length} filas · total $${sum.toLocaleString('en-US',{maximumFractionDigits:2})}</p>`+
     '<table><thead><tr><th>Canción</th><th>Monto</th><th>Territorio</th><th>Periodo</th><th>Pago</th></tr></thead><tbody>'+
     rows.slice(0,8).map(r=>`<tr><td>${r.title||'—'}</td><td>$${r.amount}</td><td>${r.territory||'—'}</td><td>${r.period||'—'}</td><td>${r.pay_date||'—'}</td></tr>`).join('')+
     '</tbody></table>';
