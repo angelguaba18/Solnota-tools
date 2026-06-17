@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <script>(function(){try{if(localStorage.getItem('sn-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}})();</script>
+<script>window.__snTitle="SOLNOTA — Dashboard (en vivo)";</script>
+<script src="/i18n.js" defer></script>
 <style>
 /* ☀️ Claro por defecto · 🌙 modo oscuro = html.dark */
 :root{--gold:#E08A00;--gold2:#FFB02E;--bg:#FCFAF5;--panel:#FFFFFF;--panel2:#FAF6EC;--cream:#1A1611;--muted:#6E6657;--line:#ECE6D8;--green:#0E9F6E;--hot:#FBF2DD;--on-gold:#1a160c;}
@@ -18,6 +20,7 @@ body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg)
 .wrap{max-width:1040px;margin:0 auto;}
 .themebtn{position:fixed;top:14px;right:16px;z-index:200;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--gold);font-size:17px;cursor:pointer;box-shadow:0 6px 18px rgba(36,30,15,.14);display:flex;align-items:center;justify-content:center}
 .themebtn:hover{transform:translateY(-1px)}
+.sn-lang .themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;box-shadow:none;padding:6px 8px;font-size:15px;color:#FFB02E}
 header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:30px;}
 h1{font-family:'Fraunces',serif;font-size:38px;letter-spacing:0;}
 .sn-wm{font-family:'Fraunces',serif;font-weight:600;color:var(--cream);display:inline-flex;align-items:center;line-height:1}
@@ -165,7 +168,8 @@ sS.addEventListener('input',calc);sB.addEventListener('input',calc);
 </script>
 <script>
 (function(){var b=document.getElementById('themebtn');if(!b)return;function s(){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';}s();
-b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');try{localStorage.setItem('sn-theme',document.documentElement.classList.contains('dark')?'dark':'light');}catch(e){}s();});})();
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');try{localStorage.setItem('sn-theme',document.documentElement.classList.contains('dark')?'dark':'light');}catch(e){}s();});
+var n=0,iv=setInterval(function(){n++;var bar=document.querySelector('.sn-lang');if(bar&&b.parentElement!==bar){bar.insertBefore(b,bar.firstChild);clearInterval(iv);}if(n>25)clearInterval(iv);},200);})();
 </script>
 </body>
 </html>

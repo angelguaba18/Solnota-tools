@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <script>(function(){try{if(localStorage.getItem('sn-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}})();</script>
+<script>window.__snTitle="SOLNOTA — App del Artista";</script>
+<script src="/i18n.js" defer></script>
 <style>
 /* ☀️ Claro por defecto · 🌙 modo oscuro = html.dark (mismos nombres, otros valores) */
 :root{
@@ -33,6 +35,7 @@ body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg)
 /* botón de tema */
 .themebtn{position:fixed;top:14px;right:16px;z-index:200;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--gold);font-size:17px;cursor:pointer;box-shadow:0 6px 18px rgba(36,30,15,.14);display:flex;align-items:center;justify-content:center}
 .themebtn:hover{transform:translateY(-1px)}
+.sn-lang .themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;box-shadow:none;padding:6px 8px;font-size:15px;color:#FFB02E}
 /* sidebar */
 .side{width:230px;background:var(--panel);border-right:1px solid var(--line);padding:24px 0;flex-shrink:0;position:sticky;top:0;height:100vh;}
 .brand{font-family:'Fraunces',serif;font-size:30px;letter-spacing:0;padding:0 24px 4px;}
@@ -571,7 +574,9 @@ async function loadArtistData(profile){
 </script>
 <script>
 (function(){var b=document.getElementById('themebtn');if(!b)return;function s(){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';}s();
-b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');try{localStorage.setItem('sn-theme',document.documentElement.classList.contains('dark')?'dark':'light');}catch(e){}s();});})();
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');try{localStorage.setItem('sn-theme',document.documentElement.classList.contains('dark')?'dark':'light');}catch(e){}s();});
+// poner el botón al inicio de la barra de idiomas cuando aparezca
+var n=0,iv=setInterval(function(){n++;var bar=document.querySelector('.sn-lang');if(bar&&b.parentElement!==bar){bar.insertBefore(b,bar.firstChild);clearInterval(iv);}if(n>25)clearInterval(iv);},200);})();
 </script>
 </body>
 </html>
