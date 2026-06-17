@@ -115,6 +115,9 @@ async function load(){
     const r=await fetch(STATS,{headers:{apikey:KEY,"Authorization":"Bearer "+tok}});
     const d=await r.json();
     if(d.error)throw new Error(d.error);
+    // mapa nombre→slug para enlazar a La Nota de cada artista
+    let SLUGS={};
+    try{ const am=await snAuth.client.from('artists').select('slug,name'); (am.data||[]).forEach(x=>{SLUGS[x.name]=x.slug;}); }catch(e){}
     document.getElementById('kArt').textContent=d.totals.artists;
     document.getElementById('kTracks').textContent=d.totals.tracks;
     document.getElementById('kBB').textContent=d.totals.black_box;
@@ -127,7 +130,8 @@ async function load(){
        <div class="row"><span>Artista principal</span><span class="v">${a.principal}</span></div>
        <div class="row"><span>Feature</span><span class="v">${a.feat}</span></div>
        ${a.grupos.map(g=>`<div class="row"><span>${GLABEL[g[0]]||g[0]}</span><span class="v">${g[1]}</span></div>`).join('')}
-       <div class="bb"><b>${a.total}</b> obras en black box potencial · país: ${a.country}${a.slug?` · <a href="/solnota-app.html?artist=${a.slug}" style="color:var(--gold);font-weight:600">Ver Nota →</a>`:''}</div>
+       <div class="bb"><b>${a.total}</b> obras en black box potencial · país: ${a.country}</div>
+       ${SLUGS[a.name]?`<div style="margin-top:12px"><a href="/solnota-app.html?artist=${SLUGS[a.name]}" style="display:inline-block;background:var(--gold);color:#1a160c;font-weight:700;font-size:13px;padding:9px 16px;border-radius:9px">Ver La Nota →</a></div>`:''}
      </div>`).join('') || '<div class="loading">Sin artistas todavía. Usa el motor rescate para agregar.</div>';
     document.getElementById('foot').textContent='SOLNOTA · SOL MUSIC CORP · actualizado '+new Date().toLocaleString('es');
     calc();
