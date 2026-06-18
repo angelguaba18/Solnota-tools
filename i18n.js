@@ -183,6 +183,10 @@
     "Las fuentes de tu dinero": { en: "Your money sources", pt: "As fontes do seu dinheiro", fr: "Les sources de ton argent" },
     "Tu publishing por plataforma": { en: "Your publishing by platform", pt: "Seu publishing por plataforma", fr: "Ton publishing par plateforme" },
     "Ajusta el estimado": { en: "Adjust the estimate", pt: "Ajuste a estimativa", fr: "Ajuste l'estimation" },
+    "Tus huecos de dinero 🔧": { en: "Your money gaps 🔧", pt: "Seus buracos de dinheiro 🔧", fr: "Tes trous d'argent 🔧" },
+    "Cómo crece tu dinero 📈": { en: "How your money grows 📈", pt: "Como seu dinheiro cresce 📈", fr: "Comment ton argent grandit 📈" },
+    "⬇ Descargar mi reporte (CSV)": { en: "⬇ Download my report (CSV)", pt: "⬇ Baixar meu relatório (CSV)", fr: "⬇ Télécharger mon rapport (CSV)" },
+    "De qué países viene 🌍": { en: "Which countries it comes from 🌍", pt: "De quais países vem 🌍", fr: "De quels pays ça vient 🌍" },
 
     // ---------- Dashboard (CEO) ----------
     "Dashboard · Tu música · Tu dinero": { en: "Dashboard · Your music · Your money", pt: "Dashboard · Sua música · Seu dinheiro", fr: "Dashboard · Ta musique · Ton argent" },

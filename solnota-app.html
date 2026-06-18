@@ -274,17 +274,21 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
         <div class="kc"><div class="n" id="rNext" style="font-size:19px">—</div><div class="l">Próximo pago</div></div>
         <div class="kc"><div class="n" id="rSrc">0</div><div class="l">Plataformas</div></div>
       </div>
-      <p class="note" style="margin:-12px 0 20px">💡 Estos son <b style="color:var(--gold)">totales acumulados</b> de tus reportes — no es por mes ni por año. ¿Quieres tu estimado <b>mensual o anual</b>? Está en <b>"Mi Dinero"</b>.</p>
+      <p class="note" style="margin:-12px 0 12px">💡 Estos son <b style="color:var(--gold)">totales acumulados</b> de tus reportes — no es por mes ni por año. ¿Quieres tu estimado <b>mensual o anual</b>? Está en <b>"Mi Dinero"</b>.</p>
+      <div style="margin:0 0 20px"><button class="btn ghost" id="rExport" onclick="downloadReport()">⬇ Descargar mi reporte (CSV)</button></div>
       <div class="panel" style="border-color:var(--gold);background:var(--hot)"><h3 style="margin-bottom:6px">Tu música vale ~<span id="rValue">$0</span></h3>
         <p class="note">Estimado del valor de tu catálogo de publishing (ajústalo en "Mi Dinero"). Útil si algún día quieres un adelanto — <b style="color:var(--gold)">sin vender tu música</b>.</p></div>
       <div class="panel"><h3>Salud de tus registros 🚦</h3><div id="rHealth"></div>
         <p class="note">Lo <b style="color:var(--red)">rojo</b> es dinero sobre la mesa (obras sin reclamar). Lo <b style="color:var(--green)">verde</b> ya está registrado y cobrando.</p></div>
+      <div class="panel"><h3>Tus huecos de dinero 🔧</h3><div id="rGaps"></div></div>
       <div class="panel" style="border-color:var(--red);background:var(--red-bg)" id="rUnclaimedWrap"><h3 style="color:var(--red)">💸 Dinero sobre la mesa</h3><div id="rUnclaimed"></div>
         <div style="margin-top:12px"><button class="btn" onclick="go('registrar')">Reclamar ahora</button></div></div>
       <div class="panel"><h3>Estado de tu dinero</h3><div id="rStates"></div>
         <p class="note">Tu música paga con retraso: el publishing tarda más que el máster. Aquí ves en qué punto está cada peso.</p></div>
+      <div class="panel"><h3>Cómo crece tu dinero 📈</h3><div id="rTrend"><p class="note">Sin datos aún — sube tus reportes y aquí verás cómo crece.</p></div></div>
       <div class="panel"><h3>De dónde viene</h3><div id="rBySource"><p class="note">Aún no hay reportes cargados. Cuando subas tus CSV (OneRPM, MLC, BMI…), aquí verás cada plataforma.</p></div></div>
       <div class="panel"><h3>Por tipo de regalía</h3><div id="rByKind"><p class="note">Sin datos aún — sube tus reportes.</p></div></div>
+      <div class="panel"><h3>De qué países viene 🌍</h3><div id="rByTerr"><p class="note">Sin datos aún — al subir reportes con territorio, aquí verás de qué países llega tu dinero.</p></div></div>
       <div class="panel"><h3>Tus canciones que más pagan 🔥</h3><div id="rTopSongs"><p class="note">Sin datos aún — sube tus reportes.</p></div></div>
       <div class="panel"><h3>Cuándo te llega 📅</h3><div id="rCalendar"></div></div>
 
@@ -442,7 +446,9 @@ function renderRoyalties(rows){
   document.getElementById('rPend').textContent=fmt(sum(r=>r.status==='pendiente'||r.status==='en_camino'));
   const today=new Date().toISOString().slice(0,10);
   const upcoming=rows.filter(r=>r.pay_date&&r.pay_date>=today&&r.status!=='cobrado').sort((a,b)=>a.pay_date<b.pay_date?-1:1);
-  document.getElementById('rNext').textContent=upcoming.length?upcoming[0].pay_date:'—';
+  const nextDate=upcoming.length?upcoming[0].pay_date:null;
+  const nextAmt=nextDate?rows.filter(r=>r.pay_date===nextDate&&r.status!=='cobrado').reduce((a,r)=>a+(+r.amount||0),0):0;
+  document.getElementById('rNext').textContent=nextDate?(fmt(nextAmt)+' · '+nextDate):'—';
   const bySrc={}; rows.forEach(r=>{bySrc[r.source]=(bySrc[r.source]||0)+(+r.amount||0);});
   const keys=Object.keys(bySrc);
   document.getElementById('rSrc').textContent=keys.length;
@@ -482,7 +488,49 @@ function renderRoyalties(rows){
     if(top.length) document.getElementById('rTopSongs').innerHTML='<table><tbody>'+top.map((t,i)=>
       `<tr><td style="padding:8px 0;border-bottom:1px solid var(--line)">${i+1}. ${t}</td><td style="padding:8px 0;border-bottom:1px solid var(--line);text-align:right;color:var(--gold2);font-weight:600">${fmt(bt[t])}</td></tr>`).join('')+'</tbody></table>';
   }
+  LAST_ROY = rows;            // para exportar
+  renderGaps();               // auditoría obra-por-obra
+  renderTrend(rows);          // tendencia por periodo
+  renderTerr(rows);           // por país
   renderCalendar(upcoming);
+}
+let LAST_ROY = [];
+function renderGaps(){
+  const el=document.getElementById('rGaps'); if(!el) return;
+  const gaps=tracks.filter(t=>t[4]==='sin');
+  if(!gaps.length){ el.innerHTML='<p class="note" style="color:var(--green)">✅ ¡Todo reclamado! No tienes huecos.</p>'; return; }
+  el.innerHTML=gaps.slice(0,12).map(t=>{
+    const reason=t[3]==='feat'?'Feature libre · reclámala':'Sin reclamar';
+    return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px"><span>${t[0]}</span><span class="badge b-red">${reason}</span></div>`;
+  }).join('')
+   + `<p class="note" style="margin-top:10px">${gaps.length} obra(s) con dinero sin reclamar. Te decimos exactamente qué arreglar.</p>`
+   + `<div style="margin-top:10px"><button class="btn" onclick="go('registrar')">Reclamar ahora</button></div>`;
+}
+function renderTrend(rows){
+  const el=document.getElementById('rTrend'); if(!el||!rows.length) return;
+  const byP={}; rows.forEach(r=>{ var p=r.period||(r.pay_date?r.pay_date.slice(0,7):'—'); byP[p]=(byP[p]||0)+(+r.amount||0); });
+  const ps=Object.keys(byP).sort(); if(!ps.length) return;
+  const mx=Math.max.apply(null,ps.map(p=>byP[p]).concat([1]));
+  el.innerHTML=ps.map(p=>`<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${p}</span><b style="color:var(--gold2)">${fmt(byP[p])}</b></div><div class="bar"><i style="width:${byP[p]/mx*100}%"></i></div></div>`).join('')
+   + `<p class="note" style="margin-top:8px">Lo que has cobrado por periodo. Mientras más reportes subas, mejor se ve tu crecimiento.</p>`;
+}
+const TERR_FLAG={US:'🇺🇸',MX:'🇲🇽',CO:'🇨🇴',DO:'🇩🇴',ES:'🇪🇸',AR:'🇦🇷',BR:'🇧🇷',CL:'🇨🇱',PE:'🇵🇪',PR:'🇵🇷',EC:'🇪🇨',VE:'🇻🇪',GT:'🇬🇹',INTL:'🌎',WW:'🌎'};
+function renderTerr(rows){
+  const el=document.getElementById('rByTerr'); if(!el||!rows.length) return;
+  const bt={}; rows.forEach(r=>{ var t=(r.territory||'').toUpperCase().trim()||'—'; bt[t]=(bt[t]||0)+(+r.amount||0); });
+  const ks=Object.keys(bt).filter(k=>k!=='—'); if(!ks.length) return;
+  const mx=Math.max.apply(null,ks.map(k=>bt[k]).concat([1]));
+  el.innerHTML=ks.sort((a,b)=>bt[b]-bt[a]).map(k=>
+    `<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${TERR_FLAG[k]||'🏳️'} ${k}</span><b style="color:var(--gold2)">${fmt(bt[k])}</b></div><div class="bar"><i style="width:${bt[k]/mx*100}%"></i></div></div>`).join('');
+}
+function downloadReport(){
+  var rows=LAST_ROY||[];
+  if(!rows.length){ flash('Aún no hay datos para exportar'); return; }
+  var head=['fuente','tipo','cancion','territorio','periodo','monto','estado','fecha_pago'];
+  var esc=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';};
+  var lines=[head.join(',')].concat(rows.map(function(r){return [r.source,r.kind,r.title,r.territory,r.period,r.amount,r.status,r.pay_date].map(esc).join(',');}));
+  var blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='solnota-mis-regalias.csv'; a.click();
 }
 function renderCalendar(upcoming){
   let html='';
@@ -554,7 +602,7 @@ async function loadArtistData(profile){
   // La Nota: regalías del artista (RLS: solo las suyas; admin ve todas)
   let ry=[];
   if(slug){
-    const q=await sb.from('royalties').select('source,kind,title,amount,status,pay_date,period').eq('artist_slug',slug);
+    const q=await sb.from('royalties').select('source,kind,title,amount,status,pay_date,period,territory').eq('artist_slug',slug);
     ry=q.data||[];
   }
   renderRoyalties(ry);
