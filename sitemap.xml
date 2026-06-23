@@ -10,5 +10,6 @@
   <url><loc>https://tools.solnota.com/split</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tools.solnota.com/lod</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tools.solnota.com/visor</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tools.solnota.com/doctor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://tools.solnota.com/legal</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
 </urlset>

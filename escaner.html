@@ -43,6 +43,14 @@ button.cta:disabled{opacity:.5;cursor:wait;transform:none;}
 .msg{display:none;margin-top:16px;font-size:16px;color:var(--gold2);font-weight:500;}
 .err{color:#e0a; font-size:14px; margin-top:12px; display:none;}
 footer{margin-top:34px;font-size:11px;color:#6E6657;letter-spacing:2px;}
+.prodlink{margin-top:16px;font-size:13px;color:var(--gold);cursor:pointer;font-weight:600;}
+.prodlink:hover{text-decoration:underline;}
+.prodhelp{display:none;margin-top:22px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:left;}
+.prodhelp .ph-t{font-family:'Space Grotesk',sans-serif;font-size:21px;color:var(--gold);margin-bottom:8px;line-height:1.2;}
+.prodhelp .ph-tx{font-size:14px;color:#4a4438;line-height:1.5;margin-bottom:16px;}
+.phbtn{display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--cream);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;}
+.phbtn:last-child{margin-bottom:0;}
+.phbtn:hover{border-color:var(--gold);transform:translateY(-1px);}
 </style>
 <style id="premium-polish">
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap');
@@ -92,6 +100,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
   </form>
   <div class="err" id="err"></div>
 
+  <div class="prodlink" id="prodLink" onclick="showProd()"></div>
+
+  <div class="prodhelp" id="prodHelp">
+    <div class="ph-t" id="phT"></div>
+    <p class="ph-tx" id="phTx"></p>
+    <button type="button" class="phbtn" id="phA" onclick="focusArtist()"></button>
+    <a class="phbtn" id="phB" href="/doctor"></a>
+    <a class="phbtn" id="phC" href="/lod"></a>
+  </div>
+
   <div class="result" id="result">
     <div class="num" id="rNum">0</div>
     <div class="lbl" id="rLbl"></div>
@@ -127,7 +145,13 @@ const T={
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Máster (SoundExchange)</b> — radio digital por tus grabaciones.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecánicas (The MLC)</b> — streaming en EE.UU. (gran parte del black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tu PRO)</b> — ejecución pública (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — tu música en TV, cine, anuncios y videojuegos.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Derechos conexos</b> — performance del máster fuera de EE.UU.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — cuando tu música suena en videos de otros.</span></div>`,
      ej:"Ej: ", notfound:"No encontramos ese artista. Revisa el nombre exacto.",
      ctaP:'Te ayudamos a recuperar ese dinero — <b style="color:var(--gold)">0% comisión.</b> Déjanos tu correo:',
-     emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto."},
+     emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto.",
+     prodLink:"¿Eres productor o compositor? Mira cómo cobras →",
+     phT:"Tu dinero no está bajo tu nombre",
+     phTx:"Como productor o compositor, tu dinero está en las canciones que hiciste para OTROS — no en tu propio catálogo. Ve por aquí:",
+     phA:"🎤 Escribe arriba el nombre del ARTISTA con quien trabajaste",
+     phB:"📄 Sube y revisa tu catálogo — El Doctor",
+     phC:"📃 Arma tu Letter of Direction (cobra el máster)"},
  en:{tag:"TU DINERO · A LA LUZ",
      lead:"Your music has been making money for years.<br>Find out how much isn't reaching you.",
      sub:"Type your artist name. We scan your catalog in seconds.",
@@ -139,7 +163,13 @@ const T={
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — digital radio for your recordings.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mechanical (The MLC)</b> — US streaming (much of the black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (your PRO)</b> — public performance (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — your music in TV, film, ads and video games.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Neighbouring rights</b> — master performance outside the US.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — when your music plays in others' videos.</span></div>`,
      ej:"E.g.: ", notfound:"We couldn't find that artist. Check the exact name.",
      ctaP:'We help you recover that money — <b style="color:var(--gold)">0% commission.</b> Drop your email:',
-     emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon."},
+     emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon.",
+     prodLink:"Producer or songwriter? See how you get paid →",
+     phT:"Your money isn't under your name",
+     phTx:"As a producer or songwriter, your money is in the songs you made for OTHERS — not your own catalog. Go here:",
+     phA:"🎤 Type the ARTIST's name you worked with above",
+     phB:"📄 Upload and audit your catalog — El Doctor",
+     phC:"📃 Create your Letter of Direction (collect the master)"},
  pt:{tag:"TU DINERO · A LA LUZ",
      lead:"Tua música gera dinheiro há anos.<br>Descobre quanto NÃO está chegando até ti.",
      sub:"Escreve teu nome de artista. Escaneamos teu catálogo em segundos.",
@@ -151,7 +181,13 @@ const T={
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — rádio digital pelas tuas gravações.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecânicas (The MLC)</b> — streaming nos EUA (grande parte do black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tua PRO)</b> — execução pública (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — tua música em TV, cinema, anúncios e jogos.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Direitos conexos</b> — performance do master fora dos EUA.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — quando tua música toca em vídeos de outros.</span></div>`,
      ej:"Ex: ", notfound:"Não encontramos esse artista. Verifica o nome exato.",
      ctaP:'Te ajudamos a recuperar esse dinheiro — <b style="color:var(--gold)">0% comissão.</b> Deixa teu e-mail:',
-     emailph:"teu@email.com", join:"Quero meu dinheiro", joined:"Estás na lista! Entramos em contato em breve."},
+     emailph:"teu@email.com", join:"Quero meu dinheiro", joined:"Estás na lista! Entramos em contato em breve.",
+     prodLink:"És produtor ou compositor? Vê como recebes →",
+     phT:"Teu dinheiro não está sob teu nome",
+     phTx:"Como produtor ou compositor, teu dinheiro está nas músicas que fizeste para OUTROS — não no teu próprio catálogo. Vai por aqui:",
+     phA:"🎤 Escreve acima o nome do ARTISTA com quem trabalhaste",
+     phB:"📄 Envia e revisa teu catálogo — El Doctor",
+     phC:"📃 Monta tua Letter of Direction (recebe o master)"},
  fr:{tag:"TU DINERO · A LA LUZ",
      lead:"Ta musique génère de l'argent depuis des années.<br>Découvre combien ne te parvient PAS.",
      sub:"Écris ton nom d'artiste. On scanne ton catalogue en quelques secondes.",
@@ -163,7 +199,13 @@ const T={
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — radio numérique pour tes enregistrements.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mécanique (The MLC)</b> — streaming aux États-Unis (une grande partie du black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (ta PRO)</b> — exécution publique (BMI/ASCAP + PRO).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — ta musique à la TV, au cinéma, dans les pubs et jeux.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Droits voisins</b> — performance du master hors des États-Unis.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — quand ta musique joue dans les vidéos des autres.</span></div>`,
      ej:"Ex. : ", notfound:"Artiste introuvable. Vérifie le nom exact.",
      ctaP:'On t\'aide à récupérer cet argent — <b style="color:var(--gold)">0% commission.</b> Laisse ton e-mail :',
-     emailph:"toi@email.com", join:"Je veux mon argent", joined:"Tu es sur la liste ! On te contacte bientôt."}
+     emailph:"toi@email.com", join:"Je veux mon argent", joined:"Tu es sur la liste ! On te contacte bientôt.",
+     prodLink:"Producteur ou compositeur ? Vois comment être payé →",
+     phT:"Ton argent n'est pas sous ton nom",
+     phTx:"En tant que producteur ou compositeur, ton argent est dans les chansons que tu as faites pour D'AUTRES — pas dans ton propre catalogue. Va par ici :",
+     phA:"🎤 Écris ci-dessus le nom de l'ARTISTE avec qui tu as travaillé",
+     phB:"📄 Téléverse et audite ton catalogue — El Doctor",
+     phC:"📃 Crée ta Letter of Direction (perçois le master)"}
 };
 let L="es", last={artist:"",total:0,bb:0,year:0,sample:[],shown:false};
 function renderResult(t){
@@ -185,6 +227,12 @@ function setLang(l){
   document.getElementById('email').placeholder=t.emailph;
   document.getElementById('joinBtn').textContent=t.join;
   document.getElementById('ctaP').innerHTML=t.ctaP;
+  document.getElementById('prodLink').textContent=t.prodLink;
+  document.getElementById('phT').textContent=t.phT;
+  document.getElementById('phTx').textContent=t.phTx;
+  document.getElementById('phA').textContent=t.phA;
+  document.getElementById('phB').textContent=t.phB;
+  document.getElementById('phC').textContent=t.phC;
   ['es','en','pt','fr'].forEach(function(x){document.getElementById('btn-'+x).classList.toggle('active',l===x);});
   if(last.shown) renderResult(t);
 }
@@ -197,7 +245,7 @@ async function scan(e){
     const r=await fetch(ENDPOINT+"?artist="+encodeURIComponent(artist),{headers:{apikey:KEY}});
     const d=await r.json();
     if(d.error)throw new Error(d.error);
-    if(!d.found){err.textContent=t.notfound;err.style.display='block';return;}
+    if(!d.found){err.textContent=t.notfound;err.style.display='block';showProd();return;}
     last={artist:d.artist,total:d.total,bb:d.black_box,year:d.year_from,sample:d.sample||[],shown:true};
     renderResult(t);
     document.getElementById('result').style.display='block';
@@ -215,6 +263,8 @@ async function join(e){
     const m=document.getElementById('msg'); m.textContent=t.joined; m.style.display='block';
   }catch(ex){btn.disabled=false;btn.textContent=t.join;}
 }
+function showProd(){var el=document.getElementById('prodHelp');el.style.display='block';el.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function focusArtist(){var a=document.getElementById('artist');a.value='';a.focus();window.scrollTo({top:0,behavior:'smooth'});}
 (function(){var n=(navigator.language||'es').slice(0,2).toLowerCase();setLang(['es','en','pt','fr'].indexOf(n)>=0?n:'es');})();
 </script>
 <script>

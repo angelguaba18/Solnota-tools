@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<title>SOLNOTA · El Doctor</title>
+<meta name="description" content="El Doctor de SOLNOTA: sube el catálogo de tus PROs (BMI, ASCAP) y del MLC, y detecta automáticamente errores de % (overclaim 120%), black box, duplicados y conflictos entre fuentes. Te dice cuánto pierdes y cómo arreglarlo.">
+<link rel="canonical" href="https://tools.solnota.com/doctor">
+<meta property="og:title" content="SOLNOTA · El Doctor — auditoría automática de tu catálogo">
+<meta property="og:description" content="Sube tu catálogo (BMI + MLC) y El Doctor encuentra el dinero que pierdes: errores de %, black box, duplicados y conflictos entre fuentes. En español, 0% comisión.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tools.solnota.com/doctor">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#FFB02E;--bg:#FCFAF5;--card:#FBF8F0;--line:#ECE6D8;--txt:#1A1611;--mut:#6E6657;--ok:#3DDC7F;--bad:#FF5E5E;--warn:#FF8A1E;--blue:#5B8DEF;
+    --grad:linear-gradient(90deg,#FFC65C,#FFB02E,#E08A00,#B96A00);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:'Instrument Sans',sans-serif;padding:28px 20px;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto}
+  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:400;font-size:38px;letter-spacing:2px;
+     background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .tag{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;color:var(--mut)}
+  h2{font-size:20px;margin:26px 0 8px;display:flex;align-items:center;gap:8px}
+  .lead{color:var(--mut);font-size:15px;margin:14px 0 4px;max-width:700px;line-height:1.5}
+  .intro{display:flex;align-items:center;gap:14px;margin:18px 0 6px}
+  .pill{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--mut);padding:5px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .drop{border:2px dashed var(--line);border-radius:16px;padding:30px 22px;text-align:center;background:var(--card);margin:16px 0;transition:border-color .18s,background .18s}
+  .drop.hover{border-color:var(--gold);background:#fff}
+  .drop .big{font-size:40px;line-height:1}
+  .drop p{color:var(--mut);font-size:14px;margin:8px 0}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center}
+  input[type=text],input[type=number]{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:12px 14px;border-radius:12px;font-size:15px;font-family:inherit;outline:none}
+  input:focus{border-color:var(--gold)}
+  label.fld{font-size:12px;color:var(--mut);font-weight:700;display:flex;flex-direction:column;gap:5px}
+  button{background:var(--grad);color:#100800;border:none;padding:13px 20px;border-radius:12px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;white-space:nowrap}
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  button:active{transform:translateY(1px)}
+  textarea{width:100%;min-height:120px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:monospace;font-size:12px;padding:12px;outline:none;display:none}
+  .srcbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .srcbar .src{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;display:flex;gap:8px;align-items:center}
+  .srcbar .src .x{color:var(--bad);cursor:pointer;font-weight:900}
+  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0}
+  .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .c .n{font-family:'Instrument Sans',sans-serif;font-weight:900;font-size:28px}
+  .c .l{color:var(--mut);font-size:11px;letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
+  .c.gold .n{color:var(--gold)} .c.bad .n{color:var(--bad)} .c.warn .n{color:var(--warn)} .c.ok .n{color:var(--ok)}
+  .finding{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--mut);border-radius:12px;padding:14px 16px;margin:10px 0}
+  .finding.red{border-left-color:var(--bad)} .finding.orange{border-left-color:var(--warn)} .finding.blue{border-left-color:var(--blue)} .finding.green{border-left-color:var(--ok)} .finding.star{border-left-color:var(--gold);background:#fff}
+  .finding h3{font-size:15px;margin-bottom:6px}
+  .finding p{color:var(--mut);font-size:13px;line-height:1.5;margin:3px 0}
+  .finding .fix{color:var(--txt);font-size:13px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:8px}
+  table{width:100%;border-collapse:collapse;margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:10px 12px;font-size:13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-weight:800;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--mut)}
+  tr:last-child td{border-bottom:none}
+  .mono{font-family:monospace;font-size:12px;color:var(--mut)}
+  .chip{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;margin:2px 3px 2px 0;white-space:nowrap}
+  .chip.red{background:rgba(255,94,94,.14);color:#C0392B} .chip.orange{background:rgba(255,138,30,.16);color:#A85F00}
+  .chip.blue{background:rgba(91,141,239,.16);color:#2C5BB8} .chip.green{background:rgba(61,220,127,.18);color:#1E7F4B}
+  .chip.gray{background:rgba(110,102,87,.14);color:#6E6657} .chip.gold{background:rgba(255,176,46,.2);color:#A85F00}
+  .row-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .note{color:var(--mut);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px;line-height:1.5}
+  .hidden{display:none}
+  a.lk{color:var(--gold);text-decoration:none;font-weight:700}
+  .foot{margin-top:26px}
+  @media(max-width:680px){.cards{grid-template-columns:repeat(2,1fr)}.hide-m{display:none}h1{font-size:30px}}
+  .sn-wm{font-family:'Fraunces',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#1A1611!important;color:#1A1611!important;display:inline-flex;align-items:center;line-height:1}
+  .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00}
+  .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#FCFAF5}
+  .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#1A1611}
+  body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  @media print{.noprint{display:none!important}body{padding:0}.finding,.c,table{box-shadow:none}}
+</style>
+<script src="/solnota-theme.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><a href="/" title="Inicio" style="text-decoration:none"><h1 class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</h1></a><span class="tag brand-tag">TU DINERO · A LA LUZ</span></div>
+
+  <div class="intro noprint"><h2>🩺 El Doctor</h2></div>
+  <p class="lead noprint">Sube el catálogo de tus fuentes (<b>BMI/ASCAP</b> y el <b>MLC</b>) y El Doctor los revisa solos: encuentra errores de %, dinero en <em>black box</em>, duplicados — y <b>cruza las fuentes</b> para cazar cuando una canción tiene % distintos en BMI y en MLC. <b>Tu música no se toca. 0% comisión.</b></p>
+  <div class="noprint" style="margin:8px 0"><span class="pill">100% en tu navegador</span> <span class="pill">no subimos tu archivo</span> <span class="pill">multi-fuente</span> <span class="pill">no custodial</span></div>
+
+  <div class="drop noprint" id="drop">
+    <div class="big">📄</div>
+    <p><b>Arrastra aquí tus archivos CSV</b> (BMI Catalog Export y/o export del MLC) — o haz clic. Puedes subir varios.</p>
+    <input type="file" id="file" accept=".csv,text/csv" class="hidden" multiple>
+    <div class="controls" style="justify-content:center">
+      <button onclick="document.getElementById('file').click()">Elegir archivos CSV</button>
+      <button class="ghost" onclick="togglePaste()">Pegar texto</button>
+      <button class="ghost" onclick="loadDemo()">Ver ejemplo (La Gabi · BMI + MLC)</button>
+    </div>
+    <textarea id="paste" placeholder="Pega aquí el contenido de un CSV…"></textarea>
+    <div class="controls hidden" id="pasteRun" style="justify-content:center"><button onclick="runPaste()">Analizar texto pegado</button></div>
+  </div>
+
+  <div class="srcbar noprint" id="srcbar"></div>
+
+  <div class="controls noprint" id="opts" style="display:none">
+    <label class="fld">Artista a auditar (nombre en el PRO)
+      <input type="text" id="artist" placeholder="Se detecta solo…" style="min-width:260px"></label>
+    <label class="fld">Streams al año (opcional, para estimar $)
+      <input type="number" id="streams" placeholder="ej. 6500000" style="min-width:160px"></label>
+    <button onclick="reanalyze()">Volver a analizar</button>
+  </div>
+
+  <div id="out"></div>
+</div>
+
+<script>
+/* ====== EL DOCTOR — auditor multi-fuente de catálogo SOLNOTA ======
+   Lee exports de catálogo (BMI Catalog Export, MLC works export, u otros) y detecta
+   los errores que antes revisábamos a mano + CRUZA fuentes (BMI vs MLC) para cazar
+   conflictos de %. Mapea columnas por NOMBRE de header, así soporta varios formatos.
+   Todo en el navegador (el archivo nunca sale del equipo). */
+
+let SOURCES = [];   // [{label, rows:[{num,title,wp,name,share,ipi,iswc,status}]}]
+let TARGET = "";
+
+// ---- Parser CSV (comillas + comas internas) ----
+function parseCSV(text){
+  const out=[]; let row=[], cur="", q=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(q){ if(ch==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=ch; }
+    else { if(ch==='"') q=true; else if(ch===','){ row.push(cur); cur=""; }
+      else if(ch==='\n'){ row.push(cur); out.push(row); row=[]; cur=""; }
+      else if(ch==='\r'){} else cur+=ch; }
+  }
+  if(cur.length||row.length){ row.push(cur); out.push(row); }
+  return out;
+}
+function clean(s){ return (s||"").trim(); }
+function normTitle(t){
+  return clean(t).toUpperCase().normalize("NFD").replace(/[̀-ͯ]/g,"")
+    .replace(/\b(SPED UP|SLOWED|REMIX|VERSION|VERSIÓN|LIVE|EN VIVO|ACAPELLA)\b/g,"")
+    .replace(/[^A-Z0-9]/g,"");
+}
+
+// ---- Mapea columnas por nombre de header (soporta BMI, MLC y otros) ----
+function detectCols(header){
+  const h=header.map(x=>clean(x).toLowerCase());
+  const find=(...keys)=>{
+    for(const k of keys){ const i=h.indexOf(k); if(i>=0) return i; }              // exacto
+    for(const k of keys){ const i=h.findIndex(c=>c.includes(k)); if(i>=0) return i; } // contiene
+    return -1;
+  };
+  return {
+    workid: find('titlenumber','work code','song code','mlc song code','work id','workid','work number','song id'),
+    title:  find('title','work title','song title','composition title','composition','obra','track'),
+    role:   find('wtrpubindicator','indicator','role','rol','wtr/pub','type','contributor type','capacity'),
+    name:   find('participant','songwriter','writer name','publisher name','interested party','ip name','writer','publisher','participant name','name','nombre'),
+    share:  find('share %','collection share','ownership share','share','percent','%','split','porcentaje'),
+    ipi:    find('ipnamenumber','ipi/cae','ipi number','ip number','ipi','cae'),
+    iswc:   find('iswc number','iswcnumber','iswc'),
+    status: find('songviewstatus','match status','work status','status','estado')
+  };
+}
+// Detecta escritor (W) vs editor (P) — aguanta códigos de BMI/ASCAP/MLC
+function roleOf(v, name){
+  const x=clean(v).toUpperCase();
+  if(/^(P|E|SE|AM|PA|OP)$/.test(x) || x.indexOf('PUBLISH')>=0) return 'P';   // editor
+  if(/^(W|C|CA|A|SW)$/.test(x) || /WRITER|COMPOS|AUTHOR|ESCRITOR/.test(x)) return 'W'; // escritor
+  if(x[0]==='W') return 'W';
+  if(x[0]==='P') return 'P';
+  // sin columna de rol: si el nombre parece empresa → editor
+  if(/PUBLISHING|MUSIC|RECORDS|LLC|INC|EDITION|SONGS OF|CORP|PUBLISHER/i.test(name||'')) return 'P';
+  return 'W';
+}
+
+// ---- Carga un archivo a SOURCES ----
+function ingest(text, label){
+  const rows=parseCSV(text).filter(r=>r.length>3);
+  if(rows.length<2) return false;
+  const cols=detectCols(rows[0]);
+  if(cols.title<0 || cols.name<0 || cols.share<0){ alert("No reconozco las columnas de «"+label+"». ¿Es un export de catálogo (BMI/MLC)?"); return false; }
+  const get=(r,i)=> i>=0 ? clean(r[i]) : "";
+  const parsed=rows.slice(1).map(r=>({
+    num: get(r,cols.workid) || normTitle(get(r,cols.title)),
+    title: get(r,cols.title),
+    wp: roleOf(get(r,cols.role), get(r,cols.name)),
+    name: get(r,cols.name),
+    share: parseFloat(get(r,cols.share))||0,
+    ipi: get(r,cols.ipi),
+    iswc: get(r,cols.iswc),
+    status: get(r,cols.status)
+  })).filter(r=>r.title && r.name);
+  if(!parsed.length) return false;
+  SOURCES.push({label, rows:parsed});
+  return true;
+}
+
+function detectArtist(){
+  const byName={};
+  SOURCES.forEach(s=>s.rows.forEach(r=>{ if(r.wp==="W"){ byName[r.name]=byName[r.name]||new Set(); byName[r.name].add(r.title.toUpperCase()); }}));
+  let best="",n=0; Object.keys(byName).forEach(k=>{ if(byName[k].size>n){n=byName[k].size;best=k;} });
+  return best;
+}
+
+// ---- Agrupa una fuente en obras ----
+function groupWorks(rows){
+  const m={}; rows.forEach(r=>{ (m[r.num]=m[r.num]||[]).push(r); });
+  return Object.keys(m).map(num=>{
+    const rs=m[num];
+    const W=rs.filter(r=>r.wp==="W"), P=rs.filter(r=>r.wp==="P");
+    const wTotal=Math.round(W.reduce((a,r)=>a+r.share,0)*100)/100;
+    const mine=rs.filter(r=>r.name===TARGET && r.wp==="W");
+    const myShare=Math.round(mine.reduce((a,r)=>a+r.share,0)*100)/100;
+    const myIPIs=[...new Set(mine.map(r=>r.ipi).filter(x=>x&&/\d/.test(x)))];
+    const hasUnknown=P.some(r=>/UNKNOWN PUBLISHER/i.test(r.name)&&r.share>0);
+    const hasOrchard=P.some(r=>/SONGS OF ORCHARD|MA G PUBLISHING/i.test(r.name));
+    return {num,title:rs[0].title,iswc:rs[0].iswc,status:rs[0].status,wTotal,myShare,myIPIs,hasUnknown,hasOrchard};
+  });
+}
+
+// ---- Cruce entre fuentes (la función estrella) ----
+function crossCheck(){
+  if(SOURCES.length<2) return [];
+  const map={};
+  SOURCES.forEach(s=>{
+    groupWorks(s.rows).forEach(w=>{
+      const key = (w.iswc&&/\w/.test(w.iswc)) ? 'I:'+w.iswc.replace(/\s/g,'') : 'T:'+normTitle(w.title);
+      map[key]=map[key]||{title:w.title, shares:{}};
+      map[key].shares[s.label]=w.myShare;
+    });
+  });
+  const out=[];
+  Object.values(map).forEach(m=>{
+    const labels=Object.keys(m.shares);
+    if(labels.length>1){
+      const vals=labels.map(l=>m.shares[l]);
+      if(Math.max(...vals)-Math.min(...vals)>0.5) out.push(m);
+    }
+  });
+  return out;
+}
+
+function analyze(){
+  TARGET = clean(document.getElementById('artist').value) || detectArtist();
+  document.getElementById('artist').value = TARGET;
+  const streams=parseFloat(document.getElementById('streams').value)||0;
+
+  // works combinadas (con etiqueta de fuente)
+  let WORKS=[];
+  SOURCES.forEach(s=>groupWorks(s.rows).forEach(w=>{w.src=s.label;WORKS.push(w);}));
+
+  const F={overclaimArt:[],totalOff:[],blackbox:[],captured:[],dup:[],notRec:[],ipiBad:[]};
+  WORKS.forEach(w=>{
+    if(w.myShare>100) F.overclaimArt.push(w);
+    if(Math.abs(w.wTotal-100)>0.5) F.totalOff.push(w);
+    if(w.status && !/reconcil|matched/i.test(w.status)) F.notRec.push(w);
+    if(w.myIPIs.length>1) F.ipiBad.push(w);
+    if(w.hasUnknown && !w.hasOrchard && w.myShare>0) F.blackbox.push(w);
+    if(w.hasOrchard) F.captured.push(w);
+  });
+  // duplicados dentro de la misma fuente
+  const byNorm={};
+  WORKS.forEach(w=>{ const k=w.src+'|'+normTitle(w.title); (byNorm[k]=byNorm[k]||[]).push(w); });
+  Object.values(byNorm).forEach(g=>{ if(g.length>1) F.dup.push(g); });
+
+  const XC=crossCheck();
+  const reconciled=WORKS.filter(w=>!w.status || /reconcil|matched/i.test(w.status)).length;
+  const pctRec=WORKS.length?Math.round(reconciled/WORKS.length*100):0;
+  const probSet=new Set([...F.overclaimArt,...F.totalOff,...F.blackbox,...F.notRec].map(w=>w.num));
+  XC.forEach(()=>probSet.add('xc'+Math.random()));
+  render(WORKS,F,XC,{total:WORKS.length,pctRec,problem:probSet.size,streams});
+}
+
+function dineroEstim(streams,problem,total){ if(!streams||!total) return null; return Math.round(streams*0.0012*(problem/total)); }
+function money(n){ return "$"+n.toLocaleString('en-US'); }
+
+function render(WORKS,F,XC,k){
+  const est=dineroEstim(k.streams,k.problem,k.total);
+  let h="";
+  h+='<div class="cards">'
+    + card(k.total,'Obras','gold')
+    + card(k.pctRec+'%','Reconciliadas',k.pctRec>=80?'ok':'warn')
+    + card(F.overclaimArt.length+F.totalOff.length,'Errores de %',(F.overclaimArt.length+F.totalOff.length)?'bad':'ok')
+    + card(F.blackbox.length,'Black box',F.blackbox.length?'warn':'ok')
+    + card(XC.length,'Conflictos BMI↔MLC',XC.length?'bad':'ok')
+    + '</div>';
+  if(est!==null) h+='<div class="note">💸 <b>Dinero en riesgo (estimado): '+money(est)+'/año.</b> Parte de tu publishing atascada en obras con problemas. Es estimado — el exacto aparece al reclamar en el MLC.</div>';
+
+  h+='<div class="row-top"><div class="tag">PACIENTE: '+esc(TARGET)+' · FUENTES: '+SOURCES.map(s=>esc(s.label)).join(' + ')+'</div>'
+    +'<div class="noprint"><button class="ghost" onclick="downloadReport()">⬇ Descargar</button> <button class="ghost" onclick="window.print()">🖨 PDF</button></div></div>';
+
+  h+='<h2>🔎 Diagnóstico</h2>';
+
+  // ⭐ Cruce de fuentes primero (lo más valioso)
+  if(XC.length){
+    h+=finding('star','⭐ Conflicto entre fuentes: la misma canción con % distintos',
+      'Tu % no coincide entre BMI y MLC. Mientras no coincidan, el dinero se retiene. Esto nadie lo revisa por ti.',
+      XC.map(m=>'<b>'+esc(m.title)+'</b> — '+Object.keys(m.shares).map(l=>esc(l)+': '+m.shares[l]+'%').join(' vs ')).join('<br>'),
+      'Arreglo: decide el % correcto (split sheet firmado) y corrígelo en la fuente equivocada para que ambas digan lo mismo.');
+  } else if(SOURCES.length>1){
+    h+=finding('green','✅ Fuentes alineadas','Tu % coincide entre BMI y MLC en las obras comparables.','','');
+  }
+
+  if(F.overclaimArt.length) h+=finding('red','🔴 Imposible: apareces con más de 100% en una obra',
+    'Ningún escritor puede tener más del 100%. Congela el dinero de la obra entera.',
+    F.overclaimArt.map(w=>'<b>'+esc(w.title)+'</b> — tú al <b>'+w.myShare+'%</b> ['+esc(w.src)+']').join('<br>'),
+    'Arreglo: corrige tu % al real del split sheet. Si está duplicada, borra la versión rota. Correo a reviseworks@bmi.com.');
+  if(F.totalOff.length) h+=finding('orange','🟠 La suma de escritores no da 100%',
+    'Si no suman 100, hay overclaim (sobra) o black box (falta). En ambos se retiene dinero.',
+    F.totalOff.slice(0,12).map(w=>'<b>'+esc(w.title)+'</b> — suman <b>'+w.wTotal+'%</b> '+(w.wTotal>100?'(sobra)':'(falta)')+' ['+esc(w.src)+']').join('<br>')+(F.totalOff.length>12?'<br>…y '+(F.totalOff.length-12)+' más':''),
+    'Arreglo: ajusta los % hasta 100 con el split sheet firmado (o créditos de Spotify/Apple como respaldo).');
+  if(F.blackbox.length) h+=finding('orange','💸 Black box: tu publishing está botado',
+    'Tu parte de escritor no tiene editor que la cobre ("UNKNOWN PUBLISHER"). Ese dinero se pierde hasta que lo reclames.',
+    F.blackbox.map(w=>'<b>'+esc(w.title)+'</b> — tú al '+w.myShare+'% sin editor ['+esc(w.src)+']').join('<br>'),
+    'Arreglo: registra tu editor (Sol Music Group) sobre tu parte y reclámalo en el MLC. Dinero que te puede llegar YA.');
+  if(F.dup.length) h+=finding('blue','🔵 Duplicados: la misma canción registrada 2+ veces',
+    'Títulos parecidos (o versiones sped up/remix) que son la misma composición. Dividen el dinero.',
+    F.dup.map(g=>g.map(w=>esc(w.title)+' (#'+w.num+')').join('  ↔  ')).join('<br>'),
+    'Arreglo: confirma cuáles son la misma obra y pide a BMI unir/borrar la duplicada.');
+  if(F.ipiBad.length) h+=finding('red','🆔 Tu IPI/nombre cambia entre obras',
+    'Apareces con IPIs distintos. Eso fragmenta tus regalías.',
+    F.ipiBad.map(w=>'<b>'+esc(w.title)+'</b> — IPIs: '+w.myIPIs.join(' / ')).join('<br>'),
+    'Arreglo: unifica todo a tu IPI correcto. Pide a BMI corregir las obras con el IPI equivocado.');
+  if(F.notRec.length) h+=finding('gray','🟣 Obras sin reconciliar ('+F.notRec.length+')',
+    'En conflicto o en revisión. Muchas veces porque otra sociedad mandó % distintos.',
+    F.notRec.slice(0,10).map(w=>esc(w.title)+' — '+statusChip(w.status)).join('<br>')+(F.notRec.length>10?'<br>…y '+(F.notRec.length-10)+' más':''),
+    'Arreglo: resuélvelas una a una; las colaboraciones grandes dependen de otras PROs.');
+  if(F.captured.length) h+=finding('gray','🟡 Capturadas (Songs of Orchard / Ma G) — '+F.captured.length,
+    'Tu publishing lo retiene el sello (Grupo B) por la deuda. No reclamar hasta resolver eso.',
+    F.captured.slice(0,12).map(w=>esc(w.title)).join(' · ')+(F.captured.length>12?' …':''),'Bloqueado hasta pagar/revertir. No tocar todavía.');
+  if(!XC.length&&!F.overclaimArt.length&&!F.totalOff.length&&!F.blackbox.length&&!F.dup.length&&!F.ipiBad.length)
+    h+=finding('green','✅ Sin errores graves','No detecté overclaims, black box ni duplicados. Buen catálogo.','','');
+
+  // 📧 correos de corrección listos para enviar
+  h+=emailsSection(WORKS);
+  // 🟣 guía del portal del MLC (black box — no va por correo)
+  h+=portalSection(F);
+
+  // tabla
+  h+='<h2>🗂️ Catálogo obra por obra</h2>';
+  h+='<table><thead><tr><th>Obra</th><th class="hide-m">Fuente</th><th>Tu %</th><th class="hide-m">Escritores</th><th>Estado</th><th>Banderas</th></tr></thead><tbody>';
+  WORKS.sort((a,b)=>flags(b).length-flags(a).length);
+  WORKS.forEach(w=>{ h+='<tr><td><b>'+esc(w.title)+'</b><div class="mono">#'+w.num+'</div></td>'
+    +'<td class="hide-m"><span class="chip gray">'+esc(w.src)+'</span></td>'
+    +'<td><b>'+(w.myShare||0)+'%</b></td><td class="hide-m">'+w.wTotal+'%</td>'
+    +'<td>'+statusChip(w.status)+'</td><td>'+(flags(w).join('')||'<span class="chip green">ok</span>')+'</td></tr>'; });
+  h+='</tbody></table>';
+  h+='<div class="note noprint">El Doctor revisa; <b>tú</b> apruebas cada arreglo. SOLNOTA nunca toca tu dinero ni tu copyright. <a class="lk" href="/split">Generar CWR de corrección →</a></div>';
+  h+='<div class="note noprint">🎛️ <b>¿Eres productor o artista?</b> Este reporte es de tu <b>publishing</b> (composición). El dinero de tu <b>máster</b> (SoundExchange — radio digital) NO sale aquí. <a class="lk" href="/lod">Cobra tu máster con una Letter of Direction →</a></div>';
+
+  document.getElementById('out').innerHTML=h;
+  document.getElementById('opts').style.display='flex';
+  renderSrcBar();
+  document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function flags(w){
+  const f=[];
+  if(w.myShare>100) f.push('<span class="chip red">+100% imposible</span>');
+  if(Math.abs(w.wTotal-100)>0.5) f.push('<span class="chip orange">suma '+w.wTotal+'%</span>');
+  if(w.hasUnknown&&!w.hasOrchard&&w.myShare>0) f.push('<span class="chip orange">black box</span>');
+  if(w.hasOrchard) f.push('<span class="chip gray">capturada</span>');
+  if(w.myIPIs.length>1) f.push('<span class="chip red">IPI doble</span>');
+  if(w.status&&!/reconcil|matched/i.test(w.status)) f.push('<span class="chip blue">sin reconciliar</span>');
+  return f;
+}
+function statusChip(s){ if(!s) return '<span class="chip gray">—</span>'; if(/reconcil|matched/i.test(s)) return '<span class="chip green">'+esc(s)+'</span>'; if(/conflict/i.test(s)) return '<span class="chip red">Conflicto</span>'; return '<span class="chip blue">'+esc(s)+'</span>'; }
+function finding(cls,title,desc,list,fix){ return '<div class="finding '+cls+'"><h3>'+title+'</h3>'+(desc?'<p>'+desc+'</p>':'')+(list?'<p style="color:var(--txt)">'+list+'</p>':'')+(fix?'<div class="fix">🔧 '+fix+'</div>':'')+'</div>'; }
+function card(n,l,cls){ return '<div class="c '+(cls||'')+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+function esc(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function renderSrcBar(){ document.getElementById('srcbar').innerHTML=SOURCES.map((s,i)=>'<span class="src">📄 '+esc(s.label)+' ('+s.rows.length+' filas) <span class="x" onclick="dropSource('+i+')">✕</span></span>').join(''); }
+function dropSource(i){ SOURCES.splice(i,1); if(SOURCES.length) analyze(); else { document.getElementById('out').innerHTML=''; document.getElementById('opts').style.display='none'; renderSrcBar(); } }
+
+function downloadReport(){
+  const txt=document.getElementById('out').innerText;
+  const blob=new Blob(["EL DOCTOR — SOLNOTA\nPaciente: "+TARGET+"\nFuentes: "+SOURCES.map(s=>s.label).join(', ')+"\n\n"+txt],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ElDoctor_'+TARGET.replace(/\s+/g,'_')+'.txt';a.click();
+}
+
+// ---- 📧 Generador de correos de corrección (lo que hicimos a mano, automático) ----
+function commonIPI(){
+  const c={}; SOURCES.forEach(s=>s.rows.forEach(r=>{ if(r.name===TARGET&&r.wp==='W'&&/\d/.test(r.ipi)) c[r.ipi]=(c[r.ipi]||0)+1; }));
+  let best='',n=0; Object.keys(c).forEach(k=>{if(c[k]>n){n=c[k];best=k;}}); return best;
+}
+const RECIPIENTS={BMI:'reviseworks@bmi.com',ASCAP:'',MLC:'support@themlc.com',SoundExchange:'repertoire@soundexchange.com'};
+function buildEmails(WORKS){
+  const ipi=commonIPI(), bySrc={};
+  const ens=s=>(bySrc[s]=bySrc[s]||{share:[],dup:[],ipi:[]});
+  WORKS.forEach(w=>{
+    if(w.myShare>100 || Math.abs(w.wTotal-100)>0.5){
+      ens(w.src).share.push({num:w.num,title:w.title,cur:w.myShare,total:w.wTotal,over:w.myShare>100});
+    }
+    if(w.myIPIs.length>1) ens(w.src).ipi.push(w);
+  });
+  const byN={}; WORKS.forEach(w=>{const k=w.src+'|'+normTitle(w.title);(byN[k]=byN[k]||[]).push(w);});
+  Object.values(byN).forEach(g=>{ if(g.length>1) ens(g[0].src).dup.push(g); });
+
+  const emails=[];
+  Object.keys(bySrc).forEach(src=>{
+    const d=bySrc[src]; if(!d.share.length&&!d.dup.length&&!d.ipi.length) return;
+    const team = src==='MLC' ? 'MLC Support' : (src==='SoundExchange' ? 'SoundExchange Repertoire' : (src==='ASCAP' ? 'ASCAP Member Services' : 'BMI Works Maintenance'));
+    let body='Hello '+team+' team,\n\nI manage the writer registrations for '+TARGET+(ipi?' (IPI/CAE '+ipi+')':'')+'. Please apply the following corrections. Signed split sheets are attached as supporting documentation.\n';
+    let s=0;
+    if(d.dup.length){ body+='\nA) Merge duplicate works (same composition registered twice):\n'; d.dup.forEach(g=>{ body+=(++s)+'. '+g.map(w=>'"'+w.title+'" (#'+w.num+')').join(' = ')+' — please merge into one work, keep the streaming title, and remove the duplicate.\n'; }); }
+    if(d.share.length){ body+='\nB) Correct writer shares (each work must total 100%):\n'; d.share.forEach(x=>{ body+=(++s)+'. "'+x.title+'" (#'+x.num+') currently totals '+x.total+'%'+(x.over?' and my writer share is incorrectly listed as '+x.cur+'% (over 100% is impossible)':'')+'. Please correct the writer shares per the attached signed split sheet so the work totals 100%.\n'; }); }
+    if(d.ipi.length){ body+='\nC) Fix my IPI/CAE:\n'; d.ipi.forEach(w=>{ body+=(++s)+'. "'+w.title+'" (#'+w.num+') — my correct IPI/CAE is '+ipi+'; please update.\n'; }); }
+    body+='\nPlease let me know if you need anything else.\n\nThank you,\n'+TARGET+'\nSent via SOLNOTA · tools.solnota.com';
+    emails.push({src,to:RECIPIENTS[src]||'',subject:'Work Update Request — correct writer shares & merge duplicates — '+TARGET+(ipi?' (IPI '+ipi+')':''),body});
+  });
+  return emails;
+}
+function emailsSection(WORKS){
+  const emails=buildEmails(WORKS); window.__EMAILS=emails;
+  if(!emails.length) return '';
+  let h='<h2>📧 Correos de corrección — listos para enviar</h2>';
+  h+='<div class="note noprint">El Doctor ya escribió estos correos por ti. Solo: <b>(1)</b> adjunta tus split sheets firmados, <b>(2)</b> dale <b>Abrir y enviar</b>. SOLNOTA <b>no los manda por ti</b> — tú aprietas enviar (tú tienes el control). El black box y los conflictos entre fuentes se arreglan en el portal, no por correo.</div>';
+  emails.forEach((e,i)=>{
+    const head = e.to ? ('📧 Para '+esc(e.src)+' — '+esc(e.to)) : ('📝 Para '+esc(e.src)+' — aplícalo en tu cuenta ASCAP');
+    let btns;
+    if(e.to){
+      const mt='mailto:'+e.to+'?subject='+encodeURIComponent(e.subject)+'&body='+encodeURIComponent(e.body);
+      btns='<a class="ctabtn" style="display:inline-block;background:var(--grad);color:#100800;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="'+mt+'">📧 Abrir y enviar</a> <button class="ghost" onclick="copyEmail('+i+')">📋 Copiar correo</button>';
+    } else {
+      // ASCAP no tiene correo público de correcciones: se edita en el portal del miembro
+      btns='<a class="ctabtn" style="display:inline-block;background:var(--grad);color:#100800;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="https://www.ascap.com/repertory" target="_blank" rel="noopener">Abrir cuenta ASCAP →</a> <button class="ghost" onclick="copyEmail('+i+')">📋 Copiar lista</button>';
+    }
+    const note = e.to ? '' : '<p style="color:var(--mut);font-size:12px;margin-top:4px">ASCAP no tiene correo público de correcciones: entra a tu cuenta ASCAP (Catálogo / Title Registrations) y aplica estos cambios, o contáctalos por su portal de miembros.</p>';
+    h+='<div class="finding star"><h3>'+head+'</h3>'
+      +(e.to?'<p style="color:var(--txt)"><b>Asunto:</b> '+esc(e.subject)+'</p>':'')
+      +'<pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;overflow-x:auto">'+esc(e.body)+'</pre>'
+      + note
+      +'<div class="controls noprint">'+btns+'</div></div>';
+  });
+  return h;
+}
+function copyEmail(i){ const e=window.__EMAILS[i]; if(!e)return; navigator.clipboard.writeText('Para: '+e.to+'\nAsunto: '+e.subject+'\n\n'+e.body).then(()=>alert('Correo copiado ✅')); }
+
+// ---- 🟣 Guía del portal del MLC (el black box NO se arregla por correo, se reclama en el portal) ----
+function portalSection(F){
+  const bb=F.blackbox||[];
+  if(!bb.length) return '';
+  let h='<h2>🟣 Reclamar en el portal del MLC (black box)</h2>';
+  h+='<div class="note noprint">Esto NO se arregla por correo — se reclama en tu portal del MLC. El Doctor te dice exactamente qué hacer, paso a paso.</div>';
+  h+='<div class="finding star"><h3>Pasos en el portal del MLC</h3>'
+    +'<p style="color:var(--txt)">1. Entra a <a class="lk" href="https://portal.themlc.com" target="_blank" rel="noopener">portal.themlc.com</a> con tu cuenta.<br>'
+    +'2. Menú <b>Works</b> → <b>Claiming Tool</b>: reclama tu % en cada obra que no tiene editor.<br>'
+    +'3. <b>Matching Tool</b>: enlaza tu grabación (ISRC) a la obra para que el dinero te llegue.<br>'
+    +'4. Si una obra pasa de 100%, usa la <b>Overclaims Tool</b> para resolverlo.<br>'
+    +'5. Registra tu editor (<b>Sol Music Group</b>) sobre tu parte para que cobre por ti.</p>'
+    +'<div class="fix">🔧 Tus obras con el publishing sin reclamar (reclámalas aquí):<br>'
+    + bb.map(w=>'• <b>'+esc(w.title)+'</b> — tú al '+w.myShare+'%'+(w.iswc&&/\w/.test(w.iswc)?' · ISWC '+esc(w.iswc):'')).join('<br>')
+    +'</div>'
+    +'<div class="controls noprint" style="margin-top:8px"><a class="ctabtn" style="display:inline-block;background:var(--grad);color:#100800;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="https://portal.themlc.com" target="_blank" rel="noopener">Abrir portal del MLC →</a></div></div>';
+  return h;
+}
+
+// ---- Entradas ----
+function addFile(text,label){ if(ingest(text,label)){ document.getElementById('artist').value=""; analyze(); } }
+function reanalyze(){ if(SOURCES.length) analyze(); }
+function labelFromName(fn){ const f=(fn||'').toLowerCase(); if(/mlc/.test(f)) return 'MLC'; if(/ascap/.test(f)) return 'ASCAP'; if(/catalogexport|bmi|\d{9}/.test(f)) return 'BMI'; return fn.replace(/\.csv$/i,'')||'Fuente '+(SOURCES.length+1); }
+
+const drop=document.getElementById('drop');
+document.getElementById('file').addEventListener('change',e=>{ [...e.target.files].forEach(f=>{ const rd=new FileReader(); rd.onload=()=>addFile(rd.result,labelFromName(f.name)); rd.readAsText(f); }); });
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('hover');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('hover');}));
+drop.addEventListener('drop',e=>{ [...e.dataTransfer.files].forEach(f=>{ const rd=new FileReader(); rd.onload=()=>addFile(rd.result,labelFromName(f.name)); rd.readAsText(f); }); });
+function togglePaste(){const t=document.getElementById('paste');const r=document.getElementById('pasteRun');const on=t.style.display==='block';t.style.display=on?'none':'block';r.classList.toggle('hidden',on);}
+function runPaste(){const t=document.getElementById('paste').value.trim();if(t)addFile(t,'Pegado '+(SOURCES.length+1));}
+
+// ---- Ejemplo: BMI + MLC (muestra el cruce) ----
+const DEMO_BMI=`TitleNumber,Title,WtrPubIndicator,PubType,Participant,Share,IPNameNumber,CurrentAffliation,RegistrationDate,RegistrationOrigin,ISWCNumber,SongviewStatus
+55386482,UN BESO,P,O,UNKNOWN PUBLISHER,50.00,00288936892,NA,09/26/2024,WORKS REGISTRATION,,Reconciled
+55386482,UN BESO,W, ,CABRERA GUABA GABRIELA,50.00,01122430810,BMI,09/26/2024,WORKS REGISTRATION,,Reconciled
+55386482,UN BESO,W, ,MONTES HENAO EDWIN ADRIAN,50.00,00891647299,ASCAP,09/26/2024,WORKS REGISTRATION,,Reconciled
+61761231,2 30,W, ,CABRERA GUABA GABRIELA,120.00,01122430810,BMI,05/17/2023,WORKS REGISTRATION,T3179838194,Reconciled
+61761231,2 30,W, ,ERAZO JORGE ALBERTO,30.00,00608179046,SESAC,05/17/2023,WORKS REGISTRATION,T3179838194,Reconciled
+61761231,2 30,W, ,ESTRADA ORLANDO,20.00,00483643433,ASCAP,05/17/2023,WORKS REGISTRATION,T3179838194,Reconciled
+61761394,WASAKAKA,P,O,SONGS OF ORCHARD PUBLISHING,60.00,01013026629,BMI,05/09/2023,WORKS REGISTRATION,T3178794888,Reconciled
+61761394,WASAKAKA,W, ,CABRERA GUABA GABRIELA,60.00,01122430810,BMI,05/09/2023,WORKS REGISTRATION,T3178794888,Reconciled
+61761394,WASAKAKA,W, ,ERAZO JORGE ALBERTO,40.00,00608179046,SESAC,05/09/2023,WORKS REGISTRATION,T3178794888,Reconciled`;
+const DEMO_MLC=`Work Title,Role,Participant Name,Share %,IPI,ISWC,Match Status
+UN BESO,Writer,CABRERA GUABA GABRIELA,50.00,01122430810,,Matched
+UN BESO,Writer,MONTES HENAO EDWIN ADRIAN,50.00,00891647299,,Matched
+WASAKAKA,Writer,CABRERA GUABA GABRIELA,50.00,01122430810,T3178794888,Matched
+WASAKAKA,Writer,ERAZO JORGE ALBERTO,50.00,00608179046,T3178794888,Matched
+WASAKAKA,Publisher,UNKNOWN PUBLISHER,50.00,,T3178794888,Unmatched`;
+function loadDemo(){ SOURCES=[]; document.getElementById('streams').value=6500000; ingest(DEMO_BMI,'BMI'); ingest(DEMO_MLC,'MLC'); document.getElementById('artist').value=""; analyze(); }
+</script>
+
+<p class="foot noprint"><a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
+<script src="/i18n.js" defer></script>
+<script>
+(function(){try{var K="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";fetch("https://bdjjalwlcuhfzjeqxtwi.supabase.co/rest/v1/page_views",{method:"POST",headers:{apikey:K,"Authorization":"Bearer "+K,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({path:location.pathname,referrer:document.referrer||null,lang:(navigator.language||"").slice(0,5),screen:(screen.width+"x"+screen.height)})}).catch(function(){});}catch(e){}})();
+</script>
+</body>
+</html>

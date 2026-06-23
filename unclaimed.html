@@ -3,166 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FFB02E">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#FFFFFF">
 <title>SOLNOTA · Dinero sin reclamar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<meta name="description" content="Encuentra regalías sin reclamar de tu catálogo: SoundExchange, The MLC y PROs. SOLNOTA.">
-<link rel="canonical" href="https://tools.solnota.com/dinero">
-<meta property="og:title" content="SOLNOTA · Dinero sin reclamar">
-<meta property="og:description" content="Encuentra regalías sin reclamar de tu catálogo: SoundExchange, The MLC y PROs. SOLNOTA.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://tools.solnota.com/dinero">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Encuentra el dinero sin reclamar de tu música. SOLNOTA — 0% comisión.">
+<link rel="canonical" href="https://tools.solnota.com/escaner.html">
+<!-- Fusionado con el Escáner (era la misma función: escanear por nombre). Redirige al escáner canónico. -->
+<meta http-equiv="refresh" content="0; url=/escaner.html">
+<script>window.location.replace('/escaner.html');</script>
 <style>
-  :root{--gold:#FFB02E;--bg:#FCFAF5;--card:#FBF8F0;--line:#ECE6D8;--txt:#1A1611;--mut:#6E6657;--ok:#3DDC7F;--bad:#FF5E5E;
-    --grad:linear-gradient(90deg,#FFC65C,#FFB02E,#E08A00,#B96A00);}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--txt);font-family:'Instrument Sans',system-ui,-apple-system,sans-serif;padding:24px 18px;min-height:100vh}
-  .wrap{max-width:980px;margin:0 auto}
-  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-  h1{font-family:'Space Grotesk',sans-serif;font-weight:400;font-size:36px;letter-spacing:2px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .tag{font-weight:700;font-size:11px;letter-spacing:3px;color:var(--mut)}
-  h2{font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin:24px 0 12px}
-  .warn{background:rgba(255,176,46,.08);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;font-size:13px;color:#FFD9A6;margin:16px 0}
-  .scan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
-  .scanrow{display:flex;gap:8px;flex-wrap:wrap}
-  .scanrow input{flex:1;min-width:200px;background:var(--bg);border:1px solid var(--line);color:var(--txt);padding:12px;border-radius:10px;font-size:14px;outline:none}
-  .scanrow input:focus{border-color:var(--gold)}
-  button.mini{background:var(--grad);color:#100800;border:none;padding:12px 18px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
-  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
-  .kpi .n{font-size:28px;font-weight:900}
-  .kpi .l{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
-  .kpi.gold .n{color:var(--gold)} .kpi.ok .n{color:var(--ok)} .kpi.bad .n{color:var(--bad)}
-  .src{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .srcc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
-  .srcc h3{font-size:15px}
-  .srcc p{font-size:12px;color:var(--mut);flex:1}
-  .srcc a{display:block;text-align:center;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:10px;padding:9px;font-weight:800;font-size:13px;text-decoration:none}
-  .srcc a:hover{background:var(--gold);color:#100800}
-  .tracks{margin-top:8px}
-  .tr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;background:var(--card)}
-  .tr .ti{font-size:14px} .tr .iz{font-family:monospace;font-size:12px;color:var(--ok)} .tr .no{color:var(--bad)}
-  .tr .act{display:flex;gap:6px}
-  .tr button,.tr a{background:transparent;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;text-decoration:none;font-weight:700}
-  .tr a.mlc{border-color:var(--gold);color:var(--gold)}
-  .note{color:var(--mut);font-size:12px;margin-top:8px}
-  .cta{margin-top:18px;background:var(--grad);color:#100800;border-radius:14px;padding:16px;font-weight:800;text-align:center}
-  @media(max-width:720px){.cards{grid-template-columns:repeat(2,1fr)}.src{grid-template-columns:1fr}}
-svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}</style>
-<meta property="og:image" content="https://tools.solnota.com/share-card.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta property="og:site_name" content="SOLNOTA">
-<meta name="twitter:image" content="https://tools.solnota.com/share-card.png">
-<style id="premium-polish">
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap');
-.sn-wm{font-family:'Fraunces',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#1A1611!important;color:#1A1611!important;display:inline-flex;align-items:center;gap:0;line-height:1} .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto} .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#FCFAF5} .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#1A1611}
-.sn-mark{width:1.18em;height:1.18em;display:inline-flex;flex:0 0 auto}
-.sn-mark svg{width:100%;height:100%;display:block}
-
-/* profundidad premium: tarjetas flotan sobre marfil */
-.card,.panel,.result,.box,.tcard,.screen,.plan,.tier{box-shadow:0 1px 2px rgba(36,30,15,.05),0 10px 30px rgba(36,30,15,.09)}
-
-/* ===== Pulido premium universal SOLNOTA ===== */
-html{scroll-behavior:smooth}
-body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-::selection{background:rgba(255,176,46,.28);color:#1A1611}
-h1,h2,h3{text-wrap:balance}
-p,li{text-wrap:pretty}
-a,button{transition:color .18s ease,background-color .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease}
-a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid #FFB02E;outline-offset:3px;border-radius:8px}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button{transition:none}}
+  body{font-family:'Instrument Sans',-apple-system,sans-serif;background:#FCFAF5;color:#1A1611;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;text-align:center}
+  a{color:#B96A00;font-weight:700;text-decoration:none}
 </style>
-<script src="/solnota-theme.js"></script>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand"><a href="/" title="Inicio" style="text-decoration:none"><h1 class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</h1></a><span class="tag"><span>DINERO SIN RECLAMAR</span> · <span class="brand-tag">TU DINERO · A LA LUZ</span></span></div>
-
-  <div class="warn"><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4'/><path d='M12 2a7 7 0 0 0-4 12.7c.5.4.9 1.2 1 2.3h6c.1-1.1.5-1.9 1-2.3A7 7 0 0 0 12 2Z'/></svg> <b>La verdad:</b> ninguna fuente tiene una API pública que diga &ldquo;tienes $X sin reclamar&rdquo;. Lo que SOLNOTA hace: identifica <b>todo tu catálogo</b> por ISRC y te lleva <b>directo</b> a verificar/reclamar en cada fuente. Lo que no está registrado = dinero que se va al <b>black box</b>.</div>
-
-  <div class="scan">
-    <div class="scanrow">
-      <input id="q" placeholder="Nombre del artista (ej. La Gabi)">
-      <button class="mini" id="btn">Escanear catálogo</button>
-    </div>
-    <p class="note" id="status">Escribe un artista y escanea su catálogo.</p>
+  <div>
+    <p>Llevándote al escáner de SOLNOTA…</p>
+    <p><a href="/escaner.html">Si no carga, toca aquí →</a></p>
   </div>
-
-  <div class="cards" id="kpis" style="display:none">
-    <div class="kpi gold"><div class="n" id="kTotal">0</div><div class="l">Grabaciones</div></div>
-    <div class="kpi ok"><div class="n" id="kIsrc">0</div><div class="l">Con ISRC</div></div>
-    <div class="kpi bad"><div class="n" id="kNo">0</div><div class="l">Sin ISRC (riesgo)</div></div>
-    <div class="kpi"><div class="n" id="kCov">0%</div><div class="l">Cobertura</div></div>
-  </div>
-
-  <h2>Dónde está tu dinero — verifica ahora</h2>
-  <div class="src">
-    <div class="srcc"><h3>🎚️ Máster (SoundExchange)</h3><p>Regalías de radio digital/satélite por tus grabaciones. Revisa si te tienen registrado y si hay pagos pendientes.</p><a href="https://www.soundexchange.com/artists-performers/does-soundexchange-have-your-music/" target="_blank">Verificar en SoundExchange</a></div>
-    <div class="srcc"><h3><svg class='i' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='8' y='2' width='8' height='4' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/><path d='M9 12h6M9 16h4'/></svg> Mecánico (The MLC)</h3><p>Regalías mecánicas de streaming en EE.UU. Busca tus obras y revisa montos no asignados (unclaimed).</p><a href="https://portal.themlc.com" target="_blank">Buscar en The MLC</a></div>
-    <div class="srcc"><h3>🎼 Performance (PRO)</h3><p>Regalías de ejecución pública (BMI/ASCAP + PROs LatAm). Confirma que cada obra esté registrada con sus splits.</p><a href="https://repertoire.bmi.com" target="_blank">Buscar en BMI</a></div>
-  </div>
-  <p class="note">MLC unclaimed (info oficial): <span style="color:var(--gold)">themlc.com/unclaimed</span> · SoundExchange artistas: <span style="color:var(--gold)">soundexchange.com/artists-performers</span></p>
-
-  <h2 id="tHead" style="display:none">Tu catálogo</h2>
-  <div class="tracks" id="tracks"></div>
-
-  <div class="cta" id="cta" style="display:none">¿Hay obras sin registrar? → Genera el CWR en el Split Sheet y reclama lo que es tuyo.</div>
-</div>
-
-<script>
-var APPLE='https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/apple?artist=';
-function esc(s){return String(s||'').replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c];});}
-function setStatus(t){document.getElementById('status').textContent=t;}
-document.getElementById('btn').addEventListener('click',scan);
-document.getElementById('q').addEventListener('keydown',function(e){if(e.key==='Enter')scan();});
-function scan(){
-  var q=(document.getElementById('q').value||'').trim();if(!q){return;}
-  var btn=document.getElementById('btn'),old=btn.textContent;btn.textContent='⏳...';btn.disabled=true;setStatus('Escaneando catálogo de '+q+'...');
-  fetch(APPLE+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(j){
-    var items=(j.tracks||j.items||[]);
-    render(items);btn.textContent=old;btn.disabled=false;
-    setStatus(items.length?('Catálogo de '+q+': '+items.length+' grabaciones.'):'Sin resultados para '+q+'.');
-  }).catch(function(e){
-    btn.textContent=old;btn.disabled=false;
-    setStatus('No se pudo conectar. Intenta de nuevo. ('+e.message+')');
-  });
-}
-function render(items){
-  var total=items.length;
-  var withIsrc=items.filter(function(t){return (t.isrc||t.code);}).length;
-  var no=total-withIsrc;
-  var cov=total?Math.round(withIsrc/total*100):0;
-  document.getElementById('kpis').style.display='grid';
-  document.getElementById('kTotal').textContent=total;
-  document.getElementById('kIsrc').textContent=withIsrc;
-  document.getElementById('kNo').textContent=no;
-  document.getElementById('kCov').textContent=cov+'%';
-  document.getElementById('tHead').style.display=total?'block':'none';
-  document.getElementById('cta').style.display=total?'block':'none';
-  document.getElementById('tracks').innerHTML=items.map(function(t){
-    var title=t.title||t.name||'';var isrc=t.isrc||t.code||'';
-    var mlc='https://portal.themlc.com';
-    return '<div class="tr"><div><div class="ti">'+esc(title)+'</div>'+(isrc?'<span class="iz">'+esc(isrc)+'</span>':'<span class="no">⚠ sin ISRC</span>')+'</div>'+
-      '<div class="act">'+(isrc?'<button data-c="'+esc(isrc)+'">Copiar ISRC</button>':'')+'<a class="mlc" href="'+mlc+'" target="_blank">MLC ↗</a></div></div>';
-  }).join('');
-}
-document.getElementById('tracks').addEventListener('click',function(e){
-  var c=e.target.getAttribute('data-c');
-  if(c!==null){navigator.clipboard&&navigator.clipboard.writeText(c);e.target.textContent='✓ Copiado';setTimeout(function(){e.target.textContent='Copiar ISRC';},1200);}
-});
-</script>
-<p class="foot" style="margin-top:8px"><a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
-<script src="/i18n.js" defer></script>
-<script>
-(function(){try{var K="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";fetch("https://bdjjalwlcuhfzjeqxtwi.supabase.co/rest/v1/page_views",{method:"POST",headers:{apikey:K,"Authorization":"Bearer "+K,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({path:location.pathname,referrer:document.referrer||null,lang:(navigator.language||"").slice(0,5),screen:(screen.width+"x"+screen.height)})}).catch(function(){});}catch(e){}})();
-</script>
 </body>
 </html>
