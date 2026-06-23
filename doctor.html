@@ -78,30 +78,55 @@
   .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#FCFAF5}
   .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#1A1611}
   body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .howto{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin:0 0 10px;}
+  .howto summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--txt);padding:12px 0;list-style:none;}
+  .howto summary::-webkit-details-marker{display:none}
+  .howto summary::before{content:"›";color:var(--gold);font-weight:900;margin-right:8px;display:inline-block;transition:transform .2s}
+  .howto[open] summary::before{transform:rotate(90deg)}
+  .howto-body{padding:4px 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pro{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .pro h4{font-size:14px;margin-bottom:8px;color:var(--gold)}
+  .pro ol{margin:0 0 10px 16px;padding:0}
+  .pro li{font-size:12.5px;color:var(--mut);line-height:1.5;margin-bottom:4px}
+  .pro a{display:inline-block;font-size:12px;font-weight:800;color:#100800;background:var(--grad);padding:7px 12px;border-radius:9px;text-decoration:none}
+  @media(max-width:680px){.howto-body{grid-template-columns:1fr}}
   @media print{.noprint{display:none!important}body{padding:0}.finding,.c,table{box-shadow:none}}
 </style>
 <script src="/solnota-theme.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 <div class="wrap">
   <div class="brand"><a href="/" title="Inicio" style="text-decoration:none"><h1 class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</h1></a><span class="tag brand-tag">TU DINERO · A LA LUZ</span></div>
 
   <div class="intro noprint"><h2>🩺 El Doctor</h2></div>
-  <p class="lead noprint">Sube el catálogo de tus fuentes (<b>BMI/ASCAP</b> y el <b>MLC</b>) y El Doctor los revisa solos: encuentra errores de %, dinero en <em>black box</em>, duplicados — y <b>cruza las fuentes</b> para cazar cuando una canción tiene % distintos en BMI y en MLC. <b>Tu música no se toca. 0% comisión.</b></p>
+  <p class="lead noprint">Sube el catálogo de tus fuentes (BMI, ASCAP, MLC) y El Doctor lo revisa solo: encuentra errores de %, dinero en black box, duplicados, y cruza las fuentes para cazar cuando una canción tiene % distintos. Tu música no se toca. 0% comisión.</p>
   <div class="noprint" style="margin:8px 0"><span class="pill">100% en tu navegador</span> <span class="pill">no subimos tu archivo</span> <span class="pill">multi-fuente</span> <span class="pill">no custodial</span></div>
 
   <div class="drop noprint" id="drop">
     <div class="big">📄</div>
-    <p><b>Arrastra aquí tus archivos CSV</b> (BMI Catalog Export y/o export del MLC) — o haz clic. Puedes subir varios.</p>
-    <input type="file" id="file" accept=".csv,text/csv" class="hidden" multiple>
+    <p>Arrastra aquí tu catálogo — CSV o Excel (de BMI, ASCAP o MLC). O haz clic. Puedes subir varios.</p>
+    <input type="file" id="file" accept=".csv,.xlsx,.xls,text/csv" class="hidden" multiple>
     <div class="controls" style="justify-content:center">
-      <button onclick="document.getElementById('file').click()">Elegir archivos CSV</button>
-      <button class="ghost" onclick="togglePaste()">Pegar texto</button>
+      <button onclick="document.getElementById('file').click()">Elegir archivo (CSV o Excel)</button>
+      <button class="ghost" onclick="togglePaste()">Pegar lista</button>
       <button class="ghost" onclick="loadDemo()">Ver ejemplo (La Gabi · BMI + MLC)</button>
     </div>
-    <textarea id="paste" placeholder="Pega aquí el contenido de un CSV…"></textarea>
-    <div class="controls hidden" id="pasteRun" style="justify-content:center"><button onclick="runPaste()">Analizar texto pegado</button></div>
+    <div class="pastebox hidden" id="pastebox">
+      <div class="controls" style="justify-content:center;margin-top:6px"><button class="ghost" onclick="pasteClip()">📋 Pegar de mi portapapeles</button></div>
+      <textarea id="paste" style="display:block" placeholder="Pega aquí tu lista (abre tu archivo, selecciona todo y copia)…"></textarea>
+      <div class="controls" style="justify-content:center"><button onclick="runPaste()">Analizar lo pegado</button></div>
+    </div>
   </div>
+
+  <details class="howto noprint" id="howto">
+    <summary>¿No tienes tu archivo? Mira cómo bajarlo de tu PRO →</summary>
+    <div class="howto-body">
+      <div class="pro"><h4>BMI</h4><ol><li>Entra a bmi.com e inicia sesión.</li><li>Ve a tu repertorio / catálogo de obras.</li><li>Descarga la lista (Catalog Export, CSV).</li></ol><a href="https://www.bmi.com" target="_blank" rel="noopener">Abrir BMI →</a></div>
+      <div class="pro"><h4>ASCAP</h4><ol><li>Entra a ascap.com → Member Access.</li><li>Ve a "Repertory" / tus títulos.</li><li>Exporta la lista (CSV o Excel).</li></ol><a href="https://www.ascap.com" target="_blank" rel="noopener">Abrir ASCAP →</a></div>
+      <div class="pro"><h4>The MLC</h4><ol><li>Entra a portal.themlc.com.</li><li>Menú "Works" → tus obras.</li><li>Exporta la lista (o usa la búsqueda).</li></ol><a href="https://portal.themlc.com" target="_blank" rel="noopener">Abrir MLC →</a></div>
+    </div>
+  </details>
 
   <div class="srcbar noprint" id="srcbar"></div>
 
@@ -464,12 +489,35 @@ function reanalyze(){ if(SOURCES.length) analyze(); }
 function labelFromName(fn){ const f=(fn||'').toLowerCase(); if(/mlc/.test(f)) return 'MLC'; if(/ascap/.test(f)) return 'ASCAP'; if(/catalogexport|bmi|\d{9}/.test(f)) return 'BMI'; return fn.replace(/\.csv$/i,'')||'Fuente '+(SOURCES.length+1); }
 
 const drop=document.getElementById('drop');
-document.getElementById('file').addEventListener('change',e=>{ [...e.target.files].forEach(f=>{ const rd=new FileReader(); rd.onload=()=>addFile(rd.result,labelFromName(f.name)); rd.readAsText(f); }); });
+// Lee CSV o Excel (.xlsx/.xls). El Excel se convierte a CSV con SheetJS y sigue el mismo camino.
+function readAnyFile(f){
+  const name=f.name||'';
+  if(/\.xlsx?$/i.test(name)){
+    if(typeof XLSX==='undefined'){ alert('Cargando el lector de Excel… intenta de nuevo en un segundo.'); return; }
+    const rd=new FileReader();
+    rd.onload=()=>{ try{
+      const wb=XLSX.read(new Uint8Array(rd.result),{type:'array'});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      addFile(XLSX.utils.sheet_to_csv(ws), labelFromName(name));
+    }catch(err){ alert('No pude leer el Excel: '+err.message); } };
+    rd.readAsArrayBuffer(f);
+  } else {
+    const rd=new FileReader(); rd.onload=()=>addFile(rd.result,labelFromName(name)); rd.readAsText(f);
+  }
+}
+document.getElementById('file').addEventListener('change',e=>{ [...e.target.files].forEach(readAnyFile); });
 ['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('hover');}));
 ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('hover');}));
-drop.addEventListener('drop',e=>{ [...e.dataTransfer.files].forEach(f=>{ const rd=new FileReader(); rd.onload=()=>addFile(rd.result,labelFromName(f.name)); rd.readAsText(f); }); });
-function togglePaste(){const t=document.getElementById('paste');const r=document.getElementById('pasteRun');const on=t.style.display==='block';t.style.display=on?'none':'block';r.classList.toggle('hidden',on);}
+drop.addEventListener('drop',e=>{ [...e.dataTransfer.files].forEach(readAnyFile); });
+function togglePaste(){ document.getElementById('pastebox').classList.toggle('hidden'); }
 function runPaste(){const t=document.getElementById('paste').value.trim();if(t)addFile(t,'Pegado '+(SOURCES.length+1));}
+async function pasteClip(){
+  try{
+    const t=await navigator.clipboard.readText();
+    if(t && t.trim()) addFile(t,'Pegado '+(SOURCES.length+1));
+    else alert('Tu portapapeles está vacío. Copia primero tu lista (abre tu archivo → selecciona todo → copia).');
+  }catch(e){ alert('No pude leer el portapapeles. Pega manualmente en la caja de abajo.'); }
+}
 
 // ---- Ejemplo: BMI + MLC (muestra el cruce) ----
 const DEMO_BMI=`TitleNumber,Title,WtrPubIndicator,PubType,Participant,Share,IPNameNumber,CurrentAffliation,RegistrationDate,RegistrationOrigin,ISWCNumber,SongviewStatus
