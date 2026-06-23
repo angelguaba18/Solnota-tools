@@ -339,7 +339,7 @@ function render(WORKS,F,XC,k){
     F.totalOff.slice(0,12).map(w=>'<b>'+esc(w.title)+'</b> — suman <b>'+w.wTotal+'%</b> '+(w.wTotal>100?'(sobra)':'(falta)')+' ['+esc(w.src)+']').join('<br>')+(F.totalOff.length>12?'<br>…y '+(F.totalOff.length-12)+' más':''),
     'Arreglo: ajusta los % hasta 100 con el split sheet firmado (o créditos de Spotify/Apple como respaldo).');
   if(F.blackbox.length) h+=finding('orange','💸 Black box: tu publishing está botado',
-    'Tu parte de escritor no tiene editor que la cobre ("UNKNOWN PUBLISHER"). Ese dinero se pierde hasta que lo reclames.',
+    'Tu parte de escritor no tiene editor que la cobre. Ese dinero se pierde hasta que lo reclames.',
     F.blackbox.map(w=>'<b>'+esc(w.title)+'</b> — tú al '+w.myShare+'% sin editor ['+esc(w.src)+']').join('<br>'),
     'Arreglo: registra tu editor (Sol Music Group) sobre tu parte y reclámalo en el MLC. Dinero que te puede llegar YA.');
   if(F.dup.length) h+=finding('blue','🔵 Duplicados: la misma canción registrada 2+ veces',
@@ -374,8 +374,8 @@ function render(WORKS,F,XC,k){
     +'<td><b>'+(w.myShare||0)+'%</b></td><td class="hide-m">'+w.wTotal+'%</td>'
     +'<td>'+statusChip(w.status)+'</td><td>'+(flags(w).join('')||'<span class="chip green">ok</span>')+'</td></tr>'; });
   h+='</tbody></table>';
-  h+='<div class="note noprint">El Doctor revisa; <b>tú</b> apruebas cada arreglo. SOLNOTA nunca toca tu dinero ni tu copyright. <a class="lk" href="/split">Generar CWR de corrección →</a></div>';
-  h+='<div class="note noprint">🎛️ <b>¿Eres productor o artista?</b> Este reporte es de tu <b>publishing</b> (composición). El dinero de tu <b>máster</b> (SoundExchange — radio digital) NO sale aquí. <a class="lk" href="/lod">Cobra tu máster con una Letter of Direction →</a></div>';
+  h+='<div class="note noprint">El Doctor revisa; tú apruebas cada arreglo. SOLNOTA nunca toca tu dinero ni tu copyright. <a class="lk" href="/split">Generar CWR de corrección →</a></div>';
+  h+='<div class="note noprint">🎛️ ¿Eres productor o artista? Este reporte es de tu publishing (composición). El dinero de tu máster (SoundExchange — radio digital) NO sale aquí. <a class="lk" href="/lod">Cobra tu máster con una Letter of Direction →</a></div>';
 
   document.getElementById('out').innerHTML=h;
   document.getElementById('opts').style.display='flex';
@@ -442,7 +442,7 @@ function emailsSection(WORKS){
   const emails=buildEmails(WORKS); window.__EMAILS=emails;
   if(!emails.length) return '';
   let h='<h2>📧 Correos de corrección — listos para enviar</h2>';
-  h+='<div class="note noprint">El Doctor ya escribió estos correos por ti. Solo: <b>(1)</b> adjunta tus split sheets firmados, <b>(2)</b> dale <b>Abrir y enviar</b>. SOLNOTA <b>no los manda por ti</b> — tú aprietas enviar (tú tienes el control). El black box y los conflictos entre fuentes se arreglan en el portal, no por correo.</div>';
+  h+='<div class="note noprint">El Doctor ya escribió estos correos por ti. Solo: (1) adjunta tus split sheets firmados, (2) dale Abrir y enviar. SOLNOTA no los manda por ti — tú aprietas enviar (tú tienes el control). El black box y los conflictos entre fuentes se arreglan en el portal, no por correo.</div>';
   emails.forEach((e,i)=>{
     const head = e.to ? ('📧 Para '+esc(e.src)+' — '+esc(e.to)) : ('📝 Para '+esc(e.src)+' — aplícalo en tu cuenta ASCAP');
     let btns;
