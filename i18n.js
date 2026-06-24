@@ -551,8 +551,8 @@
     mo.observe(document.body, { childList: true, subtree: true });
 
     var saved; try { saved = localStorage.getItem("solnota_lang"); } catch (e) {}
-    var nav = (navigator.language || "es").slice(0, 2);
-    setLang(saved || (LANGS.indexOf(nav) >= 0 ? nav : "es"));
+    // Latino-first: arranca SIEMPRE en español salvo que el usuario ya haya elegido otro.
+    setLang(saved || "es");
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

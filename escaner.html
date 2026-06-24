@@ -234,6 +234,7 @@ function setLang(l){
   document.getElementById('phB').textContent=t.phB;
   document.getElementById('phC').textContent=t.phC;
   ['es','en','pt','fr'].forEach(function(x){document.getElementById('btn-'+x).classList.toggle('active',l===x);});
+  try{localStorage.setItem('solnota_lang',l);}catch(e){}
   if(last.shown) renderResult(t);
 }
 async function scan(e){
@@ -265,7 +266,7 @@ async function join(e){
 }
 function showProd(){var el=document.getElementById('prodHelp');el.style.display='block';el.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function focusArtist(){var a=document.getElementById('artist');a.value='';a.focus();window.scrollTo({top:0,behavior:'smooth'});}
-(function(){var n=(navigator.language||'es').slice(0,2).toLowerCase();setLang(['es','en','pt','fr'].indexOf(n)>=0?n:'es');})();
+(function(){var s;try{s=localStorage.getItem('solnota_lang');}catch(e){}setLang(['es','en','pt','fr'].indexOf(s)>=0?s:'es');})();
 </script>
 <script>
 (function(){try{var K="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";fetch("https://bdjjalwlcuhfzjeqxtwi.supabase.co/rest/v1/page_views",{method:"POST",headers:{apikey:K,"Authorization":"Bearer "+K,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({path:location.pathname,referrer:document.referrer||null,lang:(navigator.language||"").slice(0,5),screen:(screen.width+"x"+screen.height)})}).catch(function(){});}catch(e){}})();

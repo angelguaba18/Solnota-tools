@@ -1,0 +1,24 @@
+CÓMO SUBIR ESTOS 14 ARCHIVOS A GITHUB  (24 jun 2026)
+=====================================================
+
+Estos son SOLO los archivos que cambiaron hoy. Súbelos así:
+
+1. Abre tu repo:  github.com/angelguaba18/Solnota-tools
+2. Entra a la carpeta donde YA está "index.html" (donde viven tus páginas).
+3. Botón  "Add file"  ->  "Upload files".
+4. Arrastra los 14 archivos de ESTA carpeta (menos este LEEME).
+5. Abajo escribe:  "Español por defecto + Blindar + arreglo barra".
+6. Click en  "Commit changes"  (verde).
+7. Espera 1-2 minutos -> Cloudflare publica solo -> abre tools.solnota.com y revisa.
+
+CUIDADO: suéltalos en el MISMO sitio donde ya está index.html
+(para que los REEMPLACE, no que cree una carpeta nueva).
+Los nombres iguales se sobrescriben solos. Listo.
+
+Qué trae esta subida:
+- El sitio arranca SIEMPRE en español (antes salía en inglés).
+- La barra de idiomas ya no tapa el logo en el celular.
+- El Doctor: nueva pestaña "Blindar antes de soltar" (chequeo de 7 puntos).
+- El Vigilante queda como "pronto" (a propósito, hasta tener login).
+
+NO subas este archivo LEEME (es solo para ti).
