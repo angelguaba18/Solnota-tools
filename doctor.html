@@ -103,6 +103,13 @@
   <p class="lead noprint">Sube el catálogo de tus fuentes (BMI, ASCAP, MLC) y El Doctor lo revisa solo: encuentra errores de %, dinero en black box, duplicados, y cruza las fuentes para cazar cuando una canción tiene % distintos. Tu música no se toca. 0% comisión.</p>
   <div class="noprint" style="margin:8px 0"><span class="pill">100% en tu navegador</span> <span class="pill">no subimos tu archivo</span> <span class="pill">multi-fuente</span> <span class="pill">no custodial</span></div>
 
+  <div class="controls noprint" style="margin:16px 0 2px" id="docModes">
+    <button id="tabAudit" onclick="setMode('audit')">🩺 Auditar lo que ya tengo</button>
+    <button id="tabBlindar" class="ghost" onclick="setMode('blindar')">🛡️ Blindar antes de soltar</button>
+    <button id="tabVigilar" class="ghost" disabled title="Pronto — con tu cuenta te avisará solo" style="opacity:.5;cursor:default">👁️ Vigilar mis lanzamientos · pronto</button>
+  </div>
+
+  <div id="auditMode">
   <div class="drop noprint" id="drop">
     <div class="big">📄</div>
     <p>Arrastra aquí tu catálogo — CSV o Excel (de BMI, ASCAP o MLC). O haz clic. Puedes subir varios.</p>
@@ -139,7 +146,145 @@
   </div>
 
   <div id="out"></div>
+  </div><!-- /auditMode -->
+
+  <div id="blindarMode" class="hidden">
+    <p class="lead noprint">Antes de soltar tu canción, pásala por este chequeo. Si todo está ✅, tu dinero te va a llegar — no se queda botado. Es el mismo Doctor, pero <b>antes</b> de perder.</p>
+    <div class="noprint" style="margin:8px 0"><span class="pill">para tu próximo lanzamiento</span> <span class="pill">0% comisión</span> <span class="pill">no custodial</span></div>
+    <div class="note noprint" style="margin-top:6px">ℹ️ Esto es una <b>guía</b> según lo que tú marcas — no una prueba. La prueba real de cuánto pierdes es subir tu catálogo en <b>🩺 Auditar</b>.</div>
+    <div id="blindarList"></div>
+    <div id="blindarOut"></div>
+  </div>
+
+  <div id="vigilarMode" class="hidden">
+    <p class="lead noprint">Cada vez que sueltes música nueva, ponla aquí. El Vigilante le hace el chequeo de blindaje y te avisa si va a perder dinero — así lo cazas en el mes 1, no en el año 5. Se guarda en tu navegador.</p>
+    <div class="noprint" style="margin:8px 0"><span class="pill">se guarda en tu equipo</span> <span class="pill">no custodial</span> <span class="pill">0% comisión</span></div>
+    <div class="controls noprint">
+      <input type="text" id="vigNew" placeholder="Nombre de tu lanzamiento nuevo…" style="min-width:240px" onkeydown="if(event.key==='Enter')vigAdd()">
+      <button onclick="vigAdd()">+ Vigilar este</button>
+    </div>
+    <div id="vigSummary"></div>
+    <div id="vigList"></div>
+  </div>
 </div>
+
+<script>
+/* ====== BLINDAR ANTES DE SOLTAR — chequeo pre-vuelo (mismo Doctor, antes de perder) ======
+   100% en el navegador. No toca dinero. Aditivo: no altera el motor de auditoría de arriba. */
+(function(){
+  var CHECKS=[
+    {id:'split', t:'Split sheet firmado por TODOS los que escribieron',
+     d:'El papel donde cada quien acepta su %. Sin firma, después cualquiera puede reclamar de más.',
+     fix:'Hazlo y fírmenlo ANTES de subir la canción. Puedes usar el Split sheet de SOLNOTA.'},
+    {id:'cien', t:'Los % suman exactamente 100%',
+     d:'Ni más ni menos.',
+     fix:'Si suman MÁS de 100 = overclaim (se traba el pago). Si suman MENOS = black box (falta dueño). Ajusta hasta 100 clavado.'},
+    {id:'editor', t:'Tu editor (publisher) está puesto sobre tu parte',
+     d:'Tu % de escritor necesita un editor que lo cobre.',
+     fix:'Sin editor, tu publishing cae en black box y nadie lo cobra. Pon Sol Music Group (o el tuyo) sobre tu %.'},
+    {id:'ipi', t:'Tu nombre + IPI son idénticos a tus otras obras',
+     d:'Mismo nombre legal y mismo número IPI, siempre igual.',
+     fix:'Si escribes tu nombre distinto o cambias el IPI, el dinero no hace match y se pierde. Usa SIEMPRE el mismo.'},
+    {id:'pro', t:'Registrada en tu PRO (BMI / ASCAP)',
+     d:'Tu PRO cobra la performance — que la canción suene.',
+     fix:'Si no la registras en tu PRO, ese dinero no llega. Regístrala apenas salga.'},
+    {id:'mlc', t:'Va al MLC (mecánicas del streaming en EE.UU.)',
+     d:'El MLC paga gran parte de lo que termina en black box.',
+     fix:'Asegúrate de que tu editor registre la obra en el MLC. Ahí está el dinero que casi nadie cobra.'},
+    {id:'kya', t:'Solo registras lo que TÚ controlas',
+     d:'No metas obras que un sello tiene capturadas (recoupment).',
+     fix:'Reclamar lo que no controlas se traba o se revierte. Verifica antes de reclamar.'}
+  ];
+  var state={};
+  function el(id){return document.getElementById(id);}
+  function renderList(){
+    var L=el('blindarList'); if(!L) return;
+    L.innerHTML = CHECKS.map(function(c){
+      return '<label class="finding" style="display:flex;gap:12px;align-items:flex-start;cursor:pointer;border-left-color:#6E6657">'+
+        '<input type="checkbox" data-bid="'+c.id+'" style="width:20px;height:20px;margin-top:2px;accent-color:#3DDC7F;flex:0 0 auto">'+
+        '<span><h3 style="margin-bottom:4px">'+c.t+'</h3><p>'+c.d+'</p></span></label>';
+    }).join('');
+    L.querySelectorAll('input[data-bid]').forEach(function(cb){
+      cb.addEventListener('change',function(){ state[cb.getAttribute('data-bid')]=cb.checked; renderOut(); });
+    });
+    renderOut();
+  }
+  function renderOut(){
+    var O=el('blindarOut'); if(!O) return;
+    var done=CHECKS.filter(function(c){return state[c.id];}).length;
+    var total=CHECKS.length, pend=CHECKS.filter(function(c){return !state[c.id];});
+    var head='<div class="cards" style="grid-template-columns:repeat(2,1fr);max-width:420px">'+
+      '<div class="c '+(done===total?'ok':'gold')+'"><div class="n">'+done+'/'+total+'</div><div class="l">Blindaje</div></div>'+
+      '<div class="c '+(pend.length?'bad':'ok')+'"><div class="n">'+pend.length+'</div><div class="l">Por arreglar</div></div></div>';
+    var body='';
+    if(done===total){
+      body='<div class="finding green"><h3>🛡️ Blindada — lista para soltar sin perder dinero</h3>'+
+        '<p>Cumpliste los 7 puntos. Tu canción nueva no debería caer en black box. Repite este chequeo en CADA lanzamiento.</p></div>';
+    } else {
+      body=pend.map(function(c){
+        return '<div class="finding red"><h3>⚠️ '+c.t+'</h3><div class="fix">🔧 '+c.fix+'</div></div>';
+      }).join('');
+      body='<div class="note" style="margin-bottom:8px">Arregla estos antes de soltar — cada uno es dinero que se te puede ir al black box:</div>'+body;
+    }
+    O.innerHTML=head+body;
+  }
+  // ---- El Vigilante: lista de lanzamientos vigilados (se guarda en el navegador) ----
+  var VKEY='solnota_vigilante';
+  function vLoad(){ try{return JSON.parse(localStorage.getItem(VKEY))||[];}catch(e){return [];} }
+  function vSave(a){ try{localStorage.setItem(VKEY,JSON.stringify(a));}catch(e){} }
+  window.vigAdd=function(){
+    var inp=el('vigNew'); if(!inp) return;
+    var name=(inp.value||'').trim(); if(!name) return;
+    var a=vLoad(); var checks={}; CHECKS.forEach(function(c){checks[c.id]=false;});
+    a.unshift({id:'v'+Date.now(), name:name, checks:checks});
+    vSave(a); inp.value=''; renderVig();
+  };
+  window.vigToggle=function(id,cid){
+    var a=vLoad(); var r=null; a.forEach(function(x){if(x.id===id)r=x;}); if(!r) return;
+    r.checks[cid]=!r.checks[cid]; vSave(a); renderVig();
+  };
+  window.vigRemove=function(id){
+    var a=vLoad().filter(function(x){return x.id!==id;}); vSave(a); renderVig();
+  };
+  function renderVig(){
+    var S=el('vigSummary'), L=el('vigList'); if(!L) return;
+    var a=vLoad();
+    var blind=a.filter(function(r){return CHECKS.every(function(c){return r.checks[c.id];});}).length;
+    var risk=a.length-blind;
+    if(S) S.innerHTML = a.length ? ('<div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:560px">'+
+      '<div class="c"><div class="n">'+a.length+'</div><div class="l">Vigiladas</div></div>'+
+      '<div class="c ok"><div class="n">'+blind+'</div><div class="l">Blindadas</div></div>'+
+      '<div class="c '+(risk?'bad':'ok')+'"><div class="n">'+risk+'</div><div class="l">En riesgo</div></div></div>') : '';
+    if(!a.length){ L.innerHTML='<div class="note">Aún no vigilas nada. Escribe el nombre de tu próximo lanzamiento arriba y dale "+ Vigilar este".</div>'; return; }
+    L.innerHTML = a.map(function(r){
+      var done=CHECKS.filter(function(c){return r.checks[c.id];}).length, ok=(done===CHECKS.length);
+      var chip = ok ? '<span class="chip green">🛡️ Blindada</span>' : '<span class="chip red">⚠️ En riesgo · '+done+'/'+CHECKS.length+'</span>';
+      var items = CHECKS.map(function(c){
+        return '<label style="display:flex;gap:10px;align-items:flex-start;padding:7px 0;cursor:pointer;border-top:1px solid var(--line)">'+
+          '<input type="checkbox" '+(r.checks[c.id]?'checked':'')+' onchange="vigToggle(\''+r.id+'\',\''+c.id+'\')" style="width:18px;height:18px;margin-top:2px;accent-color:#3DDC7F;flex:0 0 auto">'+
+          '<span style="font-size:13px"><b>'+c.t+'</b>'+(r.checks[c.id]?'':'<br><span style="color:var(--mut);font-size:12.5px">🔧 '+c.fix+'</span>')+'</span></label>';
+      }).join('');
+      return '<details class="finding '+(ok?'green':'red')+'" style="margin:10px 0">'+
+        '<summary style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:800">'+
+        '<span>'+r.name+' '+chip+'</span>'+
+        '<span class="chip gray" onclick="event.preventDefault();vigRemove(\''+r.id+'\')" style="cursor:pointer">quitar</span></summary>'+
+        '<div style="margin-top:8px">'+items+'</div></details>';
+    }).join('');
+  }
+
+  window.setMode=function(m){
+    var modes={audit:'auditMode',blindar:'blindarMode',vigilar:'vigilarMode'};
+    var tabs={audit:'tabAudit',blindar:'tabBlindar',vigilar:'tabVigilar'};
+    Object.keys(modes).forEach(function(k){
+      var sec=el(modes[k]); if(sec) sec.classList.toggle('hidden',k!==m);
+      var tb=el(tabs[k]); if(tb) tb.className=(k===m)?'':'ghost';
+    });
+    if(m==='vigilar') renderVig();
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderList);
+  else renderList();
+})();
+</script>
 
 <script>
 /* ====== EL DOCTOR — auditor multi-fuente de catálogo SOLNOTA ======
@@ -540,7 +685,7 @@ function loadDemo(){ SOURCES=[]; document.getElementById('streams').value=650000
 </script>
 
 <p class="foot noprint"><a href="/legal" style="color:var(--gold);text-decoration:none">Términos y Privacidad</a></p>
-<script src="/i18n.js" defer></script>
+<script src="/i18n.js?v=2" defer></script>
 <script>
 (function(){try{var K="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";fetch("https://bdjjalwlcuhfzjeqxtwi.supabase.co/rest/v1/page_views",{method:"POST",headers:{apikey:K,"Authorization":"Bearer "+K,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({path:location.pathname,referrer:document.referrer||null,lang:(navigator.language||"").slice(0,5),screen:(screen.width+"x"+screen.height)})}).catch(function(){});}catch(e){}})();
 </script>
