@@ -1,0 +1,19 @@
+SUBIR — Arreglo de MODO OSCURO en todo Solnota (24 jun 2026)
+=============================================================
+
+Sube estos 17 archivos a GitHub (menos este LEEME):
+
+1. github.com/angelguaba18/Solnota-tools
+2. "Add file" -> "Upload files"
+3. Arrastra los 17 archivos (en el mismo sitio donde ya están las páginas).
+4. Mensaje: "Modo oscuro arreglado en todo el sitio"
+5. "Commit changes" (verde).
+6. Espera 1-2 min. Recarga con Cmd+Shift+R.
+
+Qué arregla:
+- El logo SOLNOTA ya se ve claro en modo oscuro (todas las páginas).
+- Botones, textos, inputs y desplegables legibles en oscuro.
+- Páginas con colores fijos arregladas: escáner, contrato, empezar, luz.
+
+Clave: solnota-theme.js trae el arreglo universal; las páginas llevan ?v=2
+para que el cambio le llegue a todos (no la versión vieja en caché).
