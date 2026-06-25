@@ -1,5 +1,6 @@
-SUBIR — boton sol/luna bien puesto en TODO el sitio (24 jun)
+SUBIR — panel productor/compositor world-class (24 jun)
 
-Sube estos 6 a GitHub (Upload files -> Commit). Cmd+Shift+R despues.
-Arregla que el boton de tema quede dentro de la barra de idiomas
-(o flote limpio donde no hay barra) en todas las paginas.
+Sube escaner.html a GitHub (Upload files -> Commit). Cmd+Shift+R despues.
+Nuevo flujo: titular calido + 1 pregunta (escribiste/hiciste el beat)
+-> aparece el camino correcto, con neighboring rights internacionales.
+En los 4 idiomas, claro y oscuro.

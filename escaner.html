@@ -51,6 +51,14 @@ footer{margin-top:34px;font-size:11px;color:#6E6657;letter-spacing:2px;}
 .phbtn{display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--cream);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;}
 .phbtn:last-child{margin-bottom:0;}
 .phbtn:hover{border-color:var(--gold);transform:translateY(-1px);}
+.ph-roles{display:flex;gap:10px;margin-top:4px;}
+.ph-role{flex:1;text-align:center;font-weight:700;margin-bottom:0;}
+.ph-role.on{border-color:var(--gold);background:var(--gold);color:#1a160c;}
+.ph-path{margin-top:16px;display:none;}
+.ph-path.show{display:block;}
+.ph-money{font-size:14.5px;color:var(--cream);line-height:1.5;margin-bottom:12px;font-weight:600;}
+.ph-li{font-size:13.5px;color:#4a4438;line-height:1.5;margin-bottom:10px;}
+.ph-li b{color:var(--cream);}
 </style>
 <style id="premium-polish">
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap');
@@ -73,7 +81,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 /* Modo oscuro: el escáner tiene colores fijos; se corrigen aquí */
 html.dark .lead{color:#EDE6D6}
 html.dark .sub,html.dark .samples,html.dark footer{color:#9b927f}
-html.dark .cta-box p,html.dark .prodhelp .ph-tx,html.dark .mm-tx{color:#bdb4a2}
+html.dark .cta-box p,html.dark .prodhelp .ph-tx,html.dark .mm-tx,html.dark .ph-li{color:#bdb4a2}
 html.dark .mm-tx b{color:#EDE6D6}
 html.dark input{background:#15140f;border-color:#2a2620;color:#EDE6D6}
 html.dark .lang{border-color:#2a2620;background:#0E0E16}
@@ -115,9 +123,11 @@ html.dark .mm-row{border-bottom-color:#2a2620}
   <div class="prodhelp" id="prodHelp">
     <div class="ph-t" id="phT"></div>
     <p class="ph-tx" id="phTx"></p>
-    <button type="button" class="phbtn" id="phA" onclick="focusArtist()"></button>
-    <a class="phbtn" id="phB" href="/doctor"></a>
-    <a class="phbtn" id="phC" href="/lod"></a>
+    <div class="ph-roles">
+      <button type="button" class="phbtn ph-role" id="phRoleW" onclick="prodRole('w')"></button>
+      <button type="button" class="phbtn ph-role" id="phRoleP" onclick="prodRole('p')"></button>
+    </div>
+    <div class="ph-path" id="phPath"></div>
   </div>
 
   <div class="result" id="result">
@@ -157,11 +167,12 @@ const T={
      ctaP:'Te ayudamos a recuperar ese dinero — <b style="color:var(--gold)">0% comisión.</b> Déjanos tu correo:',
      emailph:"tu@email.com", join:"Quiero mi dinero", joined:"¡Estás en la lista! Te contactamos pronto.",
      prodLink:"¿Eres productor o compositor? Mira cómo cobras →",
-     phT:"Tu dinero no está bajo tu nombre",
-     phTx:"Como productor o compositor, tu dinero está en las canciones que hiciste para OTROS — no en tu propio catálogo. Ve por aquí:",
-     phA:"🎤 Escribe arriba el nombre del ARTISTA con quien trabajaste",
-     phB:"📄 Sube y revisa tu catálogo — El Doctor",
-     phC:"📃 Arma tu Letter of Direction (cobra el máster)"},
+     phT:"Tú también tienes dinero 💰",
+     phTx:"Tu papel decide dónde está. ¿Cuál hiciste?",
+     phRoleW:"✍️ Escribí la canción",
+     phRoleP:"🎛️ Hice el beat",
+     phPathW:`<div class="ph-money">Tu dinero SÍ está bajo <b>tu nombre</b> — en <b>publishing</b> (MLC + tu PRO), por todo lo que escribiste, incluso para otros artistas.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Escanea tu nombre aquí arriba</button><a class="phbtn" href="/doctor">📄 Súbelo a El Doctor — encuentra lo botado</a>`,
+     phPathP:`<div class="ph-money">Tienes dinero en <b>2 lados</b>:</div><div class="ph-li"><b>1 · Lo que co-escribiste</b> → publishing bajo tu nombre (casi todos los productores hoy co-escriben).</div><div class="ph-li"><b>2 · El máster</b> (tus puntos) → SoundExchange (EE.UU.) + <b>derechos conexos internacionales</b> (PPL…) — lo que casi nadie reclama.</div><a class="phbtn" href="/doctor">📄 El Doctor — tu publishing</a><a class="phbtn" href="/lod">📃 Arma tu LOD — el máster</a>`},
  en:{tag:"TU DINERO · A LA LUZ",
      lead:"Your music has been making money for years.<br>Find out how much isn't reaching you.",
      sub:"Type your artist name. We scan your catalog in seconds.",
@@ -175,11 +186,12 @@ const T={
      ctaP:'We help you recover that money — <b style="color:var(--gold)">0% commission.</b> Drop your email:',
      emailph:"you@email.com", join:"I want my money", joined:"You're on the list! We'll reach out soon.",
      prodLink:"Producer or songwriter? See how you get paid →",
-     phT:"Your money isn't under your name",
-     phTx:"As a producer or songwriter, your money is in the songs you made for OTHERS — not your own catalog. Go here:",
-     phA:"🎤 Type the ARTIST's name you worked with above",
-     phB:"📄 Upload and audit your catalog — El Doctor",
-     phC:"📃 Create your Letter of Direction (collect the master)"},
+     phT:"You have money too 💰",
+     phTx:"Your role decides where it is. Which one did you do?",
+     phRoleW:"✍️ I wrote the song",
+     phRoleP:"🎛️ I made the beat",
+     phPathW:`<div class="ph-money">Your money IS under <b>your name</b> — in <b>publishing</b> (MLC + your PRO), for everything you wrote, even for other artists.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Scan your name above</button><a class="phbtn" href="/doctor">📄 Upload it to El Doctor — find what's lost</a>`,
+     phPathP:`<div class="ph-money">You have money in <b>2 places</b>:</div><div class="ph-li"><b>1 · What you co-wrote</b> → publishing under your name (most producers today co-write).</div><div class="ph-li"><b>2 · The master</b> (your points) → SoundExchange (US) + <b>international neighbouring rights</b> (PPL…) — what almost no one claims.</div><a class="phbtn" href="/doctor">📄 El Doctor — your publishing</a><a class="phbtn" href="/lod">📃 Build your LOD — the master</a>`},
  pt:{tag:"TU DINERO · A LA LUZ",
      lead:"Tua música gera dinheiro há anos.<br>Descobre quanto NÃO está chegando até ti.",
      sub:"Escreve teu nome de artista. Escaneamos teu catálogo em segundos.",
@@ -193,11 +205,12 @@ const T={
      ctaP:'Te ajudamos a recuperar esse dinheiro — <b style="color:var(--gold)">0% comissão.</b> Deixa teu e-mail:',
      emailph:"teu@email.com", join:"Quero meu dinheiro", joined:"Estás na lista! Entramos em contato em breve.",
      prodLink:"És produtor ou compositor? Vê como recebes →",
-     phT:"Teu dinheiro não está sob teu nome",
-     phTx:"Como produtor ou compositor, teu dinheiro está nas músicas que fizeste para OUTROS — não no teu próprio catálogo. Vai por aqui:",
-     phA:"🎤 Escreve acima o nome do ARTISTA com quem trabalhaste",
-     phB:"📄 Envia e revisa teu catálogo — El Doctor",
-     phC:"📃 Monta tua Letter of Direction (recebe o master)"},
+     phT:"Tu também tens dinheiro 💰",
+     phTx:"O teu papel decide onde está. Qual fizeste?",
+     phRoleW:"✍️ Escrevi a música",
+     phRoleP:"🎛️ Fiz o beat",
+     phPathW:`<div class="ph-money">O teu dinheiro ESTÁ sob <b>o teu nome</b> — em <b>publishing</b> (MLC + a tua PRO), por tudo o que escreveste, mesmo para outros artistas.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Escaneia o teu nome aqui em cima</button><a class="phbtn" href="/doctor">📄 Envia ao El Doctor — encontra o perdido</a>`,
+     phPathP:`<div class="ph-money">Tens dinheiro em <b>2 lados</b>:</div><div class="ph-li"><b>1 · O que co-escreveste</b> → publishing sob o teu nome (quase todos os produtores hoje co-escrevem).</div><div class="ph-li"><b>2 · O máster</b> (os teus pontos) → SoundExchange (EUA) + <b>direitos conexos internacionais</b> (PPL…) — o que quase ninguém reclama.</div><a class="phbtn" href="/doctor">📄 El Doctor — o teu publishing</a><a class="phbtn" href="/lod">📃 Monta o teu LOD — o máster</a>`},
  fr:{tag:"TU DINERO · A LA LUZ",
      lead:"Ta musique génère de l'argent depuis des années.<br>Découvre combien ne te parvient PAS.",
      sub:"Écris ton nom d'artiste. On scanne ton catalogue en quelques secondes.",
@@ -211,11 +224,12 @@ const T={
      ctaP:'On t\'aide à récupérer cet argent — <b style="color:var(--gold)">0% commission.</b> Laisse ton e-mail :',
      emailph:"toi@email.com", join:"Je veux mon argent", joined:"Tu es sur la liste ! On te contacte bientôt.",
      prodLink:"Producteur ou compositeur ? Vois comment être payé →",
-     phT:"Ton argent n'est pas sous ton nom",
-     phTx:"En tant que producteur ou compositeur, ton argent est dans les chansons que tu as faites pour D'AUTRES — pas dans ton propre catalogue. Va par ici :",
-     phA:"🎤 Écris ci-dessus le nom de l'ARTISTE avec qui tu as travaillé",
-     phB:"📄 Téléverse et audite ton catalogue — El Doctor",
-     phC:"📃 Crée ta Letter of Direction (perçois le master)"}
+     phT:"Toi aussi tu as de l'argent 💰",
+     phTx:"Ton rôle décide où il est. Lequel as-tu fait ?",
+     phRoleW:"✍️ J'ai écrit la chanson",
+     phRoleP:"🎛️ J'ai fait le beat",
+     phPathW:`<div class="ph-money">Ton argent EST sous <b>ton nom</b> — en <b>publishing</b> (MLC + ta PRO), pour tout ce que tu as écrit, même pour d'autres artistes.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Scanne ton nom ci-dessus</button><a class="phbtn" href="/doctor">📄 Téléverse-le dans El Doctor — trouve le perdu</a>`,
+     phPathP:`<div class="ph-money">Tu as de l'argent à <b>2 endroits</b> :</div><div class="ph-li"><b>1 · Ce que tu as co-écrit</b> → publishing sous ton nom (presque tous les producteurs co-écrivent aujourd'hui).</div><div class="ph-li"><b>2 · Le master</b> (tes points) → SoundExchange (É.-U.) + <b>droits voisins internationaux</b> (PPL…) — ce que presque personne ne réclame.</div><a class="phbtn" href="/doctor">📄 El Doctor — ton publishing</a><a class="phbtn" href="/lod">📃 Crée ton LOD — le master</a>`}
 };
 let L="es", last={artist:"",total:0,bb:0,year:0,sample:[],shown:false};
 function renderResult(t){
@@ -240,9 +254,9 @@ function setLang(l){
   document.getElementById('prodLink').textContent=t.prodLink;
   document.getElementById('phT').textContent=t.phT;
   document.getElementById('phTx').textContent=t.phTx;
-  document.getElementById('phA').textContent=t.phA;
-  document.getElementById('phB').textContent=t.phB;
-  document.getElementById('phC').textContent=t.phC;
+  document.getElementById('phRoleW').textContent=t.phRoleW;
+  document.getElementById('phRoleP').textContent=t.phRoleP;
+  if(window.__prodRole) prodRole(window.__prodRole);
   ['es','en','pt','fr'].forEach(function(x){document.getElementById('btn-'+x).classList.toggle('active',l===x);});
   try{localStorage.setItem('solnota_lang',l);}catch(e){}
   if(last.shown) renderResult(t);
@@ -276,6 +290,14 @@ async function join(e){
 }
 function showProd(){var el=document.getElementById('prodHelp');el.style.display='block';el.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function focusArtist(){var a=document.getElementById('artist');a.value='';a.focus();window.scrollTo({top:0,behavior:'smooth'});}
+function prodRole(r){
+  window.__prodRole=r; var t=T[L];
+  document.getElementById('phRoleW').classList.toggle('on',r==='w');
+  document.getElementById('phRoleP').classList.toggle('on',r==='p');
+  var path=document.getElementById('phPath');
+  path.innerHTML=(r==='w'?t.phPathW:t.phPathP);
+  path.classList.add('show');
+}
 (function(){var s;try{s=localStorage.getItem('solnota_lang');}catch(e){}setLang(['es','en','pt','fr'].indexOf(s)>=0?s:'es');})();
 </script>
 <script>
