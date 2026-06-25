@@ -70,6 +70,16 @@ p,li{text-wrap:pretty}
 a,button{transition:color .18s ease,background-color .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease}
 a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid #FFB02E;outline-offset:3px;border-radius:8px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button{transition:none}}
+/* Modo oscuro: el escáner tiene colores fijos; se corrigen aquí */
+html.dark .lead{color:#EDE6D6}
+html.dark .sub,html.dark .samples,html.dark footer{color:#9b927f}
+html.dark .cta-box p,html.dark .prodhelp .ph-tx,html.dark .mm-tx{color:#bdb4a2}
+html.dark .mm-tx b{color:#EDE6D6}
+html.dark input{background:#15140f;border-color:#2a2620;color:#EDE6D6}
+html.dark .lang{border-color:#2a2620;background:#0E0E16}
+html.dark .phbtn{background:#1b1913;color:#EDE6D6;border-color:#2a2620}
+html.dark .result,html.dark .prodhelp{background:#15140f}
+html.dark .mm-row{border-bottom-color:#2a2620}
 </style>
 <meta property="og:type" content="website">
 <meta property="og:title" content="SOLNOTA · TU DINERO · A LA LUZ">
@@ -79,7 +89,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://tools.solnota.com/share-card.png">
-<script src="/solnota-theme.js"></script>
+<script src="/solnota-theme.js?v=2"></script>
 </head>
 <body>
 <div class="lang">

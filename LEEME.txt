@@ -1,19 +1,21 @@
-SUBIR — Arreglo de MODO OSCURO en todo Solnota (24 jun 2026)
-=============================================================
+SUBIR — TODO lo de hoy (idiomas en 4 + modo oscuro) · 24 jun 2026
+==================================================================
 
-Sube estos 17 archivos a GitHub (menos este LEEME):
+Sube estos 20 archivos a GitHub (menos este LEEME). Reemplazan los actuales.
 
-1. github.com/angelguaba18/Solnota-tools
-2. "Add file" -> "Upload files"
-3. Arrastra los 17 archivos (en el mismo sitio donde ya están las páginas).
-4. Mensaje: "Modo oscuro arreglado en todo el sitio"
-5. "Commit changes" (verde).
-6. Espera 1-2 min. Recarga con Cmd+Shift+R.
+1. github.com/angelguaba18/Solnota-tools  ->  "Add file"  ->  "Upload files"
+2. Arrastra los 20 archivos (en el mismo sitio donde ya están).
+3. Mensaje: "Idiomas 4 + modo oscuro"
+4. "Commit changes" (verde).
+5. Espera 1-2 min. Recarga con Cmd+Shift+R.
 
-Qué arregla:
-- El logo SOLNOTA ya se ve claro en modo oscuro (todas las páginas).
-- Botones, textos, inputs y desplegables legibles en oscuro.
-- Páginas con colores fijos arregladas: escáner, contrato, empezar, luz.
+Qué trae:
+- Portada y El Doctor traducidos al 100% en ES/EN/PT/FR (incluye marcador, Blindar).
+- Splitsheet y Visor: huecos de idioma tapados.
+- Modo oscuro arreglado en todo el sitio (logo, botones, textos).
+- i18n.js -> ?v=3 y solnota-theme.js -> ?v=2 (para que el cambio llegue a todos).
 
-Clave: solnota-theme.js trae el arreglo universal; las páginas llevan ?v=2
-para que el cambio le llegue a todos (no la versión vieja en caché).
+Nota: el DIAGNÓSTICO técnico de El Doctor (hallazgos con datos) sigue en español
+(se genera en código; traducirlo es un proyecto aparte). La interfaz sí está en 4.
+
+Subir todos los 20 de una vez es lo más seguro: deja el sitio 100% al día.

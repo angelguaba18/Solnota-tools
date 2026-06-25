@@ -9,7 +9,7 @@
   // 2) overrides de modo oscuro — cubre los nombres de variables usados en el sitio
   var css =
     "html.dark{--bg:#0D0D0F;--bg2:#15140f;--bg3:#1b1913;--card:#15140f;--panel:#15140f;--panel2:#1b1913;" +
-    "--ink:#EDE6D6;--cream:#EDE6D6;--mut:#9b927f;--muted:#9b927f;--line:#2a2620;" +
+    "--ink:#EDE6D6;--cream:#EDE6D6;--txt:#EDE6D6;--mut:#9b927f;--muted:#9b927f;--line:#2a2620;" +
     "--gold:#FFB02E;--gold2:#FFCF6B;--green:#13B981;--green2:#13B981;--greenbg:#0f2419;--goldbg:#241f15;--purplebg:#1a1426;" +
     "--sh:0 18px 50px rgba(0,0,0,.5);--sh2:0 8px 26px rgba(0,0,0,.45)}" +
     "html.dark body{background:var(--bg);color:var(--ink,var(--cream))}" +
@@ -21,7 +21,14 @@
     ".sn-themebtn:hover{transform:translateY(-1px)}" +
     // dentro de la barra de idiomas: primer botón, mismo estilo
     ".sn-lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;" +
-    "box-shadow:none;padding:6px 8px;font-size:15px;border-radius:999px;line-height:1;color:#FFB02E}";
+    "box-shadow:none;padding:6px 8px;font-size:15px;border-radius:999px;line-height:1;color:#FFB02E}" +
+    // arreglos universales de modo oscuro (logo, botones ghost, inputs) — para TODO Solnota
+    "html.dark .sn-wm{color:#EDE6D6!important;-webkit-text-fill-color:#EDE6D6!important}" +
+    "html.dark .sn-disc::after{background:#0D0D0F}" +
+    "html.dark button.ghost,html.dark .ghost{color:#EDE6D6;border-color:var(--line)}" +
+    "html.dark input,html.dark textarea,html.dark select{color:#EDE6D6;border-color:var(--line)}" +
+    "html.dark select{background:#15140f}" +
+    "html.dark ::placeholder{color:#9b927f}";
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   // 3) botón de tema — al inicio de la barra de idiomas (o flotante si no hay)
