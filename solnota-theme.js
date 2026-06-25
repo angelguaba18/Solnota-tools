@@ -22,6 +22,8 @@
     // dentro de la barra de idiomas: primer botón, mismo estilo
     ".sn-lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;" +
     "box-shadow:none;padding:6px 8px;font-size:15px;border-radius:999px;line-height:1;color:#FFB02E}" +
+    ".lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;" +
+    "box-shadow:none;padding:6px 10px;font-size:15px;border-radius:8px;line-height:1;color:#FFB02E}" +
     // arreglos universales de modo oscuro (logo, botones ghost, inputs) — para TODO Solnota
     "html.dark .sn-wm{color:#EDE6D6!important;-webkit-text-fill-color:#EDE6D6!important}" +
     "html.dark .sn-disc::after{background:#0D0D0F}" +
@@ -48,6 +50,10 @@
   function place() {
     if (!btn) btn = document.querySelector('.sn-themebtn') || makeBtn();
     var bar = document.querySelector('.sn-lang');
+    if (!bar) { // barra propia .lang: solo la que tiene botones (no los bloques de contenido lang-es/en/…)
+      var ls = document.querySelectorAll('.lang');
+      for (var i = 0; i < ls.length; i++) { if (ls[i].querySelector('button')) { bar = ls[i]; break; } }
+    }
     if (bar) { if (btn.parentElement !== bar) bar.insertBefore(btn, bar.firstChild); }
     else if (!btn.parentElement && document.body) document.body.appendChild(btn);
   }
