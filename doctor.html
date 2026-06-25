@@ -91,6 +91,13 @@
   .pro a{display:inline-block;font-size:12px;font-weight:800;color:#100800;background:var(--grad);padding:7px 12px;border-radius:9px;text-decoration:none}
   @media(max-width:680px){.howto-body{grid-template-columns:1fr}}
   @media print{.noprint{display:none!important}body{padding:0}.finding,.c,table{box-shadow:none}}
+  /* Modo oscuro: El Doctor usa --txt (que el tema no voltea) + algunos fondos #fff. Se corrigen aquí. */
+  html.dark{--txt:#EDE6D6}
+  html.dark button.ghost{color:#EDE6D6;border-color:#2a2620;background:#15140f}
+  html.dark button.ghost[disabled]{opacity:.5}
+  html.dark .finding .fix{background:#1b1913;color:#EDE6D6;border-color:#2a2620}
+  html.dark .pro,html.dark .finding.star,html.dark .drop.hover{background:#1b1913}
+  html.dark .howto summary{color:#EDE6D6}
 </style>
 <script src="/solnota-theme.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
