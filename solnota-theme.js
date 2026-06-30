@@ -8,28 +8,29 @@
 
   // 2) overrides de modo oscuro — cubre los nombres de variables usados en el sitio
   var css =
-    "html.dark{--bg:#0D0D0F;--bg2:#15140f;--bg3:#1b1913;--card:#15140f;--panel:#15140f;--panel2:#1b1913;" +
-    "--ink:#EDE6D6;--cream:#EDE6D6;--txt:#EDE6D6;--mut:#9b927f;--muted:#9b927f;--line:#2a2620;" +
-    "--gold:#FFB02E;--gold2:#FFCF6B;--green:#13B981;--green2:#13B981;--greenbg:#0f2419;--goldbg:#241f15;--purplebg:#1a1426;" +
+    "html.dark{--bg:#06080C;--bg2:#0A0C12;--bg3:#0E1016;--card:#101019;--panel:#101019;--panel2:#0E1016;" +
+    "--ink:#E7E4D7;--cream:#E7E4D7;--txt:#E7E4D7;--mut:#A39C8C;--muted:#A39C8C;--line:#23222C;" +
+    "--gold:#D4AF37;--gold2:#E9C66B;--green:#D4AF37;--green2:#D4AF37;--greenbg:#1A1712;--goldbg:#1A1712;--purplebg:#1A1210;" +
     "--sh:0 18px 50px rgba(0,0,0,.5);--sh2:0 8px 26px rgba(0,0,0,.45)}" +
     "html.dark body{background:var(--bg);color:var(--ink,var(--cream))}" +
-    "html.dark header{background:rgba(13,13,15,.82)!important}" +
+    "html.dark header{background:rgba(6,8,12,.82)!important}" +
     // por defecto flotante (páginas sin barra de idiomas)
     ".sn-themebtn{position:fixed;top:14px;right:14px;z-index:9998;width:40px;height:40px;border-radius:50%;" +
-    "border:1px solid var(--line,#e5e5e5);background:var(--card,#fff);color:var(--gold,#E08A00);font-size:17px;" +
+    "border:1px solid var(--line,#e5e5e5);background:var(--card,#fff);color:#D4AF37;font-size:17px;" +
+    ".sn-themebtn svg{display:block}" +
     "cursor:pointer;box-shadow:0 6px 18px rgba(36,30,15,.16);display:flex;align-items:center;justify-content:center}" +
     ".sn-themebtn:hover{transform:translateY(-1px)}" +
     // dentro de la barra de idiomas: primer botón, mismo estilo
     ".sn-lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;" +
-    "box-shadow:none;padding:6px 8px;font-size:15px;border-radius:999px;line-height:1;color:#FFB02E}" +
+    "box-shadow:none;padding:6px 8px;font-size:15px;border-radius:999px;line-height:1;color:#D4AF37}" +
     ".lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;" +
-    "box-shadow:none;padding:6px 10px;font-size:15px;border-radius:8px;line-height:1;color:#FFB02E}" +
+    "box-shadow:none;padding:6px 10px;font-size:15px;border-radius:8px;line-height:1;color:#D4AF37}" +
     // arreglos universales de modo oscuro (logo, botones ghost, inputs) — para TODO Solnota
-    "html.dark .sn-wm{color:#EDE6D6!important;-webkit-text-fill-color:#EDE6D6!important}" +
-    "html.dark .sn-disc::after{background:#0D0D0F}" +
+    "html.dark .sn-wm{color:#E7E4D7!important;-webkit-text-fill-color:#E7E4D7!important}" +
+    "html.dark .sn-disc::after{background:#06080C}" +
     "html.dark button.ghost,html.dark .ghost{color:#EDE6D6;border-color:var(--line)}" +
     "html.dark input,html.dark textarea,html.dark select{color:#EDE6D6;border-color:var(--line)}" +
-    "html.dark select{background:#15140f}" +
+    "html.dark select{background:#101019}" +
     "html.dark ::placeholder{color:#9b927f}";
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
@@ -38,7 +39,9 @@
   function makeBtn() {
     var b = document.createElement('button');
     b.className = 'sn-themebtn'; b.setAttribute('aria-label', 'Cambiar claro/oscuro'); b.title = 'Cambiar claro/oscuro';
-    function sync() { b.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙'; }
+    var SUN = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#D4AF37" stroke="none"/><line x1="12" y1="2" x2="12" y2="4.3"/><line x1="12" y1="19.7" x2="12" y2="22"/><line x1="2" y1="12" x2="4.3" y2="12"/><line x1="19.7" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.6" y2="6.6"/><line x1="17.4" y1="17.4" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.6" y2="17.4"/><line x1="17.4" y1="6.6" x2="19.1" y2="4.9"/></svg>';
+    var MOON = '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" fill="#E7E4D7"/></svg>';
+    function sync() { b.innerHTML = document.documentElement.classList.contains('dark') ? SUN : MOON; }
     sync();
     b.addEventListener('click', function () {
       document.documentElement.classList.toggle('dark');
