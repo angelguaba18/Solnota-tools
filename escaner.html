@@ -6,97 +6,97 @@
 <title>SOLNOTA — Escanea tu música</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#FFB02E;--gold2:#FFC65C;--bg:#FCFAF5;--panel:#FBF8F0;--cream:#1A1611;--muted:#6E6657;--line:#ECE6D8;}
+:root{--red:#BC1D24;--vino:#4B0F1E;--auberg:#1A1712;--gold:#D4AF37;--gold2:#D4AF37;--bg:#06080C;--panel:#101019;--cream:#F2EFE7;--muted:#A39C8C;--line:#23222C;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;}
-.lang{position:fixed;top:20px;right:22px;display:flex;gap:2px;border:1px solid #ECE6D8;border-radius:11px;padding:3px;}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;}
+.lang{position:fixed;top:20px;right:22px;display:flex;gap:2px;border:1px solid #23222C;border-radius:11px;padding:3px;}
 .lang button{padding:6px 13px;border:none;background:transparent;color:var(--muted);font-weight:500;font-size:13px;border-radius:8px;cursor:pointer;letter-spacing:1px;}
-.lang button.active{background:var(--gold);color:#1a160c;}
+.lang button.active{background:var(--gold);color:#F2EFE7;}
 .card{max-width:560px;width:100%;text-align:center;}
-h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(44px,11vw,70px);letter-spacing:8px;padding-left:8px;background:linear-gradient(90deg,#FFC65C,#FFB02E,#B96A00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+h1{font-family:'Sora',sans-serif;font-size:clamp(44px,11vw,70px);letter-spacing:8px;padding-left:8px;background:linear-gradient(90deg,#D4AF37,#D4AF37,#B8901F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .tag{color:var(--gold);font-size:12px;letter-spacing:5px;margin-top:6px;text-transform:uppercase;}
-.lead{font-size:19px;color:#2A2419;margin:28px 0 6px;line-height:1.5;}
+.lead{font-size:19px;color:#F2EFE7;margin:28px 0 6px;line-height:1.5;}
 .sub{font-size:14px;color:var(--muted);margin-bottom:26px;}
 form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
-input{flex:1;min-width:230px;padding:16px 18px;border-radius:12px;border:1px solid #ECE6D8;background:#FBF8F0;color:var(--cream);font-size:16px;font-family:inherit;}
+input{flex:1;min-width:230px;padding:16px 18px;border-radius:12px;border:1px solid #23222C;background:#101019;color:var(--cream);font-size:16px;font-family:inherit;}
 input:focus{outline:none;border-color:var(--gold);}
-button.cta{padding:16px 28px;border:none;border-radius:12px;background:var(--gold);color:#1a160c;font-weight:600;font-size:16px;cursor:pointer;transition:transform .15s,background .15s;letter-spacing:.5px;}
+button.cta{padding:16px 28px;border:none;border-radius:12px;background:var(--gold);color:#F2EFE7;font-weight:600;font-size:16px;cursor:pointer;transition:transform .15s,background .15s;letter-spacing:.5px;}
 button.cta:hover{transform:translateY(-2px);background:var(--gold2);}
 button.cta:disabled{opacity:.5;cursor:wait;transform:none;}
 .result{display:none;margin-top:30px;background:var(--panel);border:1px solid var(--gold);border-radius:18px;padding:30px;text-align:left;}
-.result .num{font-family:'Space Grotesk',sans-serif;font-size:64px;color:var(--cream);line-height:1;}
+.result .num{font-family:'Sora',sans-serif;font-size:64px;color:var(--cream);line-height:1;}
 .result .lbl{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:18px;}
-.result .big{font-family:'Space Grotesk',sans-serif;font-size:30px;color:var(--gold);line-height:1.25;margin-bottom:6px;}
-.samples{font-size:13px;color:#6E6657;margin:14px 0;line-height:1.7;}
+.result .big{font-family:'Sora',sans-serif;font-size:30px;color:var(--gold);line-height:1.25;margin-bottom:6px;}
+.samples{font-size:13px;color:#A39C8C;margin:14px 0;line-height:1.7;}
 .samples b{color:var(--gold);}
 .moneymap{margin:18px 0 4px;border-top:1px solid var(--line);padding-top:16px;}
 .moneymap .mm-t{font-size:13px;color:var(--gold);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
-.mm-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #F4EFE2;}
+.mm-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #0E1016;}
 .mm-row:last-child{border-bottom:none;}
 .mm-ic{color:var(--gold);font-size:15px;flex:none;margin-top:1px;}
-.mm-tx{font-size:13px;color:#4a4438;line-height:1.45;}
+.mm-tx{font-size:13px;color:#A39C8C;line-height:1.45;}
 .mm-tx b{color:var(--cream);}
 .cta-box{margin-top:18px;border-top:1px solid var(--line);padding-top:18px;}
-.cta-box p{font-size:14px;margin-bottom:12px;color:#2A2419;}
+.cta-box p{font-size:14px;margin-bottom:12px;color:#F2EFE7;}
 .msg{display:none;margin-top:16px;font-size:16px;color:var(--gold2);font-weight:500;}
 .err{color:#e0a; font-size:14px; margin-top:12px; display:none;}
-footer{margin-top:34px;font-size:11px;color:#6E6657;letter-spacing:2px;}
+footer{margin-top:34px;font-size:11px;color:#A39C8C;letter-spacing:2px;}
 .prodlink{margin-top:16px;font-size:13px;color:var(--gold);cursor:pointer;font-weight:600;}
 .prodlink:hover{text-decoration:underline;}
 .prodhelp{display:none;margin-top:22px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:left;}
-.prodhelp .ph-t{font-family:'Space Grotesk',sans-serif;font-size:21px;color:var(--gold);margin-bottom:8px;line-height:1.2;}
-.prodhelp .ph-tx{font-size:14px;color:#4a4438;line-height:1.5;margin-bottom:16px;}
-.phbtn{display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--cream);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;}
+.prodhelp .ph-t{font-family:'Sora',sans-serif;font-size:21px;color:var(--gold);margin-bottom:8px;line-height:1.2;}
+.prodhelp .ph-tx{font-size:14px;color:#A39C8C;line-height:1.5;margin-bottom:16px;}
+.phbtn{display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;background:#15141A;color:var(--cream);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;}
 .phbtn:last-child{margin-bottom:0;}
 .phbtn:hover{border-color:var(--gold);transform:translateY(-1px);}
 .ph-roles{display:flex;gap:10px;margin-top:4px;}
 .ph-role{flex:1;text-align:center;font-weight:700;margin-bottom:0;}
-.ph-role.on{border-color:var(--gold);background:var(--gold);color:#1a160c;}
+.ph-role.on{border-color:var(--gold);background:var(--gold);color:#F2EFE7;}
 .ph-path{margin-top:16px;display:none;}
 .ph-path.show{display:block;}
 .ph-money{font-size:14.5px;color:var(--cream);line-height:1.5;margin-bottom:12px;font-weight:600;}
-.ph-li{font-size:13.5px;color:#4a4438;line-height:1.5;margin-bottom:10px;}
+.ph-li{font-size:13.5px;color:#A39C8C;line-height:1.5;margin-bottom:10px;}
 .ph-li b{color:var(--cream);}
 </style>
 <style id="premium-polish">
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap');
-.sn-wm{font-family:'Fraunces',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#1A1611!important;color:#1A1611!important;display:inline-flex;align-items:center;gap:0;line-height:1} .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto} .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#FCFAF5} .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#1A1611}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+.sn-wm{font-family:'Cinzel',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#D4AF37!important;color:#D4AF37!important;display:inline-flex;align-items:center;gap:0;line-height:1} .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#D4AF37,#D4AF37,#E8941C,#A85F00,#D4AF37,#D4AF37,#E8941C,#D4AF37,#D4AF37);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto} .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#06080C} .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#F2EFE7}
 .sn-mark{width:1.18em;height:1.18em;display:inline-flex;flex:0 0 auto}
 .sn-mark svg{width:100%;height:100%;display:block}
 
 /* profundidad premium: tarjetas flotan sobre marfil */
-.card,.panel,.result,.box,.tcard,.screen,.plan,.tier{box-shadow:0 1px 2px rgba(36,30,15,.05),0 10px 30px rgba(36,30,15,.09)}
+.card,.panel,.result,.box,.tcard,.screen,.plan,.tier{box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 30px rgba(0,0,0,.09)}
 
 /* ===== Pulido premium universal SOLNOTA ===== */
 html{scroll-behavior:smooth}
 body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-::selection{background:rgba(255,176,46,.28);color:#1A1611}
+::selection{background:rgba(255,176,46,.28);color:#F2EFE7}
 h1,h2,h3{text-wrap:balance}
 p,li{text-wrap:pretty}
 a,button{transition:color .18s ease,background-color .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease}
-a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid #FFB02E;outline-offset:3px;border-radius:8px}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid #D4AF37;outline-offset:3px;border-radius:8px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button{transition:none}}
 /* Modo oscuro: el escáner tiene colores fijos; se corrigen aquí */
 html.dark .lead{color:#EDE6D6}
 html.dark .sub,html.dark .samples,html.dark footer{color:#9b927f}
 html.dark .cta-box p,html.dark .prodhelp .ph-tx,html.dark .mm-tx,html.dark .ph-li{color:#bdb4a2}
 html.dark .mm-tx b{color:#EDE6D6}
-html.dark input{background:#15140f;border-color:#2a2620;color:#EDE6D6}
-html.dark .lang{border-color:#2a2620;background:#0E0E16}
-html.dark .phbtn{background:#1b1913;color:#EDE6D6;border-color:#2a2620}
+html.dark input{background:#15140f;border-color:#F2EFE7;color:#EDE6D6}
+html.dark .lang{border-color:#F2EFE7;background:#0E0E16}
+html.dark .phbtn{background:#1b1913;color:#EDE6D6;border-color:#F2EFE7}
 html.dark .result,html.dark .prodhelp{background:#15140f}
-html.dark .mm-row{border-bottom-color:#2a2620}
+html.dark .mm-row{border-bottom-color:#F2EFE7}
 </style>
 <meta property="og:type" content="website">
-<meta property="og:title" content="SOLNOTA · TU DINERO · A LA LUZ">
+<meta property="og:title" content="SOLNOTA · Tu música. Tu valor. Recuperado.">
 <meta property="og:description" content="Mira cuánto dinero te debe tu música. Cobra todas tus regalías — 0% comisión, directo a tu banco.">
-<meta property="og:image" content="https://tools.solnota.com/share-card.png">
+<meta property="og:image" content="https://solnota.com/share-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tools.solnota.com/share-card.png">
+<meta name="twitter:image" content="https://solnota.com/share-card.png">
 <script src="/solnota-theme.js?v=3"></script>
 </head>
 <body>
@@ -107,8 +107,8 @@ html.dark .mm-row{border-bottom-color:#2a2620}
   <button id="btn-fr" onclick="setLang('fr')">FR</button>
 </div>
 <div class="card">
-  <h1 class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</h1>
-  <div class="tag" id="tag">TU DINERO · A LA LUZ</div>
+  <h1 class="sn-wm"><img src="SOLNOTA-emblema.png" alt="" style="height:1.15em;width:auto;vertical-align:-0.28em;margin-right:.16em">SOLNOTA</h1>
+  <div class="tag" id="tag">Tu música. Tu valor. Recuperado.</div>
   <p class="lead" id="lead"></p>
   <p class="sub" id="sub"></p>
 
@@ -147,19 +147,19 @@ html.dark .mm-row{border-bottom-color:#2a2620}
     </div>
   </div>
 
-  <footer>SOLNOTA · SOL MUSIC CORP</footer>
+  <footer>SOLNOTA</footer>
 </div>
 
 <script>
 const ENDPOINT="https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/scan";
 const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";
 const T={
- es:{tag:"TU DINERO · A LA LUZ",
+ es:{tag:"Tu música. Tu valor. Recuperado.",
      lead:"Tu música lleva años generando dinero.<br>Descubre cuánto NO te está llegando.",
      sub:"Escribe tu nombre de artista. Escaneamos tu catálogo en segundos.",
      ph:"Tu nombre de artista", scan:"Escanear", scanning:"Escaneando…",
      lbl:"obras tuyas generando dinero",
-     big:(b)=>`💰 Tienes regalías <span style="color:var(--cream)">sin reclamar</span>.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">El <b style="color:var(--gold)">black box</b> es el dinero que las plataformas ya recaudaron de tu música, pero que nadie ha cobrado. Te ayudamos a recuperarlo.</div>`,
+     big:(b)=>`💰 Tienes regalías <span style="color:var(--cream)">sin reclamar</span>.<div style="font-size:14px;color:#A39C8C;font-weight:400;margin-top:12px;line-height:1.55">El <b style="color:var(--gold)">black box</b> es el dinero que las plataformas ya recaudaron de tu música, pero que nadie ha cobrado. Te ayudamos a recuperarlo.</div>`,
      since:(y,n)=>`🎵 Generando regalías desde <b>${y}</b>${n?` — ${n} años cobrando.`:'.'}`,
      mapT:"Dónde está tu dinero — 6 fuentes",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Máster (SoundExchange)</b> — radio digital por tus grabaciones.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecánicas (The MLC)</b> — streaming en EE.UU. (gran parte del black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tu PRO)</b> — ejecución pública (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — tu música en TV, cine, anuncios y videojuegos.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Derechos conexos</b> — performance del máster fuera de EE.UU.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — cuando tu música suena en videos de otros.</span></div>`,
@@ -173,12 +173,12 @@ const T={
      phRoleP:"🎛️ Hice el beat",
      phPathW:`<div class="ph-money">Tu dinero SÍ está bajo <b>tu nombre</b> — en <b>publishing</b> (MLC + tu PRO), por todo lo que escribiste, incluso para otros artistas.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Escanea tu nombre aquí arriba</button><a class="phbtn" href="/doctor">📄 Súbelo a El Doctor — encuentra lo botado</a>`,
      phPathP:`<div class="ph-money">Tienes dinero en <b>2 lados</b>:</div><div class="ph-li"><b>1 · Lo que co-escribiste</b> → publishing bajo tu nombre (casi todos los productores hoy co-escriben).</div><div class="ph-li"><b>2 · El máster</b> (tus puntos) → SoundExchange (EE.UU.) + <b>derechos conexos internacionales</b> (PPL…) — lo que casi nadie reclama.</div><a class="phbtn" href="/doctor">📄 El Doctor — tu publishing</a><a class="phbtn" href="/lod">📃 Arma tu LOD — el máster</a>`},
- en:{tag:"TU DINERO · A LA LUZ",
+ en:{tag:"Tu música. Tu valor. Recuperado.",
      lead:"Your music has been making money for years.<br>Find out how much isn't reaching you.",
      sub:"Type your artist name. We scan your catalog in seconds.",
      ph:"Your artist name", scan:"Scan", scanning:"Scanning…",
      lbl:"of your works are earning money",
-     big:(b)=>`💰 You have <span style="color:var(--cream)">unclaimed</span> royalties.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">The <b style="color:var(--gold)">black box</b> is money that platforms already collected from your music, but no one has claimed. We help you get it back.</div>`,
+     big:(b)=>`💰 You have <span style="color:var(--cream)">unclaimed</span> royalties.<div style="font-size:14px;color:#A39C8C;font-weight:400;margin-top:12px;line-height:1.55">The <b style="color:var(--gold)">black box</b> is money that platforms already collected from your music, but no one has claimed. We help you get it back.</div>`,
      since:(y,n)=>`🎵 Earning royalties since <b>${y}</b>${n?` — ${n} years and counting.`:'.'}`,
      mapT:"Where your money is — 6 sources",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — digital radio for your recordings.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mechanical (The MLC)</b> — US streaming (much of the black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (your PRO)</b> — public performance (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — your music in TV, film, ads and video games.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Neighbouring rights</b> — master performance outside the US.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — when your music plays in others' videos.</span></div>`,
@@ -192,12 +192,12 @@ const T={
      phRoleP:"🎛️ I made the beat",
      phPathW:`<div class="ph-money">Your money IS under <b>your name</b> — in <b>publishing</b> (MLC + your PRO), for everything you wrote, even for other artists.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Scan your name above</button><a class="phbtn" href="/doctor">📄 Upload it to El Doctor — find what's lost</a>`,
      phPathP:`<div class="ph-money">You have money in <b>2 places</b>:</div><div class="ph-li"><b>1 · What you co-wrote</b> → publishing under your name (most producers today co-write).</div><div class="ph-li"><b>2 · The master</b> (your points) → SoundExchange (US) + <b>international neighbouring rights</b> (PPL…) — what almost no one claims.</div><a class="phbtn" href="/doctor">📄 El Doctor — your publishing</a><a class="phbtn" href="/lod">📃 Build your LOD — the master</a>`},
- pt:{tag:"TU DINERO · A LA LUZ",
+ pt:{tag:"Tu música. Tu valor. Recuperado.",
      lead:"Tua música gera dinheiro há anos.<br>Descobre quanto NÃO está chegando até ti.",
      sub:"Escreve teu nome de artista. Escaneamos teu catálogo em segundos.",
      ph:"Teu nome de artista", scan:"Escanear", scanning:"Escaneando…",
      lbl:"obras tuas gerando dinheiro",
-     big:(b)=>`💰 Tens royalties <span style="color:var(--cream)">não reivindicados</span>.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">O <b style="color:var(--gold)">black box</b> é o dinheiro que as plataformas já arrecadaram da tua música, mas que ninguém reivindicou. Te ajudamos a recuperá-lo.</div>`,
+     big:(b)=>`💰 Tens royalties <span style="color:var(--cream)">não reivindicados</span>.<div style="font-size:14px;color:#A39C8C;font-weight:400;margin-top:12px;line-height:1.55">O <b style="color:var(--gold)">black box</b> é o dinheiro que as plataformas já arrecadaram da tua música, mas que ninguém reivindicou. Te ajudamos a recuperá-lo.</div>`,
      since:(y,n)=>`🎵 Gerando royalties desde <b>${y}</b>${n?` — ${n} anos recebendo.`:'.'}`,
      mapT:"Onde está o teu dinheiro — 6 fontes",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — rádio digital pelas tuas gravações.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mecânicas (The MLC)</b> — streaming nos EUA (grande parte do black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (tua PRO)</b> — execução pública (BMI/ASCAP + PROs).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — tua música em TV, cinema, anúncios e jogos.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Direitos conexos</b> — performance do master fora dos EUA.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — quando tua música toca em vídeos de outros.</span></div>`,
@@ -211,12 +211,12 @@ const T={
      phRoleP:"🎛️ Fiz o beat",
      phPathW:`<div class="ph-money">O teu dinheiro ESTÁ sob <b>o teu nome</b> — em <b>publishing</b> (MLC + a tua PRO), por tudo o que escreveste, mesmo para outros artistas.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Escaneia o teu nome aqui em cima</button><a class="phbtn" href="/doctor">📄 Envia ao El Doctor — encontra o perdido</a>`,
      phPathP:`<div class="ph-money">Tens dinheiro em <b>2 lados</b>:</div><div class="ph-li"><b>1 · O que co-escreveste</b> → publishing sob o teu nome (quase todos os produtores hoje co-escrevem).</div><div class="ph-li"><b>2 · O máster</b> (os teus pontos) → SoundExchange (EUA) + <b>direitos conexos internacionais</b> (PPL…) — o que quase ninguém reclama.</div><a class="phbtn" href="/doctor">📄 El Doctor — o teu publishing</a><a class="phbtn" href="/lod">📃 Monta o teu LOD — o máster</a>`},
- fr:{tag:"TU DINERO · A LA LUZ",
+ fr:{tag:"Tu música. Tu valor. Recuperado.",
      lead:"Ta musique génère de l'argent depuis des années.<br>Découvre combien ne te parvient PAS.",
      sub:"Écris ton nom d'artiste. On scanne ton catalogue en quelques secondes.",
      ph:"Ton nom d'artiste", scan:"Scanner", scanning:"Analyse…",
      lbl:"de tes œuvres génèrent de l'argent",
-     big:(b)=>`💰 Tu as des royalties <span style="color:var(--cream)">non réclamées</span>.<div style="font-size:14px;color:#4a4438;font-weight:400;margin-top:12px;line-height:1.55">Le <b style="color:var(--gold)">black box</b> est l'argent que les plateformes ont déjà perçu de ta musique, mais que personne n'a réclamé. On t'aide à le récupérer.</div>`,
+     big:(b)=>`💰 Tu as des royalties <span style="color:var(--cream)">non réclamées</span>.<div style="font-size:14px;color:#A39C8C;font-weight:400;margin-top:12px;line-height:1.55">Le <b style="color:var(--gold)">black box</b> est l'argent que les plateformes ont déjà perçu de ta musique, mais que personne n'a réclamé. On t'aide à le récupérer.</div>`,
      since:(y,n)=>`🎵 Génère des royalties depuis <b>${y}</b>${n?` — ${n} ans et ça continue.`:'.'}`,
      mapT:"Où est ton argent — 6 sources",
      map:`<div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Master (SoundExchange)</b> — radio numérique pour tes enregistrements.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Mécanique (The MLC)</b> — streaming aux États-Unis (une grande partie du black box).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Performance (ta PRO)</b> — exécution publique (BMI/ASCAP + PRO).</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Sync</b> — ta musique à la TV, au cinéma, dans les pubs et jeux.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>Droits voisins</b> — performance du master hors des États-Unis.</span></div><div class="mm-row"><span class="mm-ic">●</span><span class="mm-tx"><b>YouTube (Content ID)</b> — quand ta musique joue dans les vidéos des autres.</span></div>`,

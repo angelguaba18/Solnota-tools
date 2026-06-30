@@ -6,41 +6,41 @@
 <title>SOLNOTA — App del Artista</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script>(function(){try{if(localStorage.getItem('sn-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}})();</script>
 <script>window.__snTitle="SOLNOTA — App del Artista";</script>
 <script src="/i18n.js?v=3" defer></script>
 <style>
 /* ☀️ Claro por defecto · 🌙 modo oscuro = html.dark (mismos nombres, otros valores) */
-:root{
-  --gold:#E08A00;--gold2:#FFB02E;--gold3:#B96A00;
-  --bg:#FCFAF5;--panel:#FFFFFF;--panel2:#FAF6EC;--cream:#1A1611;--muted:#6E6657;--line:#ECE6D8;
-  --green:#0E9F6E;--red:#C0392B;
-  --hover:#FAF6EC;--hot:#FBF2DD;--track:#F0E8D6;--on-gold:#1a160c;--done-fg:#FFFFFF;
-  --red-bg:#FDECEC;--red-line:#F4C9C5;--yel-bg:#FBF2DD;--yel-line:#E9D5A8;
-  --grn-bg:#E7F6EF;--grn-line:#BFE9D6;--feat:#7A5AF8;--feat-bg:#EEEBFE;--feat-line:#D9D2FB;
+:root{--red:#BC1D24;--vino:#4B0F1E;--auberg:#1A1712;
+  --gold:#D4AF37;--gold2:#D4AF37;--gold3:#B8901F;
+  --bg:#06080C;--panel:#FFFFFF;--panel2:#0A0C12;--cream:#F2EFE7;--muted:#A39C8C;--line:#23222C;
+  --green:#B8901F;--red:#C0392B;
+  --hover:#0A0C12;--hot:#1A1712;--track:#F0E8D6;--on-gold:#1a160c;--done-fg:#FFFFFF;
+  --red-bg:#FDECEC;--red-line:#F4C9C5;--yel-bg:#1A1712;--yel-line:#E9D5A8;
+  --grn-bg:#1A1712;--grn-line:#BFE9D6;--feat:#7E141B;--feat-bg:#1A1210;--feat-line:#D9D2FB;
 }
 html.dark{
-  --gold:#FFB02E;--gold2:#FFCF6B;
-  --bg:#0D0D0F;--panel:#15140f;--panel2:#1b1913;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;
-  --green:#13B981;--red:#e0795a;
+  --gold:#D4AF37;--gold2:#D4AF37;
+  --bg:#06080C;--panel:#15140f;--panel2:#1b1913;--cream:#EDE6D6;--muted:#8a8478;--line:#262219;
+  --green:#D4AF37;--red:#e0795a;
   --hover:#1a1813;--hot:#1d1a12;--track:#241f15;--on-gold:#1a160c;--done-fg:#0a1f14;
   --red-bg:#2a1410;--red-line:#5a2c1f;--yel-bg:#2a2410;--yel-line:#5a4f1f;
   --grn-bg:#0f2419;--grn-line:#1f5a3f;--feat:#b694e8;--feat-bg:#1a1426;--feat-line:#3a2c5a;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg);color:var(--cream);transition:background .2s,color .2s;}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--cream);transition:background .2s,color .2s;}
 .app{display:flex;min-height:100vh;}
 /* botón de tema */
-.themebtn{position:fixed;top:14px;right:16px;z-index:200;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--gold);font-size:17px;cursor:pointer;box-shadow:0 6px 18px rgba(36,30,15,.14);display:flex;align-items:center;justify-content:center}
+.themebtn{position:fixed;top:14px;right:16px;z-index:200;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--gold);font-size:17px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:center}
 .themebtn:hover{transform:translateY(-1px)}
-.sn-lang .themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;box-shadow:none;padding:6px 8px;font-size:15px;color:#FFB02E}
+.sn-lang .themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;box-shadow:none;padding:6px 8px;font-size:15px;color:#D4AF37}
 /* sidebar */
 .side{width:230px;background:var(--panel);border-right:1px solid var(--line);padding:24px 0;flex-shrink:0;position:sticky;top:0;height:100vh;}
-.brand{font-family:'Fraunces',serif;font-size:30px;letter-spacing:0;padding:0 24px 4px;}
-.sn-wm{font-family:'Fraunces',serif;font-weight:600;color:var(--cream);display:inline-flex;align-items:center;line-height:1}
-.sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto}
+.brand{font-family:'Sora',serif;font-size:30px;letter-spacing:0;padding:0 24px 4px;}
+.sn-wm{font-family:'Sora',serif;font-weight:600;color:var(--cream);display:inline-flex;align-items:center;line-height:1}
+.sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#D4AF37,#D4AF37,#E8941C,#A85F00,#D4AF37,#D4AF37,#E8941C,#D4AF37,#D4AF37);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto}
 .sn-disc::before{content:"";position:absolute;inset:31%;border-radius:50%;background:var(--panel)}
 .sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:var(--cream)}
 .brandsub{font-size:9px;letter-spacing:3px;color:var(--gold);padding:0 24px 26px;text-transform:uppercase;}
@@ -55,11 +55,11 @@ body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg)
 .main{flex:1;padding:34px 40px 60px;max-width:1000px;}
 .screen{display:none;}.screen.on{display:block;animation:fade .25s;}
 @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-h1{font-family:'Fraunces',serif;font-size:34px;letter-spacing:1px;margin-bottom:4px;}
+h1{font-family:'Sora',serif;font-size:34px;letter-spacing:1px;margin-bottom:4px;}
 .lead{color:var(--muted);font-size:14px;margin-bottom:26px;}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px;}
-.kc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(36,30,15,.04);}
-.kc .n{font-family:'Fraunces',serif;font-size:38px;color:var(--gold);line-height:1;}
+.kc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(0,0,0,.04);}
+.kc .n{font-family:'Sora',serif;font-size:38px;color:var(--gold);line-height:1;}
 .kc .l{font-size:12px;color:var(--muted);margin-top:7px;}
 .kc.hot{border-color:var(--gold);background:var(--hot);}
 table{width:100%;border-collapse:collapse;font-size:13.5px;}
@@ -73,8 +73,8 @@ tr:hover td{background:var(--hover);}
 .b-feat{background:var(--feat-bg);color:var(--feat);border:1px solid var(--feat-line);}
 .chip{display:inline-block;font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--line);color:var(--muted);margin:0 6px 18px 0;cursor:pointer;}
 .chip.on{background:var(--gold);color:var(--on-gold);border-color:var(--gold);}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px;box-shadow:0 6px 20px rgba(36,30,15,.05);}
-h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:14px;}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px;box-shadow:0 6px 20px rgba(0,0,0,.05);}
+h3{font-family:'Sora',serif;font-size:22px;color:var(--gold);margin-bottom:14px;}
 .btn{background:var(--gold);color:var(--on-gold);border:none;border-radius:10px;padding:12px 22px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;}
 .btn:hover{background:var(--gold2);}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--cream);}
@@ -86,7 +86,7 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
 .split-row input{background:var(--panel);border:1px solid var(--line);color:var(--cream);border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit;}
 .money-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
 .mbox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;}
-.mbox .e{font-family:'Fraunces',serif;font-size:34px;color:var(--cream);}.mbox.g .e{color:var(--gold);}
+.mbox .e{font-family:'Sora',serif;font-size:34px;color:var(--cream);}.mbox.g .e{color:var(--gold);}
 .mbox .ml{font-size:12px;color:var(--muted);margin-top:5px;}
 .bar{height:8px;background:var(--track);border-radius:6px;overflow:hidden;margin-top:8px;}
 .bar > i{display:block;height:100%;background:var(--gold);}
@@ -104,7 +104,7 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
   .main{padding:20px 18px 90px;}
   .mobnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--line);z-index:60;overflow-x:auto;padding:7px 4px;gap:2px;-webkit-overflow-scrolling:touch}
   .mobnav a{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 11px;color:var(--muted);font-size:9.5px;font-weight:600;cursor:pointer;min-width:58px;text-align:center;border-radius:9px}
-  .mobnav a.active{color:#1a160c;background:var(--gold)}
+  .mobnav a.active{color:#F2EFE7;background:var(--gold)}
   .mobnav a .ic{font-size:18px;line-height:1}
 }
 </style>
@@ -113,7 +113,7 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
 <button class="themebtn" id="themebtn" title="Cambiar claro/oscuro" aria-label="Cambiar tema">🌙</button>
 <div class="app">
   <aside class="side">
-    <div class="brand"><span class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</span></div>
+    <div class="brand"><span class="sn-wm"><img src="SOLNOTA-emblema.png" alt="" style="height:1.15em;width:auto;vertical-align:-0.28em;margin-right:.16em">SOLNOTA</span></div>
     <div class="brandsub">Tu música · Tu dinero</div>
     <nav class="nav" id="nav">
       <a data-s="inicio" class="active"><span class="ic">⌂</span> Inicio</a>
@@ -193,11 +193,11 @@ h3{font-family:'Fraunces',serif;font-size:22px;color:var(--gold);margin-bottom:1
           <span style="display:flex;align-items:center;gap:7px;"><span style="font-size:11px;color:var(--muted);">Ver dinero:</span>
             <span style="display:flex;gap:2px;border:1px solid var(--line);border-radius:9px;padding:3px;">
               <button class="per" data-p="month" style="background:none;border:none;color:var(--muted);font-size:12px;font-weight:600;padding:6px 16px;border-radius:6px;cursor:pointer;font-family:inherit;">Mes</button>
-              <button class="per on" data-p="year" style="background:var(--gold);color:#1a160c;border:none;font-size:12px;font-weight:600;padding:6px 16px;border-radius:6px;cursor:pointer;font-family:inherit;">Año</button>
+              <button class="per on" data-p="year" style="background:var(--gold);color:#F2EFE7;border:none;font-size:12px;font-weight:600;padding:6px 16px;border-radius:6px;cursor:pointer;font-family:inherit;">Año</button>
             </span>
           </span>
         </div>
-        <input id="nS" type="text" inputmode="numeric" value="17,500,000" style="width:100%;text-align:right;background:var(--panel);border:1px solid var(--gold);color:var(--gold);border-radius:10px;padding:13px 16px;font-size:24px;font-weight:700;font-family:'Fraunces',serif;letter-spacing:1px;">
+        <input id="nS" type="text" inputmode="numeric" value="17,500,000" style="width:100%;text-align:right;background:var(--panel);border:1px solid var(--gold);color:var(--gold);border-radius:10px;padding:13px 16px;font-size:24px;font-weight:700;font-family:'Sora',serif;letter-spacing:1px;">
         <input class="slider" id="sS" type="range" min="100000" max="500000000" step="100000" value="17500000" style="margin-top:12px;">
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
           <button class="preset" data-v="1000000">1M</button>
@@ -438,7 +438,7 @@ function firstName(p){
 const CT_LABEL={cantante:'Cantante',productor:'Productor',poeta:'Poeta',compositor:'Compositor',audiolibro:'Audiolibro',otro:'Creador'};
 const KIND_LABEL={master:'Máster',production:'Producción',mechanical:'Mecánicas',performance:'Performance',publishing:'Publishing',sync:'Sync',neighboring:'Conexos',audiobook:'Audiolibro'};
 const SRC_LABEL={soundexchange:'SoundExchange',bmi:'BMI',ascap:'ASCAP',mlc:'The MLC',songtrust:'Songtrust',onerpm:'OneRPM',distrokid:'DistroKid',spotify:'Spotify',apple:'Apple Music',youtube:'YouTube',amazon:'Amazon Music',audible:'Audible / ACX',findaway:'Findaway',googlebooks:'Google Play Books'};
-const ST_LABEL={estimado:['Estimado','#8a8478'],pendiente:['Pendiente','#FFB02E'],en_camino:['En camino','#5aa9e0'],cobrado:['Cobrado','#13B981']};
+const ST_LABEL={estimado:['Estimado','#8a8478'],pendiente:['Pendiente','#D4AF37'],en_camino:['En camino','#5aa9e0'],cobrado:['Cobrado','#D4AF37']};
 function renderRoyalties(rows){
   rows=rows||[];
   const sum=f=>rows.filter(f).reduce((a,r)=>a+(+r.amount||0),0);
@@ -467,8 +467,8 @@ function renderRoyalties(rows){
   const g=tracks.filter(t=>t[4]==='grn').length, y=tracks.filter(t=>t[4]==='yel').length, rd=tracks.filter(t=>t[4]==='sin').length, tot=tracks.length||1;
   document.getElementById('rHealth').innerHTML=
     `<div style="display:flex;height:12px;border-radius:6px;overflow:hidden;margin:4px 0 14px;background:var(--track)">`+
-    `<i style="width:${g/tot*100}%;background:#13B981"></i><i style="width:${y/tot*100}%;background:#FFB02E"></i><i style="width:${rd/tot*100}%;background:#e0795a"></i></div>`+
-    `<div style="display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:8px"><span style="color:#13B981">✓ Registradas ${g}</span><span style="color:#FFB02E">◷ En proceso ${y}</span><span style="color:#e0795a">! Sin reclamar ${rd}</span></div>`;
+    `<i style="width:${g/tot*100}%;background:#D4AF37"></i><i style="width:${y/tot*100}%;background:#D4AF37"></i><i style="width:${rd/tot*100}%;background:#e0795a"></i></div>`+
+    `<div style="display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:8px"><span style="color:#D4AF37">✓ Registradas ${g}</span><span style="color:#D4AF37">◷ En proceso ${y}</span><span style="color:#e0795a">! Sin reclamar ${rd}</span></div>`;
   // valor estimado del catálogo (~5× el publishing anual estimado)
   const pubA=(totalAnnual*0.004*0.25)||0;
   document.getElementById('rValue').textContent=fmt(pubA*5);

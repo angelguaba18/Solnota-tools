@@ -4,34 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SOLNOTA · Entrar</title>
-<meta name="theme-color" content="#FCFAF5">
+<meta name="theme-color" content="#06080C">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-  :root{--gold:#E08A00;--gold2:#FFB02E;--gold3:#B96A00;--ink:#1A1611;--mut:#6E6657;
-        --bg:#FCFAF5;--bg2:#FAF6EC;--card:#FFFFFF;--line:#ECE6D8;--green:#0E9F6E;
-        --grad:linear-gradient(92deg,#FFB02E,#E08A00,#B96A00);--sh:0 18px 50px rgba(36,30,15,.10);}
+  :root{--red:#BC1D24;--vino:#4B0F1E;--auberg:#1A1712;--gold:#D4AF37;--gold2:#D4AF37;--gold3:#B8901F;--ink:#E7E4D7;--mut:#A39C8C;
+        --bg:#06080C;--bg2:#0A0C12;--card:#101019;--line:#23222C;--green:#B8901F;
+        --grad:linear-gradient(165deg,#F8E9C2,#EAD29B 24%,#DDB877 52%,#CA9F54 82%);--sh:0 18px 50px rgba(0,0,0,.10);}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Instrument Sans',system-ui,sans-serif;background:radial-gradient(1100px 500px at 50% -10%,var(--bg2),var(--bg));color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;line-height:1.55}
+  body{font-family:'Inter',system-ui,sans-serif;background:radial-gradient(1100px 500px at 50% -10%,var(--bg2),var(--bg));color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;line-height:1.55}
   .card{max-width:430px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh);padding:38px 32px 30px;text-align:center}
-  .sn-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:34px;letter-spacing:0;color:var(--ink);display:inline-flex;align-items:center;line-height:1;margin-bottom:6px}
-  .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto}
+  .sn-wm{font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:34px;letter-spacing:0;color:var(--ink);display:inline-flex;align-items:center;line-height:1;margin-bottom:6px}
+  .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#D4AF37,#D4AF37,#E8941C,#A85F00,#D4AF37,#D4AF37,#E8941C,#D4AF37,#D4AF37);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto}
   .sn-disc::before{content:"";position:absolute;inset:31%;border-radius:50%;background:var(--card)}
-  .sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:#1A1611}
+  .sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:#F2EFE7}
   .bt{font-size:9.5px;font-weight:600;letter-spacing:3px;color:var(--gold);display:block;margin-bottom:22px}
-  h2{font-family:'Fraunces',serif;font-weight:600;font-size:24px;margin-bottom:6px;letter-spacing:-.3px}
+  h2{font-family:'Sora',serif;font-weight:600;font-size:24px;margin-bottom:6px;letter-spacing:-.3px}
   p.sub{color:var(--mut);font-size:14.5px;margin-bottom:24px}
   form{display:flex;flex-direction:column;gap:12px}
-  input{padding:15px 16px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:16px;font-family:inherit;width:100%}
+  input{padding:15px 16px;border-radius:13px;border:1px solid var(--line);background:#15141A;color:var(--ink);font-size:16px;font-family:inherit;width:100%}
   input:focus{outline:none;border-color:var(--gold2);box-shadow:0 0 0 3px rgba(255,176,46,.18)}
   button{padding:15px 18px;border:none;border-radius:13px;background:var(--grad);color:#fff;font-weight:700;font-size:16px;cursor:pointer;transition:.16s;font-family:inherit}
   button:hover{transform:translateY(-1px)}
   button:disabled{opacity:.6;cursor:default;transform:none}
   .msg{margin-top:18px;font-size:14.5px;display:none;padding:13px 14px;border-radius:12px;line-height:1.5}
-  .msg.ok{display:block;background:#E7F6EF;color:var(--green);border:1px solid #BFE9D6}
+  .msg.ok{display:block;background:#1A1712;color:var(--green);border:1px solid #BFE9D6}
   .msg.err{display:block;background:#FDECEC;color:#C0392B;border:1px solid #F4C9C5}
   .msg.info{display:block;background:var(--bg2);color:var(--mut);border:1px solid var(--line)}
   .badges{margin-top:26px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:11.5px;color:var(--mut);letter-spacing:.3px}
@@ -44,8 +44,8 @@
 </head>
 <body>
 <div class="card">
-  <span class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</span>
-  <span class="bt">TU DINERO · A LA LUZ</span>
+  <span class="sn-wm"><img src="SOLNOTA-emblema.png" alt="" style="height:1.15em;width:auto;vertical-align:-0.28em;margin-right:.16em">SOLNOTA</span>
+  <span class="bt">Tu música. Tu valor. Recuperado.</span>
   <div id="view-login">
     <h2>Entra a tu dinero</h2>
     <p class="sub">Te enviamos un enlace mágico a tu correo. Sin contraseñas.</p>
@@ -64,7 +64,7 @@
     <h2>Entrando…</h2>
     <p class="sub">Un segundo, cargando tu cuenta.</p>
   </div>
-  <footer>SOLNOTA · SOL MUSIC CORP</footer>
+  <footer>SOLNOTA</footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

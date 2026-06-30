@@ -3,80 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FFFFFF">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#06080C">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <title>SOLNOTA · El Doctor</title>
 <meta name="description" content="El Doctor de SOLNOTA: sube el catálogo de tus PROs (BMI, ASCAP) y del MLC, y detecta automáticamente errores de % (overclaim 120%), black box, duplicados y conflictos entre fuentes. Te dice cuánto pierdes y cómo arreglarlo.">
-<link rel="canonical" href="https://tools.solnota.com/doctor">
+<link rel="canonical" href="https://solnota.com/doctor">
 <meta property="og:title" content="SOLNOTA · El Doctor — auditoría automática de tu catálogo">
 <meta property="og:description" content="Sube tu catálogo (BMI + MLC) y El Doctor encuentra el dinero que pierdes: errores de %, black box, duplicados y conflictos entre fuentes. En español, 0% comisión.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://tools.solnota.com/doctor">
+<meta property="og:url" content="https://solnota.com/doctor">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--gold:#FFB02E;--bg:#FCFAF5;--card:#FBF8F0;--line:#ECE6D8;--txt:#1A1611;--mut:#6E6657;--ok:#3DDC7F;--bad:#FF5E5E;--warn:#FF8A1E;--blue:#5B8DEF;
-    --grad:linear-gradient(90deg,#FFC65C,#FFB02E,#E08A00,#B96A00);}
+  :root{--red:#BC1D24;--vino:#4B0F1E;--auberg:#1A1712;--gold:#D4AF37;--bg:#06080C;--card:#101019;--line:#23222C;--txt:#F2EFE7;--mut:#A39C8C;--ok:#E7E4D7;--bad:#FF5E5E;--warn:#B8901F;--blue:#C99C50;
+    --grad:linear-gradient(90deg,#D4AF37,#D4AF37,#D4AF37,#B8901F);}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--txt);font-family:'Instrument Sans',sans-serif;padding:28px 20px;min-height:100vh}
+  body{background:radial-gradient(1200px 800px at 50% -8%,#0B0D13,#06080C 55%);color:var(--txt);font-family:'Inter',sans-serif;padding:28px 20px;min-height:100vh}
   .wrap{max-width:1100px;margin:0 auto}
   .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-  h1{font-family:'Space Grotesk',sans-serif;font-weight:400;font-size:38px;letter-spacing:2px;
+  h1{font-family:'Sora',sans-serif;font-weight:400;font-size:38px;letter-spacing:2px;
      background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .tag{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;color:var(--mut)}
+  .tag{font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;color:var(--mut)}
   h2{font-size:20px;margin:26px 0 8px;display:flex;align-items:center;gap:8px}
   .lead{color:var(--mut);font-size:15px;margin:14px 0 4px;max-width:700px;line-height:1.5}
   .intro{display:flex;align-items:center;gap:14px;margin:18px 0 6px}
   .pill{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--mut);padding:5px 11px;border-radius:999px;font-size:12px;font-weight:700}
   .drop{border:2px dashed var(--line);border-radius:16px;padding:30px 22px;text-align:center;background:var(--card);margin:16px 0;transition:border-color .18s,background .18s}
-  .drop.hover{border-color:var(--gold);background:#fff}
+  .drop.hover{border-color:var(--gold);background:#15141A}
   .drop .big{font-size:40px;line-height:1}
   .drop p{color:var(--mut);font-size:14px;margin:8px 0}
   .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;align-items:center}
   input[type=text],input[type=number]{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:12px 14px;border-radius:12px;font-size:15px;font-family:inherit;outline:none}
   input:focus{border-color:var(--gold)}
   label.fld{font-size:12px;color:var(--mut);font-weight:700;display:flex;flex-direction:column;gap:5px}
-  button{background:var(--grad);color:#100800;border:none;padding:13px 20px;border-radius:12px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;white-space:nowrap}
+  button{background:var(--grad);color:#F2EFE7;border:none;padding:13px 20px;border-radius:12px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;white-space:nowrap}
   button.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
   button:active{transform:translateY(1px)}
   textarea{width:100%;min-height:120px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:monospace;font-size:12px;padding:12px;outline:none;display:none}
   .srcbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-  .srcbar .src{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;display:flex;gap:8px;align-items:center}
+  .srcbar .src{background:#15141A;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;display:flex;gap:8px;align-items:center}
   .srcbar .src .x{color:var(--bad);cursor:pointer;font-weight:900}
   .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0}
   .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
-  .c .n{font-family:'Instrument Sans',sans-serif;font-weight:900;font-size:28px}
+  .c .n{font-family:'Inter',sans-serif;font-weight:900;font-size:28px}
   .c .l{color:var(--mut);font-size:11px;letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
   .c.gold .n{color:var(--gold)} .c.bad .n{color:var(--bad)} .c.warn .n{color:var(--warn)} .c.ok .n{color:var(--ok)}
   .finding{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--mut);border-radius:12px;padding:14px 16px;margin:10px 0}
-  .finding.red{border-left-color:var(--bad)} .finding.orange{border-left-color:var(--warn)} .finding.blue{border-left-color:var(--blue)} .finding.green{border-left-color:var(--ok)} .finding.star{border-left-color:var(--gold);background:#fff}
+  .finding.red{border-left-color:var(--bad)} .finding.orange{border-left-color:var(--warn)} .finding.blue{border-left-color:var(--blue)} .finding.green{border-left-color:var(--ok)} .finding.star{border-left-color:var(--gold);background:#15141A}
   .finding h3{font-size:15px;margin-bottom:6px}
   .finding p{color:var(--mut);font-size:13px;line-height:1.5;margin:3px 0}
-  .finding .fix{color:var(--txt);font-size:13px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:8px}
+  .finding .fix{color:var(--txt);font-size:13px;background:#15141A;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:8px}
   table{width:100%;border-collapse:collapse;margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
   th,td{text-align:left;padding:10px 12px;font-size:13px;border-bottom:1px solid var(--line);vertical-align:top}
   th{font-weight:800;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--mut)}
   tr:last-child td{border-bottom:none}
   .mono{font-family:monospace;font-size:12px;color:var(--mut)}
   .chip{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;margin:2px 3px 2px 0;white-space:nowrap}
-  .chip.red{background:rgba(255,94,94,.14);color:#C0392B} .chip.orange{background:rgba(255,138,30,.16);color:#A85F00}
-  .chip.blue{background:rgba(91,141,239,.16);color:#2C5BB8} .chip.green{background:rgba(61,220,127,.18);color:#1E7F4B}
-  .chip.gray{background:rgba(110,102,87,.14);color:#6E6657} .chip.gold{background:rgba(255,176,46,.2);color:#A85F00}
+  .chip.red{background:rgba(255,94,94,.14);color:#C0392B} .chip.orange{background:rgba(255,138,30,.16);color:#D4AF37}
+  .chip.blue{background:rgba(91,141,239,.16);color:#2C5BB8} .chip.green{background:rgba(61,220,127,.18);color:#B8901F}
+  .chip.gray{background:rgba(110,102,87,.14);color:#A39C8C} .chip.gold{background:rgba(255,176,46,.2);color:#D4AF37}
   .row-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
   .note{color:var(--mut);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px;line-height:1.5}
   .hidden{display:none}
   a.lk{color:var(--gold);text-decoration:none;font-weight:700}
   .foot{margin-top:26px}
   @media(max-width:680px){.cards{grid-template-columns:repeat(2,1fr)}.hide-m{display:none}h1{font-size:30px}}
-  .sn-wm{font-family:'Fraunces',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#1A1611!important;color:#1A1611!important;display:inline-flex;align-items:center;line-height:1}
-  .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#FFEBC4,#FFD27A,#E8941C,#A85F00,#FFCf6b,#FFEBC4,#E8941C,#FFD27A,#FFEBC4);box-shadow:inset 0 0 0 1.4px #A85F00}
-  .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#FCFAF5}
-  .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#1A1611}
+  .sn-wm{font-family:'Cinzel',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#D4AF37!important;color:#D4AF37!important;display:inline-flex;align-items:center;line-height:1}
+  .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#D4AF37,#D4AF37,#E8941C,#A85F00,#D4AF37,#D4AF37,#E8941C,#D4AF37,#D4AF37);box-shadow:inset 0 0 0 1.4px #A85F00}
+  .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#06080C}
+  .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#F2EFE7}
   body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   .howto{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin:0 0 10px;}
   .howto summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--txt);padding:12px 0;list-style:none;}
@@ -84,20 +84,20 @@
   .howto summary::before{content:"›";color:var(--gold);font-weight:900;margin-right:8px;display:inline-block;transition:transform .2s}
   .howto[open] summary::before{transform:rotate(90deg)}
   .howto-body{padding:4px 0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .pro{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .pro{background:#15141A;border:1px solid var(--line);border-radius:12px;padding:14px}
   .pro h4{font-size:14px;margin-bottom:8px;color:var(--gold)}
   .pro ol{margin:0 0 10px 16px;padding:0}
   .pro li{font-size:12.5px;color:var(--mut);line-height:1.5;margin-bottom:4px}
-  .pro a{display:inline-block;font-size:12px;font-weight:800;color:#100800;background:var(--grad);padding:7px 12px;border-radius:9px;text-decoration:none}
+  .pro a{display:inline-block;font-size:12px;font-weight:800;color:#F2EFE7;background:var(--grad);padding:7px 12px;border-radius:9px;text-decoration:none}
   @media(max-width:680px){.howto-body{grid-template-columns:1fr}}
   @media print{.noprint{display:none!important}body{padding:0}.finding,.c,table{box-shadow:none}}
   /* Modo oscuro: El Doctor usa --txt (que el tema no voltea) + algunos fondos #fff. Se corrigen aquí. */
   html.dark{--txt:#EDE6D6}
   html.dark .sn-wm{color:#EDE6D6!important;-webkit-text-fill-color:#EDE6D6!important}
-  html.dark .sn-disc::after{background:#0D0D0F}
-  html.dark button.ghost{color:#EDE6D6;border-color:#2a2620;background:#15140f}
+  html.dark .sn-disc::after{background:#06080C}
+  html.dark button.ghost{color:#EDE6D6;border-color:#F2EFE7;background:#15140f}
   html.dark button.ghost[disabled]{opacity:.5}
-  html.dark .finding .fix{background:#1b1913;color:#EDE6D6;border-color:#2a2620}
+  html.dark .finding .fix{background:#1b1913;color:#EDE6D6;border-color:#F2EFE7}
   html.dark .pro,html.dark .finding.star,html.dark .drop.hover{background:#1b1913}
   html.dark .howto summary{color:#EDE6D6}
 </style>
@@ -106,7 +106,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="/" title="Inicio" style="text-decoration:none"><h1 class="sn-wm">S<span class="sn-disc" aria-hidden="true"></span>LNOTA</h1></a><span class="tag brand-tag">TU DINERO · A LA LUZ</span></div>
+  <div class="brand"><a href="/" title="Inicio" style="text-decoration:none"><h1 class="sn-wm"><img src="SOLNOTA-emblema.png" alt="" style="height:1.15em;width:auto;vertical-align:-0.28em;margin-right:.16em">SOLNOTA</h1></a><span class="tag brand-tag">Tu música. Tu valor. Recuperado.</span></div>
 
   <div class="intro noprint"><h2>🩺 El Doctor</h2></div>
   <p class="lead noprint">Sube el catálogo de tus fuentes (BMI, ASCAP, MLC) y El Doctor lo revisa solo: encuentra errores de %, dinero en black box, duplicados, y cruza las fuentes para cazar cuando una canción tiene % distintos. Tu música no se toca. 0% comisión.</p>
@@ -209,8 +209,8 @@
   function renderList(){
     var L=el('blindarList'); if(!L) return;
     L.innerHTML = CHECKS.map(function(c){
-      return '<label class="finding" style="display:flex;gap:12px;align-items:flex-start;cursor:pointer;border-left-color:#6E6657">'+
-        '<input type="checkbox" data-bid="'+c.id+'" style="width:20px;height:20px;margin-top:2px;accent-color:#3DDC7F;flex:0 0 auto">'+
+      return '<label class="finding" style="display:flex;gap:12px;align-items:flex-start;cursor:pointer;border-left-color:#A39C8C">'+
+        '<input type="checkbox" data-bid="'+c.id+'" style="width:20px;height:20px;margin-top:2px;accent-color:#E7E4D7;flex:0 0 auto">'+
         '<span><h3 style="margin-bottom:4px">'+c.t+'</h3><p>'+c.d+'</p></span></label>';
     }).join('');
     L.querySelectorAll('input[data-bid]').forEach(function(cb){
@@ -270,7 +270,7 @@
       var chip = ok ? '<span class="chip green">🛡️ Blindada</span>' : '<span class="chip red">⚠️ En riesgo · '+done+'/'+CHECKS.length+'</span>';
       var items = CHECKS.map(function(c){
         return '<label style="display:flex;gap:10px;align-items:flex-start;padding:7px 0;cursor:pointer;border-top:1px solid var(--line)">'+
-          '<input type="checkbox" '+(r.checks[c.id]?'checked':'')+' onchange="vigToggle(\''+r.id+'\',\''+c.id+'\')" style="width:18px;height:18px;margin-top:2px;accent-color:#3DDC7F;flex:0 0 auto">'+
+          '<input type="checkbox" '+(r.checks[c.id]?'checked':'')+' onchange="vigToggle(\''+r.id+'\',\''+c.id+'\')" style="width:18px;height:18px;margin-top:2px;accent-color:#E7E4D7;flex:0 0 auto">'+
           '<span style="font-size:13px"><b>'+c.t+'</b>'+(r.checks[c.id]?'':'<br><span style="color:var(--mut);font-size:12.5px">🔧 '+c.fix+'</span>')+'</span></label>';
       }).join('');
       return '<details class="finding '+(ok?'green':'red')+'" style="margin:10px 0">'+
@@ -587,7 +587,7 @@ function buildEmails(WORKS){
     if(d.dup.length){ body+='\nA) Merge duplicate works (same composition registered twice):\n'; d.dup.forEach(g=>{ body+=(++s)+'. '+g.map(w=>'"'+w.title+'" (#'+w.num+')').join(' = ')+' — please merge into one work, keep the streaming title, and remove the duplicate.\n'; }); }
     if(d.share.length){ body+='\nB) Correct writer shares (each work must total 100%):\n'; d.share.forEach(x=>{ body+=(++s)+'. "'+x.title+'" (#'+x.num+') currently totals '+x.total+'%'+(x.over?' and my writer share is incorrectly listed as '+x.cur+'% (over 100% is impossible)':'')+'. Please correct the writer shares per the attached signed split sheet so the work totals 100%.\n'; }); }
     if(d.ipi.length){ body+='\nC) Fix my IPI/CAE:\n'; d.ipi.forEach(w=>{ body+=(++s)+'. "'+w.title+'" (#'+w.num+') — my correct IPI/CAE is '+ipi+'; please update.\n'; }); }
-    body+='\nPlease let me know if you need anything else.\n\nThank you,\n'+TARGET+'\nSent via SOLNOTA · tools.solnota.com';
+    body+='\nPlease let me know if you need anything else.\n\nThank you,\n'+TARGET+'\nSent via SOLNOTA · solnota.com';
     emails.push({src,to:RECIPIENTS[src]||'',subject:'Work Update Request — correct writer shares & merge duplicates — '+TARGET+(ipi?' (IPI '+ipi+')':''),body});
   });
   return emails;
@@ -602,15 +602,15 @@ function emailsSection(WORKS){
     let btns;
     if(e.to){
       const mt='mailto:'+e.to+'?subject='+encodeURIComponent(e.subject)+'&body='+encodeURIComponent(e.body);
-      btns='<a class="ctabtn" style="display:inline-block;background:var(--grad);color:#100800;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="'+mt+'">📧 Abrir y enviar</a> <button class="ghost" onclick="copyEmail('+i+')">📋 Copiar correo</button>';
+      btns='<a class="ctabtn" style="display:inline-block;background:var(--grad);color:#F2EFE7;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="'+mt+'">📧 Abrir y enviar</a> <button class="ghost" onclick="copyEmail('+i+')">📋 Copiar correo</button>';
     } else {
       // ASCAP no tiene correo público de correcciones: se edita en el portal del miembro
-      btns='<a class="ctabtn" style="display:inline-block;background:var(--grad);color:#100800;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="https://www.ascap.com/repertory" target="_blank" rel="noopener">Abrir cuenta ASCAP →</a> <button class="ghost" onclick="copyEmail('+i+')">📋 Copiar lista</button>';
+      btns='<a class="ctabtn" style="display:inline-block;background:var(--grad);color:#F2EFE7;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="https://www.ascap.com/repertory" target="_blank" rel="noopener">Abrir cuenta ASCAP →</a> <button class="ghost" onclick="copyEmail('+i+')">📋 Copiar lista</button>';
     }
     const note = e.to ? '' : '<p style="color:var(--mut);font-size:12px;margin-top:4px">ASCAP no tiene correo público de correcciones: entra a tu cuenta ASCAP (Catálogo / Title Registrations) y aplica estos cambios, o contáctalos por su portal de miembros.</p>';
     h+='<div class="finding star"><h3>'+head+'</h3>'
       +(e.to?'<p style="color:var(--txt)"><b>Asunto:</b> '+esc(e.subject)+'</p>':'')
-      +'<pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;overflow-x:auto">'+esc(e.body)+'</pre>'
+      +'<pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;color:var(--mut);background:#15141A;border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;overflow-x:auto">'+esc(e.body)+'</pre>'
       + note
       +'<div class="controls noprint">'+btns+'</div></div>';
   });
@@ -633,7 +633,7 @@ function portalSection(F){
     +'<div class="fix">🔧 Tus obras con el publishing sin reclamar (reclámalas aquí):<br>'
     + bb.map(w=>'• <b>'+esc(w.title)+'</b> — tú al '+w.myShare+'%'+(w.iswc&&/\w/.test(w.iswc)?' · ISWC '+esc(w.iswc):'')).join('<br>')
     +'</div>'
-    +'<div class="controls noprint" style="margin-top:8px"><a class="ctabtn" style="display:inline-block;background:var(--grad);color:#100800;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="https://portal.themlc.com" target="_blank" rel="noopener">Abrir portal del MLC →</a></div></div>';
+    +'<div class="controls noprint" style="margin-top:8px"><a class="ctabtn" style="display:inline-block;background:var(--grad);color:#F2EFE7;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px" href="https://portal.themlc.com" target="_blank" rel="noopener">Abrir portal del MLC →</a></div></div>';
   return h;
 }
 
