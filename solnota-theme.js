@@ -1,51 +1,52 @@
-/* SOLNOTA — tema compartido (claro por defecto + botón 🌙/☀️).
- * Úsalo en cualquier página pública con UNA línea en el <head>:
- *   <script src="/solnota-theme.js"></script>
- * Recuerda la elección en localStorage 'sn-theme' (igual que la app y el dashboard). */
+/* SOLNOTA — tema compartido. OSCURO por defecto (marca premium) + modo CLARO real con el botón ☀️/🌙.
+ * Una línea en el <head>:  <script src="/solnota-theme.js?v=5"></script>
+ * Recuerda la elección en localStorage 'sn-theme' ('light' = claro; cualquier otro = oscuro). */
 (function () {
-  // 1) aplicar el tema guardado ANTES de pintar (evita parpadeo)
-  try { if (localStorage.getItem('sn-theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
+  // 1) aplicar el modo guardado ANTES de pintar (evita parpadeo). OSCURO es el default.
+  try { if (localStorage.getItem('sn-theme') === 'light') document.documentElement.classList.add('light'); } catch (e) {}
 
-  // 2) overrides de modo oscuro — cubre los nombres de variables usados en el sitio
+  // 2) MODO CLARO — paleta marfil cálido + overrides de las superficies oscuras hardcodeadas
   var css =
-    "html.dark{--bg:#06080C;--bg2:#0A0C12;--bg3:#0E1016;--card:#101019;--panel:#101019;--panel2:#0E1016;" +
-    "--ink:#E7E4D7;--cream:#E7E4D7;--txt:#E7E4D7;--mut:#A39C8C;--muted:#A39C8C;--line:#23222C;" +
-    "--gold:#D4AF37;--gold2:#E9C66B;--green:#D4AF37;--green2:#D4AF37;--greenbg:#1A1712;--goldbg:#1A1712;--purplebg:#1A1210;" +
-    "--sh:0 18px 50px rgba(0,0,0,.5);--sh2:0 8px 26px rgba(0,0,0,.45)}" +
-    "html.dark body{background:var(--bg);color:var(--ink,var(--cream))}" +
-    "html.dark header{background:rgba(6,8,12,.82)!important}" +
-    // por defecto flotante (páginas sin barra de idiomas)
+    "html.light{--bg:#F4EFE4;--bg2:#FAF7F0;--bg3:#ECE4D5;--card:#FFFFFF;--panel:#FFFFFF;--panel2:#F4EFE4;" +
+    "--ink:#1A1611;--cream:#1A1611;--txt:#1A1611;--mut:#6E6657;--muted:#6E6657;--line:#E4DCCB;" +
+    "--gold:#A8801F;--gold2:#D4AF37;--gold3:#8A6712;--green:#A8801F;--green2:#A8801F;--greenbg:#F3ECD9;--goldbg:#F3ECD9;--purplebg:#F3ECD9;" +
+    "--grad:linear-gradient(165deg,#E6C977,#CCA451 55%,#A8763C);--gradg:linear-gradient(165deg,#D4AF37,#A8763C);" +
+    "--sh:0 18px 50px rgba(120,90,30,.12);--sh2:0 8px 26px rgba(120,90,30,.08)}" +
+    "html.light body{background:radial-gradient(1200px 800px at 50% -8%,#FBF8F1,#F4EFE4 55%)!important;color:#1A1611}" +
+    "html.light header{background:rgba(247,243,235,.86)!important;border-bottom:1px solid #E4DCCB!important}" +
+    "html.light .hero{background:radial-gradient(900px 540px at 84% -14%,rgba(212,175,55,.16),transparent 56%),#F4EFE4!important}" +
+    "html.light .cf{background:#ECE4D5!important}" +
+    "html.light .final{background:radial-gradient(680px 420px at 50% 122%,rgba(188,29,36,.08),transparent 60%),#FAF7F0!important}" +
+    "html.light .h-eyebrow{background:rgba(168,128,31,.1)!important;border-color:rgba(168,128,31,.32)!important;color:#8A6712!important}" +
+    "html.light .sn-wm{color:#A8801F!important;-webkit-text-fill-color:#A8801F!important}" +
+    "html.light .hero-sub,html.light .mut,html.light .lead{color:#6E6657}" +
+    "html.light input,html.light textarea,html.light select{color:#1A1611!important;border-color:#E4DCCB!important;background:#fff!important}" +
+    "html.light ::placeholder{color:#9b927f}" +
+    "html.light button.ghost,html.light .ghost{color:#1A1611;border-color:#E4DCCB}" +
+    // botón de tema — flotante por defecto (páginas sin barra de idiomas)
     ".sn-themebtn{position:fixed;top:14px;right:14px;z-index:9998;width:40px;height:40px;border-radius:50%;" +
-    "border:1px solid var(--line,#e5e5e5);background:var(--card,#fff);color:#D4AF37;font-size:17px;" +
+    "border:1px solid var(--line,#e5e5e5);background:var(--card,#fff);font-size:17px;cursor:pointer;" +
+    "box-shadow:0 6px 18px rgba(36,30,15,.16);display:flex;align-items:center;justify-content:center}" +
     ".sn-themebtn svg{display:block}" +
-    "cursor:pointer;box-shadow:0 6px 18px rgba(36,30,15,.16);display:flex;align-items:center;justify-content:center}" +
     ".sn-themebtn:hover{transform:translateY(-1px)}" +
-    // dentro de la barra de idiomas: primer botón, mismo estilo
-    ".sn-lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;" +
-    "box-shadow:none;padding:6px 8px;font-size:15px;border-radius:999px;line-height:1;color:#D4AF37}" +
-    ".lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;background:none;" +
-    "box-shadow:none;padding:6px 10px;font-size:15px;border-radius:8px;line-height:1;color:#D4AF37}" +
-    // arreglos universales de modo oscuro (logo, botones ghost, inputs) — para TODO Solnota
-    "html.dark .sn-wm{color:#E7E4D7!important;-webkit-text-fill-color:#E7E4D7!important}" +
-    "html.dark .sn-disc::after{background:#06080C}" +
-    "html.dark button.ghost,html.dark .ghost{color:#EDE6D6;border-color:var(--line)}" +
-    "html.dark input,html.dark textarea,html.dark select{color:#EDE6D6;border-color:var(--line)}" +
-    "html.dark select{background:#101019}" +
-    "html.dark ::placeholder{color:#9b927f}";
+    // dentro de la barra de idiomas: primer botón, sin recuadro
+    ".sn-lang .sn-themebtn,.lang .sn-themebtn{position:static;width:auto;height:auto;min-width:0;border:none;" +
+    "background:none;box-shadow:none;padding:6px 9px;border-radius:999px;line-height:1}";
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   // 3) botón de tema — al inicio de la barra de idiomas (o flotante si no hay)
+  var SUN = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#D4AF37" stroke="none"/><line x1="12" y1="2" x2="12" y2="4.3"/><line x1="12" y1="19.7" x2="12" y2="22"/><line x1="2" y1="12" x2="4.3" y2="12"/><line x1="19.7" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.6" y2="6.6"/><line x1="17.4" y1="17.4" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.6" y2="17.4"/><line x1="17.4" y1="6.6" x2="19.1" y2="4.9"/></svg>';
+  var MOON = '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" fill="#E7E4D7"/></svg>';
   var btn = null;
   function makeBtn() {
     var b = document.createElement('button');
     b.className = 'sn-themebtn'; b.setAttribute('aria-label', 'Cambiar claro/oscuro'); b.title = 'Cambiar claro/oscuro';
-    var SUN = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#D4AF37" stroke="none"/><line x1="12" y1="2" x2="12" y2="4.3"/><line x1="12" y1="19.7" x2="12" y2="22"/><line x1="2" y1="12" x2="4.3" y2="12"/><line x1="19.7" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.6" y2="6.6"/><line x1="17.4" y1="17.4" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.6" y2="17.4"/><line x1="17.4" y1="6.6" x2="19.1" y2="4.9"/></svg>';
-    var MOON = '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" fill="#E7E4D7"/></svg>';
-    function sync() { b.innerHTML = document.documentElement.classList.contains('dark') ? SUN : MOON; }
+    // el ícono muestra el modo ACTUAL (así siempre se ve): CLARO→sol dorado, OSCURO→luna platino
+    function sync() { b.innerHTML = document.documentElement.classList.contains('light') ? SUN : MOON; }
     sync();
     b.addEventListener('click', function () {
-      document.documentElement.classList.toggle('dark');
-      try { localStorage.setItem('sn-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+      document.documentElement.classList.toggle('light');
+      try { localStorage.setItem('sn-theme', document.documentElement.classList.contains('light') ? 'light' : 'dark'); } catch (e) {}
       sync();
     });
     return b;

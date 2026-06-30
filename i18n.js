@@ -639,11 +639,14 @@
     var css = document.createElement("style");
     css.textContent =
       ".sn-lang{position:fixed;top:14px;right:14px;z-index:9999;display:flex;gap:2px;" +
-      "background:#0E0E16;border:1px solid #1E1E2A;border-radius:999px;padding:4px;" +
+      "background:#101019;border:1px solid #23222C;border-radius:999px;padding:4px;" +
       "font-family:system-ui,-apple-system,sans-serif}" +
-      ".sn-lang button{background:none;border:none;color:#8A8A9A;font-weight:800;font-size:12px;" +
+      ".sn-lang button{background:none;border:none;color:#A39C8C;font-weight:800;font-size:12px;" +
       "letter-spacing:.4px;padding:6px 10px;border-radius:999px;cursor:pointer;transition:.15s}" +
-      ".sn-lang button.active{background:linear-gradient(90deg,#FFC65C,#FFB02E,#E08A00,#B96A00);color:#05050A}";
+      ".sn-lang button.active{background:linear-gradient(90deg,#E9C66B,#D4AF37,#B8901F);color:#1a1206}" +
+      "html.light .sn-lang{background:#FFFFFF;border-color:#E4DCCB}" +
+      "html.light .sn-lang button{color:#6E6657}" +
+      "html.light .sn-lang button.active{background:linear-gradient(90deg,#E6C977,#CCA451,#A8763C);color:#fff}";
     document.head.appendChild(css);
     var bar = document.createElement("div");
     bar.className = "sn-lang";
