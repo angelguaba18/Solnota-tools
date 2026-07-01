@@ -10,13 +10,14 @@
 <style>
 :root{--red:#BC1D24;--vino:#4B0F1E;--auberg:#1A1712;--gold:#D4AF37;--gold2:#D4AF37;--bg:#06080C;--panel:#101019;--cream:#F2EFE7;--muted:#A39C8C;--line:#23222C;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:88px 28px 28px;}
 .lang{position:fixed;top:20px;right:22px;display:flex;gap:2px;border:1px solid #23222C;border-radius:11px;padding:3px;}
 .lang button{padding:6px 13px;border:none;background:transparent;color:var(--muted);font-weight:500;font-size:13px;border-radius:8px;cursor:pointer;letter-spacing:1px;}
 .lang button.active{background:var(--gold);color:#F2EFE7;}
 .card{max-width:560px;width:100%;text-align:center;}
 h1{font-family:'Sora',sans-serif;font-size:clamp(44px,11vw,70px);letter-spacing:8px;padding-left:8px;background:linear-gradient(90deg,#D4AF37,#D4AF37,#B8901F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.tag{color:var(--gold);font-size:12px;letter-spacing:5px;margin-top:6px;text-transform:uppercase;}
+.tag{color:var(--mut);font-size:12.5px;letter-spacing:1.5px;margin-top:6px;font-weight:600}
+.tag b{color:var(--red);font-weight:700}
 .lead{font-size:19px;color:#F2EFE7;margin:28px 0 6px;line-height:1.5;}
 .sub{font-size:14px;color:var(--muted);margin-bottom:26px;}
 form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
@@ -25,7 +26,7 @@ input:focus{outline:none;border-color:var(--gold);}
 button.cta{padding:16px 28px;border:none;border-radius:12px;background:var(--gold);color:#F2EFE7;font-weight:600;font-size:16px;cursor:pointer;transition:transform .15s,background .15s;letter-spacing:.5px;}
 button.cta:hover{transform:translateY(-2px);background:var(--gold2);}
 button.cta:disabled{opacity:.5;cursor:wait;transform:none;}
-.result{display:none;margin-top:30px;background:var(--panel);border:1px solid var(--gold);border-radius:18px;padding:30px;text-align:left;}
+.result{display:none;margin-top:30px;background:var(--panel);border:1px solid var(--gold);border-radius:18px;padding:30px;text-align:left;box-shadow:0 18px 50px rgba(0,0,0,.10),0 6px 18px rgba(0,0,0,.07);}
 .result .num{font-family:'Sora',sans-serif;font-size:64px;color:var(--cream);line-height:1;}
 .result .lbl{font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:18px;}
 .result .big{font-family:'Sora',sans-serif;font-size:30px;color:var(--gold);line-height:1.25;margin-bottom:6px;}
@@ -97,10 +98,20 @@ html.dark .mm-row{border-bottom-color:#F2EFE7}
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://solnota.com/share-card.png">
-<script src="/solnota-theme.js?v=4"></script>
+<script src="/solnota-theme.js?v=5"></script>
 </head>
 <body>
-<div class="lang">
+<header style="position:fixed;top:0;left:0;right:0;z-index:900;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(11,12,16,.82);border-bottom:1px solid var(--line)">
+  <div style="max-width:1140px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:60px;flex-wrap:wrap;gap:6px 0">
+    <a href="/" style="display:flex;align-items:center;text-decoration:none"><img src="SOLNOTA-logo-header.png" alt="SOLNOTA — Tu música. Tu valor. Recuperado." style="height:46px;width:auto"></a>
+    <nav style="display:flex;gap:18px;align-items:center;font-size:13px;font-weight:600;color:var(--mut);font-family:'Inter',sans-serif">
+      <a href="/empezar.html" style="color:inherit;text-decoration:none">Cómo funciona</a>
+      <a href="/precios.html" style="color:inherit;text-decoration:none">Precios</a>
+      <a href="/aprende.html" style="color:inherit;text-decoration:none">Aprende</a>
+    </nav>
+  </div>
+</header>
+<div class="lang" style="top:72px">
   <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
   <button id="btn-en" onclick="setLang('en')">EN</button>
   <button id="btn-pt" onclick="setLang('pt')">PT</button>
@@ -154,7 +165,7 @@ html.dark .mm-row{border-bottom-color:#F2EFE7}
 const ENDPOINT="https://bdjjalwlcuhfzjeqxtwi.supabase.co/functions/v1/scan";
 const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkamphbHdsY3VoZnpqZXF4dHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDAxNTUsImV4cCI6MjA5NjE3NjE1NX0.wsUI9V0oHwtMXrC2Q0JXrQZj3SXC6Ie4ukX0pLvsj6M";
 const T={
- es:{tag:"Tu música. Tu valor. Recuperado.",
+ es:{tag:"Tu música. Tu valor. <b>Recuperado.</b>",
      lead:"Tu música lleva años generando dinero.<br>Descubre cuánto NO te está llegando.",
      sub:"Escribe tu nombre de artista. Escaneamos tu catálogo en segundos.",
      ph:"Tu nombre de artista", scan:"Escanear", scanning:"Escaneando…",
@@ -173,7 +184,7 @@ const T={
      phRoleP:"🎛️ Hice el beat",
      phPathW:`<div class="ph-money">Tu dinero SÍ está bajo <b>tu nombre</b> — en <b>publishing</b> (MLC + tu PRO), por todo lo que escribiste, incluso para otros artistas.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Escanea tu nombre aquí arriba</button><a class="phbtn" href="/doctor">📄 Súbelo a El Doctor — encuentra lo botado</a>`,
      phPathP:`<div class="ph-money">Tienes dinero en <b>2 lados</b>:</div><div class="ph-li"><b>1 · Lo que co-escribiste</b> → publishing bajo tu nombre (casi todos los productores hoy co-escriben).</div><div class="ph-li"><b>2 · El máster</b> (tus puntos) → SoundExchange (EE.UU.) + <b>derechos conexos internacionales</b> (PPL…) — lo que casi nadie reclama.</div><a class="phbtn" href="/doctor">📄 El Doctor — tu publishing</a><a class="phbtn" href="/lod">📃 Arma tu LOD — el máster</a>`},
- en:{tag:"Tu música. Tu valor. Recuperado.",
+ en:{tag:"Tu música. Tu valor. <b>Recuperado.</b>",
      lead:"Your music has been making money for years.<br>Find out how much isn't reaching you.",
      sub:"Type your artist name. We scan your catalog in seconds.",
      ph:"Your artist name", scan:"Scan", scanning:"Scanning…",
@@ -192,7 +203,7 @@ const T={
      phRoleP:"🎛️ I made the beat",
      phPathW:`<div class="ph-money">Your money IS under <b>your name</b> — in <b>publishing</b> (MLC + your PRO), for everything you wrote, even for other artists.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Scan your name above</button><a class="phbtn" href="/doctor">📄 Upload it to El Doctor — find what's lost</a>`,
      phPathP:`<div class="ph-money">You have money in <b>2 places</b>:</div><div class="ph-li"><b>1 · What you co-wrote</b> → publishing under your name (most producers today co-write).</div><div class="ph-li"><b>2 · The master</b> (your points) → SoundExchange (US) + <b>international neighbouring rights</b> (PPL…) — what almost no one claims.</div><a class="phbtn" href="/doctor">📄 El Doctor — your publishing</a><a class="phbtn" href="/lod">📃 Build your LOD — the master</a>`},
- pt:{tag:"Tu música. Tu valor. Recuperado.",
+ pt:{tag:"Tu música. Tu valor. <b>Recuperado.</b>",
      lead:"Tua música gera dinheiro há anos.<br>Descobre quanto NÃO está chegando até ti.",
      sub:"Escreve teu nome de artista. Escaneamos teu catálogo em segundos.",
      ph:"Teu nome de artista", scan:"Escanear", scanning:"Escaneando…",
@@ -211,7 +222,7 @@ const T={
      phRoleP:"🎛️ Fiz o beat",
      phPathW:`<div class="ph-money">O teu dinheiro ESTÁ sob <b>o teu nome</b> — em <b>publishing</b> (MLC + a tua PRO), por tudo o que escreveste, mesmo para outros artistas.</div><button type="button" class="phbtn" onclick="focusArtist()">🔍 Escaneia o teu nome aqui em cima</button><a class="phbtn" href="/doctor">📄 Envia ao El Doctor — encontra o perdido</a>`,
      phPathP:`<div class="ph-money">Tens dinheiro em <b>2 lados</b>:</div><div class="ph-li"><b>1 · O que co-escreveste</b> → publishing sob o teu nome (quase todos os produtores hoje co-escrevem).</div><div class="ph-li"><b>2 · O máster</b> (os teus pontos) → SoundExchange (EUA) + <b>direitos conexos internacionais</b> (PPL…) — o que quase ninguém reclama.</div><a class="phbtn" href="/doctor">📄 El Doctor — o teu publishing</a><a class="phbtn" href="/lod">📃 Monta o teu LOD — o máster</a>`},
- fr:{tag:"Tu música. Tu valor. Recuperado.",
+ fr:{tag:"Tu música. Tu valor. <b>Recuperado.</b>",
      lead:"Ta musique génère de l'argent depuis des années.<br>Découvre combien ne te parvient PAS.",
      sub:"Écris ton nom d'artiste. On scanne ton catalogue en quelques secondes.",
      ph:"Ton nom d'artiste", scan:"Scanner", scanning:"Analyse…",
@@ -243,7 +254,7 @@ function renderResult(t){
 }
 function setLang(l){
   L=l; const t=T[l]; document.documentElement.lang=l;
-  document.getElementById('tag').textContent=t.tag;
+  document.getElementById('tag').innerHTML=t.tag;
   document.getElementById('lead').innerHTML=t.lead;
   document.getElementById('sub').textContent=t.sub;
   document.getElementById('artist').placeholder=t.ph;
