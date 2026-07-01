@@ -60,6 +60,8 @@ footer{margin-top:30px;font-size:11px;color:#A39C8C;letter-spacing:2px;text-alig
 html.dark .lead,html.dark .q label,html.dark .cta-box p{color:#EDE6D6}
 html.dark .rtx,html.dark .disc{color:#bdb4a2}
 html.dark select,html.dark .q select{background:#15140f;color:#EDE6D6;border-color:#F2EFE7}
+@media(max-width:760px){.sn-topnav{display:none!important}}
+@media(max-width:480px){.sn-logo-text{font-size:15px!important}.lang{padding:2px;gap:0;right:8px}.lang button{padding:5px 6px;font-size:11px}}
 </style>
 <style id="premium-polish">
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -93,8 +95,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 <body>
 <header style="position:fixed;top:0;left:0;right:0;z-index:900;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(11,12,16,.82);border-bottom:1px solid var(--line)">
   <div style="max-width:1140px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:60px;flex-wrap:wrap;gap:6px 0">
-    <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:32px;width:32px;object-fit:contain"><span style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:19px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA</span></a>
-    <nav style="display:flex;gap:18px;align-items:center;font-size:13px;font-weight:600;color:var(--mut);font-family:'Inter',sans-serif">
+    <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:32px;width:32px;object-fit:contain"><span class="sn-logo-text" style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:19px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA<span style="color:#BC1D24;font-size:.5em;vertical-align:top">✦</span></span></a>
+    <nav class="sn-topnav" style="display:flex;gap:18px;align-items:center;font-size:13px;font-weight:600;color:var(--mut);font-family:'Inter',sans-serif">
       <a href="/empezar.html" style="color:inherit;text-decoration:none">Cómo funciona</a>
       <a href="/precios.html" style="color:inherit;text-decoration:none">Precios</a>
       <a href="/aprende.html" style="color:inherit;text-decoration:none">Aprende</a>

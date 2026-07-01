@@ -57,7 +57,9 @@
   .lang{display:none}
   html[lang="es"] .lang-es,html[lang="en"] .lang-en,html[lang="pt"] .lang-pt,html[lang="fr"] .lang-fr{display:block}
   @media(max-width:760px){.plans{grid-template-columns:1fr}h1{font-size:32px}.free{flex-direction:column;align-items:flex-start}}
-svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}</style>
+svg.i{width:1em;height:1em;vertical-align:-.14em;display:inline-block;flex:none}.ic svg.i,.tbi svg.i,.srcc h3 svg.i,.warn svg.i,.free b svg.i,.tail svg.i{color:var(--gold)}
+@media(max-width:760px){.sn-topnav{display:none!important}}
+@media(max-width:480px){.sn-logo-text{font-size:16px!important}}</style>
 <meta property="og:image" content="https://solnota.com/share-card.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
@@ -87,8 +89,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 <body data-lang="es">
 <header style="position:sticky;top:0;z-index:900;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(11,12,16,.82);border-bottom:1px solid var(--line);margin:-40px -18px 0">
   <div style="max-width:1140px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:66px;flex-wrap:wrap;gap:10px 0">
-    <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:34px;width:34px;object-fit:contain"><span style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:21px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA</span></a>
-    <nav style="display:flex;gap:22px;align-items:center;font-size:14px;font-weight:600;color:var(--mut);font-family:'Inter',sans-serif;margin-right:190px">
+    <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:34px;width:34px;object-fit:contain"><span class="sn-logo-text" style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:21px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA<span style="color:#BC1D24;font-size:.5em;vertical-align:top">✦</span></span></a>
+    <nav class="sn-topnav" style="display:flex;gap:22px;align-items:center;font-size:14px;font-weight:600;color:var(--mut);font-family:'Inter',sans-serif;margin-right:190px">
       <a href="/empezar.html" style="color:inherit;text-decoration:none">Cómo funciona</a>
       <a href="/precios.html" style="color:inherit;text-decoration:none">Precios</a>
       <a href="/aprende.html" style="color:inherit;text-decoration:none">Aprende</a>

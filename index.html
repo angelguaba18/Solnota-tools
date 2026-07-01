@@ -54,6 +54,8 @@
   .nav-cta{position:static!important;transform:none!important}
   .nav-cta:hover{transform:translateY(-1px)!important}
   @media(max-width:600px){.nav-cta{display:none}.nav{justify-content:flex-start}.brand{align-items:flex-start}.brand h1.sn-wm{font-size:22px}.brand .bt{letter-spacing:2px;font-size:9px}}
+  @media(max-width:760px){.sn-topnav{display:none!important}}
+  @media(max-width:480px){.sn-logo-text{font-size:17px!important}.brand img{height:28px!important;width:28px!important}}
   .cf{padding:64px 0 100px;background:linear-gradient(180deg,#080A0E,#0A0A0C);border-top:1px solid var(--line)}
   .cf .kicker{text-align:center}
   .cf h3{font-family:'Lora',Georgia,serif;font-size:clamp(28px,3.6vw,40px);font-weight:600;letter-spacing:-.3px;text-align:center;color:var(--ink);margin-bottom:8px}
@@ -216,8 +218,8 @@
 <body>
 <header>
   <div class="wrap nav">
-    <a href="/" class="brand" style="display:flex;align-items:center;gap:9px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:38px;width:38px;object-fit:contain"><span style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:24px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA</span></a>
-    <nav class="topnav" style="display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600;color:var(--mut);margin-right:200px">
+    <a href="/" class="brand" style="display:flex;align-items:center;gap:9px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:38px;width:38px;object-fit:contain"><span class="sn-logo-text" style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:24px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA<span style="color:#BC1D24;font-size:.5em;vertical-align:top">✦</span></span></a>
+    <nav class="topnav sn-topnav" style="display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600;color:var(--mut);margin-right:200px">
       <a href="/empezar.html">Cómo funciona</a>
       <a href="/precios.html">Precios</a>
       <a href="/aprende">Aprende</a>
