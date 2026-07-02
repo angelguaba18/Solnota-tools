@@ -8,7 +8,7 @@
   // 2) MODO CLARO — paleta marfil cálido + overrides de las superficies oscuras hardcodeadas
   var css =
     // logo "SOLNOTA": oro metálico como el board (degradado brillo→profundo), no plano — aplica en claro y oscuro
-    ".sn-logo-text{background-image:linear-gradient(180deg,#F0D48C 0%,#E1BE5C 30%,#D2A464 60%,#B58238 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:#C99751}" +
+    ".sn-logo-text{background-image:linear-gradient(135deg,#8A6A1E 0%,#D4AF37 35%,#FFF1B8 55%,#B8860B 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:#C99751}" +
     "html.light{--bg:#F4EFE4;--bg2:#FAF7F0;--bg3:#ECE4D5;--card:#FFFFFF;--panel:#FFFFFF;--panel2:#F4EFE4;" +
     "--ink:#1A1611;--cream:#1A1611;--txt:#1A1611;--mut:#6E6657;--muted:#6E6657;--line:#E4DCCB;" +
     "--gold:#D4AF37;--gold2:#D4AF37;--gold3:#B8901F;--green:#D4AF37;--green2:#B8901F;--greenbg:#F3ECD9;--goldbg:#F3ECD9;--purplebg:#F3ECD9;" +

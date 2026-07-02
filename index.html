@@ -26,15 +26,15 @@
 <style>
   :root{
     --gold:#D4AF37;--gold2:#D4AF37;--gold3:#B8901F;--ink:#E7E4D7;--mut:#A39C8C;
-    --bg:#06080C;--bg2:#0A0C12;--bg3:#0E1016;--card:#101019;--line:#23222C;
-    --red:#BC1D24;--vino:#4B0F1E;--auberg:#1A1712;
-    --green:#D4AF37;--green2:#D4AF37;--greenbg:#1A1712;--goldbg:#1A1712;--purple:#BC1D24;--purplebg:#1A1210;
+    --bg:#0B0C10;--bg2:#0A0C12;--bg3:#0E1016;--card:#101019;--line:#23222C;
+    --red:#8C1D24;--vino:#4B0F1E;--auberg:#1A1712;
+    --green:#D4AF37;--green2:#D4AF37;--greenbg:#1A1712;--goldbg:#1A1712;--purple:#8C1D24;--purplebg:#1A1210;
     --grad:linear-gradient(165deg,#F8E9C2,#EAD29B 24%,#DDB877 52%,#CA9F54 82%);--gradg:linear-gradient(165deg,#EFD9A4,#C99C50);
     --sh:0 18px 50px rgba(0,0,0,.10);--sh2:0 8px 26px rgba(0,0,0,.08);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:radial-gradient(1200px 800px at 50% -8%,#0B0D13,#06080C 55%);color:var(--ink);font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  body{background:radial-gradient(1200px 800px at 50% -8%,#0B0D13,#0B0C10 55%);color:var(--ink);font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
   .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
   a{color:inherit;text-decoration:none}
   header{position:sticky;top:0;z-index:900;backdrop-filter:blur(14px);background:rgba(11,12,16,.82);border-bottom:1px solid var(--line)}
@@ -46,7 +46,7 @@
   .nav-cta:hover{transform:translateY(-1px)}
   .nav{justify-content:space-between;position:relative}
   .brand{flex-direction:row;align-items:center;gap:9px}
-  .sn-wm{font-family:'Cinzel',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#D4AF37!important;color:#D4AF37!important;display:inline-flex;align-items:center;gap:0;line-height:1}
+  .sn-wm{font-family:'Cinzel',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:linear-gradient(135deg,#8A6A1E 0%,#D4AF37 35%,#FFF1B8 55%,#B8860B 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:#D4AF37;display:inline-flex;align-items:center;gap:0;line-height:1} .sn-wm>span{background:none!important;-webkit-background-clip:initial!important;-webkit-text-fill-color:#8C1D24!important;color:#8C1D24!important} .sn-logo-text{background:linear-gradient(135deg,#8A6A1E 0%,#D4AF37 35%,#FFF1B8 55%,#B8860B 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important} .sn-logo-text>span{background:none!important;-webkit-background-clip:initial!important;-webkit-text-fill-color:#8C1D24!important;color:#8C1D24!important}
   .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#D4AF37,#D4AF37,#E8941C,#A85F00,#D4AF37,#D4AF37,#E8941C,#D4AF37,#D4AF37);box-shadow:inset 0 0 0 1.4px #A85F00;flex:0 0 auto}
   .sn-disc::before{content:"";position:absolute;inset:31%;border-radius:50%;background:var(--bg)}
   .sn-disc::after{content:"";position:absolute;inset:41%;border-radius:50%;background:#F2EFE7}
@@ -77,10 +77,10 @@
   .fq .ans p{padding:0 6px 18px;font-size:14.5px;color:var(--mut);line-height:1.6;margin:0}
   .fq .ans b{color:var(--green2)}
   @media(max-width:780px){.cf-steps{grid-template-columns:1fr}}
-  .hero{position:relative;padding:108px 0 92px;overflow:hidden;background:radial-gradient(900px 540px at 84% -14%,rgba(212,175,55,.24),transparent 56%),radial-gradient(680px 560px at 80% 54%,rgba(201,154,70,.07),transparent 62%),#06080C}
+  .hero{position:relative;padding:108px 0 92px;overflow:hidden;background:radial-gradient(900px 540px at 84% -14%,rgba(212,175,55,.24),transparent 56%),radial-gradient(680px 560px at 80% 54%,rgba(201,154,70,.07),transparent 62%),#0B0C10}
   .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
   .h-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--gold);border:1px solid rgba(212,175,55,.28);background:rgba(212,175,55,.07);padding:7px 14px;border-radius:999px;margin-bottom:22px}
-  .h-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#BC1D24;box-shadow:0 0 8px rgba(188,29,36,.8)}
+  .h-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#8C1D24;box-shadow:0 0 8px rgba(188,29,36,.8)}
   h2.hero-t{font-family:'Lora',Georgia,serif;font-size:clamp(42px,5.8vw,66px);line-height:1.12;font-weight:600;letter-spacing:-.3px;color:var(--ink)}
   h2.hero-t b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:600}
   .hero-sub{font-size:18px;color:var(--mut);margin:20px 0 30px;max-width:480px}
@@ -132,7 +132,7 @@
   .mrow .amt{font-weight:700;color:var(--ink)}
   .pbar{height:9px;border-radius:999px;background:#1A1712;overflow:hidden;margin-bottom:16px}
   .pbar i{display:block;height:100%;width:0;border-radius:999px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
-  .fill-gold{background:var(--grad)}.fill-green{background:var(--gradg)}.fill-purple{background:linear-gradient(92deg,#BC1D24,#7E141B)}
+  .fill-gold{background:var(--grad)}.fill-green{background:var(--gradg)}.fill-purple{background:linear-gradient(92deg,#8C1D24,#7E141B)}
   .mini-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .mini{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px}
   .mini .mn{font-family:'Sora',sans-serif;font-size:30px;color:var(--ink);line-height:1}
@@ -220,7 +220,7 @@
 <body>
 <header>
   <div class="wrap nav">
-    <a href="/" class="brand" style="display:flex;align-items:center;gap:9px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:38px;width:38px;object-fit:contain"><span class="sn-logo-text" style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:24px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA<span style="color:#BC1D24;font-size:.5em;vertical-align:top">✦</span></span></a>
+    <a href="/" class="brand" style="display:flex;align-items:center;gap:9px;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:38px;width:38px;object-fit:contain"><span class="sn-logo-text" style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:24px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap">SOLNOTA<span style="color:#8C1D24;font-size:.5em;vertical-align:top">✦</span></span></a>
     <nav class="topnav sn-topnav" style="display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600;color:var(--mut);margin-right:200px">
       <a href="/empezar.html">Cómo funciona</a>
       <a href="/precios.html">Precios</a>
@@ -230,7 +230,7 @@
   </div>
 </header>
 
-<section class="hero"><svg viewBox="0 0 1440 220" preserveAspectRatio="none" style="position:absolute;left:0;bottom:-10px;width:100%;height:220px;opacity:.22;pointer-events:none;z-index:0"><defs><linearGradient id="hw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1A1712"/><stop offset="0.45" stop-color="#D4AF37"/><stop offset="0.78" stop-color="#D4AF37"/><stop offset="1" stop-color="#BC1D24"/></linearGradient></defs><path d="M0,130 C260,60 520,190 760,115 C1000,42 1220,170 1440,95" fill="none" stroke="url(#hw)" stroke-width="2.2"/><path d="M0,165 C260,95 520,210 760,150 C1000,80 1220,195 1440,125" fill="none" stroke="url(#hw)" stroke-width="1.4" opacity=".55"/><path d="M0,100 C260,40 520,160 760,90 C1000,25 1220,140 1440,70" fill="none" stroke="url(#hw)" stroke-width="1" opacity=".4"/></svg>
+<section class="hero"><svg viewBox="0 0 1440 220" preserveAspectRatio="none" style="position:absolute;left:0;bottom:-10px;width:100%;height:220px;opacity:.22;pointer-events:none;z-index:0"><defs><linearGradient id="hw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1A1712"/><stop offset="0.45" stop-color="#D4AF37"/><stop offset="0.78" stop-color="#D4AF37"/><stop offset="1" stop-color="#8C1D24"/></linearGradient></defs><path d="M0,130 C260,60 520,190 760,115 C1000,42 1220,170 1440,95" fill="none" stroke="url(#hw)" stroke-width="2.2"/><path d="M0,165 C260,95 520,210 760,150 C1000,80 1220,195 1440,125" fill="none" stroke="url(#hw)" stroke-width="1.4" opacity=".55"/><path d="M0,100 C260,40 520,160 760,90 C1000,25 1220,140 1440,70" fill="none" stroke="url(#hw)" stroke-width="1" opacity=".4"/></svg>
   <div class="wrap hero-grid">
     <div class="reveal in">
       <span class="h-eyebrow"><span class="dot"></span>Hecho para artistas latinos · 0% comisión</span>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#06080C">
+<meta name="theme-color" content="#0B0C10">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -20,10 +20,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@500;600;700&family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--red:#BC1D24;--vino:#4B0F1E;--auberg:#1A1712;--gold:#D4AF37;--bg:#06080C;--card:#101019;--line:#23222C;--txt:#F2EFE7;--mut:#A39C8C;--ok:#E7E4D7;--bad:#FF5E5E;--warn:#B8901F;--blue:#C99C50;
+  :root{--red:#8C1D24;--vino:#4B0F1E;--auberg:#1A1712;--gold:#D4AF37;--bg:#0B0C10;--card:#101019;--line:#23222C;--txt:#F2EFE7;--mut:#A39C8C;--ok:#E7E4D7;--bad:#FF5E5E;--warn:#B8901F;--blue:#C99C50;
     --grad:linear-gradient(90deg,#D4AF37,#D4AF37,#D4AF37,#B8901F);}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:radial-gradient(1200px 800px at 50% -8%,#0B0D13,#06080C 55%);color:var(--txt);font-family:'Inter',sans-serif;padding:28px 20px;min-height:100vh}
+  body{background:radial-gradient(1200px 800px at 50% -8%,#0B0D13,#0B0C10 55%);color:var(--txt);font-family:'Inter',sans-serif;padding:28px 20px;min-height:100vh}
   .wrap{max-width:1100px;margin:0 auto}
   .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
   h1{font-family:'Sora',sans-serif;font-weight:400;font-size:38px;letter-spacing:2px;
@@ -75,7 +75,7 @@
   @media(max-width:680px){.cards{grid-template-columns:repeat(2,1fr)}.hide-m{display:none}h1{font-size:30px}}
   .sn-wm{font-family:'Cinzel',Georgia,serif!important;font-weight:600!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#D4AF37!important;color:#D4AF37!important;display:inline-flex;align-items:center;line-height:1}
   .sn-disc{position:relative;display:inline-block;width:.78em;height:.78em;border-radius:50%;margin:0 .02em;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.08) 0 1px,rgba(0,0,0,.05) 1px 2.5px),conic-gradient(from 210deg,#D4AF37,#D4AF37,#E8941C,#A85F00,#D4AF37,#D4AF37,#E8941C,#D4AF37,#D4AF37);box-shadow:inset 0 0 0 1.4px #A85F00}
-  .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#06080C}
+  .sn-disc::before{content:'';position:absolute;inset:31%;border-radius:50%;background:#0B0C10}
   .sn-disc::after{content:'';position:absolute;inset:41%;border-radius:50%;background:#F2EFE7}
   body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   .howto{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin:0 0 10px;}
@@ -94,7 +94,7 @@
   /* Modo oscuro: El Doctor usa --txt (que el tema no voltea) + algunos fondos #fff. Se corrigen aquí. */
   html.dark{--txt:#EDE6D6}
   html.dark .sn-wm{color:#EDE6D6!important;-webkit-text-fill-color:#EDE6D6!important}
-  html.dark .sn-disc::after{background:#06080C}
+  html.dark .sn-disc::after{background:#0B0C10}
   html.dark button.ghost{color:#EDE6D6;border-color:#F2EFE7;background:#15140f}
   html.dark button.ghost[disabled]{opacity:.5}
   html.dark .finding .fix{background:#1b1913;color:#EDE6D6;border-color:#F2EFE7}
@@ -107,7 +107,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
-<header style="position:sticky;top:0;z-index:900;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(11,12,16,.82);border-bottom:1px solid var(--line);margin:-28px -20px 24px"><div style="max-width:1140px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:60px;flex-wrap:wrap;gap:6px 0"><a href="/" style="display:flex;align-items:center;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:34px;width:34px;object-fit:contain"><span class="sn-logo-text" style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:21px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap;margin-left:8px">SOLNOTA<span style="color:#BC1D24;font-size:.5em;vertical-align:top">✦</span></span></a><nav class="sn-topnav" style="display:flex;gap:18px;align-items:center;font-size:13px;font-weight:600;color:var(--mut);margin-right:190px"><a href="/empezar.html" style="color:inherit;text-decoration:none">Cómo funciona</a><a href="/precios.html" style="color:inherit;text-decoration:none">Precios</a><a href="/aprende.html" style="color:inherit;text-decoration:none">Aprende</a></nav></div></header>
+<header style="position:sticky;top:0;z-index:900;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(11,12,16,.82);border-bottom:1px solid var(--line);margin:-28px -20px 24px"><div style="max-width:1140px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:60px;flex-wrap:wrap;gap:6px 0"><a href="/" style="display:flex;align-items:center;text-decoration:none"><img src="SOLNOTA-emblema.png" alt="SOLNOTA" style="height:34px;width:34px;object-fit:contain"><span class="sn-logo-text" style="font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:21px;letter-spacing:.5px;color:#D4AF37;line-height:1;white-space:nowrap;margin-left:8px">SOLNOTA<span style="color:#8C1D24;font-size:.5em;vertical-align:top">✦</span></span></a><nav class="sn-topnav" style="display:flex;gap:18px;align-items:center;font-size:13px;font-weight:600;color:var(--mut);margin-right:190px"><a href="/empezar.html" style="color:inherit;text-decoration:none">Cómo funciona</a><a href="/precios.html" style="color:inherit;text-decoration:none">Precios</a><a href="/aprende.html" style="color:inherit;text-decoration:none">Aprende</a></nav></div></header>
 <div class="wrap">
   <div class="brand"><span class="tag brand-tag">Tu música. Tu valor. <b style="color:var(--red)">Recuperado.</b></span></div>
 
